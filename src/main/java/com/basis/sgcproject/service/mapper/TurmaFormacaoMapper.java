@@ -13,7 +13,6 @@ public interface TurmaFormacaoMapper extends EntityMapper<TurmaFormacaoDto, Turm
     @Mapping(source = "status.id", target = "statusId")
     TurmaFormacaoDto toDto(TurmaFormacao turmaFormacao);
     @Override
-    @Mapping(source = "status.id", target = "statusId")
     List<TurmaFormacaoDto> toDto(List<TurmaFormacao> turmas);
     @Override
     @Mapping(source = "statusId", target = "status.id")
