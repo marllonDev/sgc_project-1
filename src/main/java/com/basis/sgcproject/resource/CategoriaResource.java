@@ -50,8 +50,6 @@ public class CategoriaResource {
 
     @PutMapping
     public ResponseEntity<CategoriaDTO> atualizar(@RequestBody CategoriaDTO categoriaDTO){
-
-
         return ResponseEntity.ok(categoriaService.salvar(categoriaDTO));
 
     }
