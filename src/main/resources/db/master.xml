@@ -11,5 +11,6 @@
              relativeToChangelogFile="false"/>
     <include file="db/changelog/202202080204_criar_tabela_turma_formacao.xml"
              relativeToChangelogFile="false"/>
+    <include file="db/changelog/202202071526_criacao_colaborador.xml" relativeToChangelogFile="false"></include>
 
 </databaseChangeLog>

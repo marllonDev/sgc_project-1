@@ -1,0 +1,43 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+                    <changeSet id="1" author="Marllon Zucolotto">
+                        <createTable tableName="colaborador">
+                            <column name = "id" type = "integer">
+                                <constraints nullable="false" primaryKey="true"></constraints>
+                            </column>
+                            <column name="nome" type="varchar(255)">
+                                <constraints nullable="false"></constraints>
+                            </column>
+                            <column name="sobrenome" type="varchar(255)">
+                                <constraints nullable="false"></constraints>
+                            </column>
+                            <column name="cpf" type="varchar(11)">
+                                <constraints nullable="false" unique="true"></constraints>
+                            </column>
+                            <column name="email" type="varchar(255)">
+                                <constraints nullable="false" unique="true"></constraints>
+                            </column>
+                            <column name="foto" type="bytea">
+                                <constraints nullable="true"></constraints>
+                            </column>
+                            <column name="id_senioridade" type="integer">
+                                <constraints nullable="false"></constraints>
+                            </column>
+                            <column name="data_nasc" type="date">
+                                <constraints nullable="false"></constraints>
+                            </column>
+                            <column name="data_admi" type="date">
+                                <constraints nullable="false"></constraints>
+                            </column>
+                        </createTable>
+                    </changeSet>
+                    <changeSet id="2" author="Marllon Zucolotto">
+                        <addForeignKeyConstraint baseTableName="colaborador" baseColumnNames="id" constraintName="fk_senioridade" referencedTableName="senioridade" referencedColumnNames="id"/>
+                    </changeSet>
+                    <changeSet id="3" author="Marllon Zucolotto">
+                        <createSequence sequenceName="seq_colaborador" incrementBy="1" startValue="1"></createSequence>
+                    </changeSet>
+</databaseChangeLog>
