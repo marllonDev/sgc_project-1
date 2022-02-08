@@ -9,5 +9,7 @@
              relativeToChangelogFile="false"/>
     <include file="db/changelog/202202072321_criando_inserts_senioridade_status.xml"
              relativeToChangelogFile="false"/>
+    <include file="db/changelog/202202080204_criar_tabela_turma_formacao.xml"
+             relativeToChangelogFile="false"/>
 
 </databaseChangeLog>

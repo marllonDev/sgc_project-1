@@ -1,0 +1,55 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="1" author="vinicius">
+        <createSequence schemaName="public" sequenceName="seq_id_turma_formacao" startValue="1" incrementBy="1"/>
+        <createTable tableName="turma_formacao">
+            <column name="id" type="int" defaultValueComputed="nextval('seq_id_turma_formacao')">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nome" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="descricao" type="text">
+                <constraints nullable="false"></constraints>
+            </column>
+            <column name="data_inicio" type="timestamp">
+                <constraints nullable="false"></constraints>
+            </column>
+            <column name="data_termino" type="timestamp">
+                <constraints nullable="false"></constraints>
+            </column>
+            <column name="id_status" type="int">
+                <constraints nullable="false" foreignKeyName="fk_id_status" references="status(id)"></constraints>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="vinicius">
+        <insert tableName="turma_formacao">
+            <column name="nome" value="Turma 05"></column>
+            <column name="descricao" value="Turma de formacao para aprender Git e Docker"></column>
+            <column name="data_inicio" valueDate="2022-03-15"></column>
+            <column name="data_termino" valueDate="2022-04-20"></column>
+            <column name="id_status" value="3"></column>
+        </insert>
+        <insert tableName="turma_formacao">
+            <column name="nome" value="Turma 04"></column>
+            <column name="descricao" value="Turma de formacao para aprender Spring e Angular"></column>
+            <column name="data_inicio" valueDate="2022-01-31"></column>
+            <column name="data_termino" valueDate="2022-02-25"></column>
+            <column name="id_status" value="2"></column>
+        </insert>
+        <insert tableName="turma_formacao">
+            <column name="nome" value="Turma 06"></column>
+            <column name="descricao" value="Turma de formacao para aprender Testes de Integracao"></column>
+            <column name="data_inicio" valueDate="2022-04-05"></column>
+            <column name="data_termino" valueDate="2022-04-10"></column>
+            <column name="id_status" value="1"></column>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
