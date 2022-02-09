@@ -6,19 +6,26 @@
 
     <changeSet id="1" author="Matheus G">
         <createTable tableName="senioridade">
-            <column name="id" type="integer">
+            <column name="id" type="int">
                 <constraints primaryKey="true" nullable="false" />
             </column>
-            <column name="descricao" type="varchar(11)"/>
+            <column name="descricao" type="varchar(255)">
+                <constraints nullable="false"></constraints>
+            </column>
         </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="Matheus G">
         <createTable tableName="status">
-            <column name="id" type="integer">
+            <column name="id" type="int">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="descricao" type="integer">
+            <column name="descricao" type="varchar(15)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
+
+
 
 </databaseChangeLog>
