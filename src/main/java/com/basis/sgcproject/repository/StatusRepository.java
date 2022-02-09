@@ -1,10 +1,9 @@
 package com.basis.sgcproject.repository;
 
-import com.basis.sgcproject.domain.Competencia;
+import com.basis.sgcproject.domain.Status;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CompetenciaRepository extends JpaRepository<Competencia, Integer> {
-
+public interface StatusRepository extends JpaRepository<Status, Integer> {
 }

@@ -11,7 +11,8 @@
     <include file="db/changelog/202202071526_criar_colaborador.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/202202080140_criar_tabela_competencia.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/202202080204_criar_tabela_turma_formacao.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/202202081617_criar_tabela_turma_competencia_colaborador.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/202202081627_criar_tabela_colaborador_competencia.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/202202091430_inserts_categoria.xml" relativeToChangelogFile="false"/>
-
 
 </databaseChangeLog>
