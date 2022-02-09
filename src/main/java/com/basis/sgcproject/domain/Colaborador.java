@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -26,6 +27,7 @@ public class Colaborador {
 
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_colaborador")
     @SequenceGenerator(name = "seq_colaborador", sequenceName = "seq_colaborador", allocationSize = 1)
+
     @Id
     @Column(name = "id", nullable = false)
     private Integer id;
@@ -54,5 +56,9 @@ public class Colaborador {
 
     @Column(name = "data_admi", nullable = false)
     private LocalDateTime dataAdmissao;
+
+    @ManyToMany
+    @JoinColumn(name = "id_competencia", referencedColumnName = "id")
+    private Competencia competencia;
 
 }

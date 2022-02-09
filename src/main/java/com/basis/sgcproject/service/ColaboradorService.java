@@ -50,7 +50,10 @@ public class ColaboradorService {
         return colaboradorDTO;
     }
 
-    public void deletar(Integer id){
+    public void deletar(Integer id) {
+        if(!colaboradorRepository.existsById(id)){
+            throw new RuntimeException("Esse ID não existe!");
+        }
         colaboradorRepository.deleteById(id);
     }
 }
