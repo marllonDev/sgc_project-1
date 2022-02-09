@@ -4,18 +4,19 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
-    <changeSet id="Rest Client" author="Matheus G">
+    <changeSet id="1" author="MatheusG">
         <createTable tableName="senioridade">
             <column name="id" type="integer">
                 <constraints primaryKey="true" nullable="false" />
             </column>
             <column name="descricao" type="varchar(11)"/>
         </createTable>
+
         <createTable tableName="status">
             <column name="id" type="integer">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="descricao" type="integer">
+            <column name="descricao" type="varchar(15)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
