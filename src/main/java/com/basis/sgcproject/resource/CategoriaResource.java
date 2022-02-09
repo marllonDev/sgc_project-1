@@ -19,7 +19,6 @@ public class CategoriaResource {
 
     private final CategoriaService categoriaService;
 
-
     @GetMapping
     public ResponseEntity<List<CategoriaDTO>> buscar(){
 

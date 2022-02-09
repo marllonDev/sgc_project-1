@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
@@ -22,7 +23,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Colaborador {
+public class Colaborador implements Serializable {
 
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_colaborador")
     @SequenceGenerator(name = "seq_colaborador", sequenceName = "seq_colaborador", allocationSize = 1)

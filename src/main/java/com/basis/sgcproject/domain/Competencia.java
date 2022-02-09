@@ -5,16 +5,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Getter
 @Setter
 @Table( name = "competencia")
 @NoArgsConstructor
-public class Competencia {
+public class Competencia implements Serializable {
 
     @Id
-    @GeneratedValue
     @Column(name = "id")
     private Integer id;
 
