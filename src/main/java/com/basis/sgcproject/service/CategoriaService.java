@@ -1,6 +1,5 @@
 package com.basis.sgcproject.service;
 
-import com.basis.sgcproject.domain.Categoria;
 import com.basis.sgcproject.repository.CategoriaRepository;
 import com.basis.sgcproject.service.dto.CategoriaDTO;
 import com.basis.sgcproject.service.mapper.CategoriaMapper;
@@ -9,9 +8,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@AllArgsConstructor
 @Service
+@AllArgsConstructor
 public class CategoriaService {
+
 
     private final CategoriaMapper categoriaMapper;
 

@@ -3,7 +3,6 @@ package com.basis.sgcproject.resource;
 import com.basis.sgcproject.domain.Categoria;
 import com.basis.sgcproject.service.CategoriaService;
 import com.basis.sgcproject.service.dto.CategoriaDTO;
-import jdk.jfr.internal.Repository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,12 +12,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/categoria")
+@RequestMapping("/api/categorias")
 @AllArgsConstructor
 public class CategoriaResource {
 
     private final CategoriaService categoriaService;
-
 
     @GetMapping
     public ResponseEntity<List<CategoriaDTO>> buscar(){

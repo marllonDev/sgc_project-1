@@ -4,18 +4,18 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
-    <changeSet id="1" author="Matheus G">
-        <createTable tableName="senioridade">
-            <column name="id" type="integer">
-                <constraints primaryKey="true" nullable="false" />
+
+    <changeSet id="12" author="vinicius">
+        <createTable tableName="colaborador_competencia">
+            <column name="id_colaborador" type="int">
+                <constraints primaryKey="true" primaryKeyName="pk_colaborador_competencia" nullable="false"
+                             foreignKeyName="fk_id_colaborador" references="colaborador(id)"/>
             </column>
-            <column name="descricao" type="varchar(11)"/>
-        </createTable>
-        <createTable tableName="status">
-            <column name="id" type="integer">
-                <constraints primaryKey="true" nullable="false"/>
+            <column name="id_competencia" type="int">
+                <constraints primaryKey="true" primaryKeyName="pk_colaborador_competencia" nullable="false"
+                             foreignKeyName="fk_id_competencia" references="competencia(id)"/>
             </column>
-            <column name="descricao" type="integer">
+            <column name="nivel" type="int">
                 <constraints nullable="false"/>
             </column>
         </createTable>
