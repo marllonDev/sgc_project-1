@@ -14,16 +14,16 @@
                 <constraints nullable="false"/>
             </column>
             <column name="descricao" type="text">
-                <constraints nullable="false"/>
+                <constraints nullable="false"></constraints>
             </column>
             <column name="data_inicio" type="timestamp">
-                <constraints nullable="false"/>
+                <constraints nullable="false"></constraints>
             </column>
             <column name="data_termino" type="timestamp">
-                <constraints nullable="false"/>
+                <constraints nullable="false"></constraints>
             </column>
             <column name="id_status" type="int">
-                <constraints nullable="false" foreignKeyName="fk_id_status" references="status(id)"/>
+                <constraints nullable="false" foreignKeyName="fk_id_status" references="status(id)"></constraints>
             </column>
         </createTable>
     </changeSet>
