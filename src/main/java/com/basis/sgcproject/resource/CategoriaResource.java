@@ -1,11 +1,8 @@
 package com.basis.sgcproject.resource;
 
-import com.basis.sgcproject.domain.Categoria;
 import com.basis.sgcproject.service.CategoriaService;
 import com.basis.sgcproject.service.dto.CategoriaDTO;
-import jdk.jfr.internal.Repository;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

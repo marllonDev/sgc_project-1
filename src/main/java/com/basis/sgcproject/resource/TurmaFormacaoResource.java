@@ -13,25 +13,31 @@ import java.util.List;
 @RequestMapping("/api/turmas")
 @AllArgsConstructor
 public class TurmaFormacaoResource {
+
     private final TurmaFormacaoService turmaFormacaoService;
+
     @GetMapping
     public ResponseEntity<List<TurmaFormacaoDto>> listar() {
         return ResponseEntity.ok(turmaFormacaoService.listarTodas());
     }
+
     @GetMapping("/{turmaFormacaoId}")
     public ResponseEntity<TurmaFormacaoDto> buscarPeloId(@PathVariable Integer turmaFormacaoId) {
         return ResponseEntity.ok(turmaFormacaoService.buscarPeloId(turmaFormacaoId));
     }
+
     @PostMapping
     public ResponseEntity<TurmaFormacaoDto> salvar(@RequestBody TurmaFormacaoDto turmaFormacaoDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(turmaFormacaoService.salvar(turmaFormacaoDto));
     }
+
     @PutMapping("/{turmaFormacaoId}")
     public ResponseEntity<TurmaFormacaoDto> atualizar(@PathVariable Integer turmaFormacaoId, @RequestBody TurmaFormacaoDto turmaFormacaoDto) {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(turmaFormacaoService.atualizar(turmaFormacaoId, turmaFormacaoDto));
     }
+
     @DeleteMapping("/{turmaFormacaoId}")
     public ResponseEntity<?> excluir(@PathVariable Integer turmaFormacaoId) {
         turmaFormacaoService.excluir(turmaFormacaoId);
