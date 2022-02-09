@@ -4,11 +4,8 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
-    <changeSet id="1" author="Gabriel Rocha">
+    <changeSet id="3" author="Gabriel Rocha">
         <createSequence sequenceName="seq_competencia" incrementBy="1"/>
-    </changeSet>
-
-    <changeSet id="2" author="Gabriel Rocha">
         <createTable tableName="competencia">
             <column name="id" type="integer">
                 <constraints nullable="false" primaryKey="true" unique="true" />
@@ -25,7 +22,7 @@
         </createTable>
     </changeSet>
     
-    <changeSet id="3" author="Gabriel Rocha">
+    <changeSet id="4" author="Gabriel Rocha">
         <addForeignKeyConstraint baseTableName="competencia" baseColumnNames="id_categoria" constraintName="id_categoria_fk"
                                  referencedTableName="categoria"
                                  referencedColumnNames="id" />
