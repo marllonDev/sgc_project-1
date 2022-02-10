@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -32,6 +34,4 @@ public class ColaboradorDTO implements Serializable {
     private LocalDateTime dataNascimento;
 
     private LocalDateTime dataAdmissao;
-
-
 }

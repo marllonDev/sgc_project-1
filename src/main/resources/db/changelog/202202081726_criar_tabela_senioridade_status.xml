@@ -6,7 +6,7 @@
 
     <changeSet id="1" author="Matheus G">
         <createTable tableName="senioridade">
-            <column name="id" type="int">
+            <column name="id" type="integer">
                 <constraints primaryKey="true" nullable="false" />
             </column>
             <column name="descricao" type="varchar(255)">
@@ -17,15 +17,13 @@
 
     <changeSet id="2" author="Matheus G">
         <createTable tableName="status">
-            <column name="id" type="int">
+            <column name="id" type="integer">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="descricao" type="varchar(15)">
+            <column name="descricao" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
-
-
 
 </databaseChangeLog>
