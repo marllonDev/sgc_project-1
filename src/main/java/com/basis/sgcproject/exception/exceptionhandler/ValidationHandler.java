@@ -1,5 +1,6 @@
 package com.basis.sgcproject.exception.exceptionhandler;
 
+import com.basis.sgcproject.exception.EntidadeEmUsoException;
 import com.basis.sgcproject.exception.EntidadeNaoEncontradaException;
 import com.basis.sgcproject.exception.RegraNegocioException;
 import org.springframework.http.HttpHeaders;
@@ -35,6 +36,17 @@ public class ValidationHandler extends ResponseEntityExceptionHandler {
                 .userMessage(detail)
                 .build();
         return handleExceptionInternal(ex, problem, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
+
+    @ExceptionHandler(EntidadeEmUsoException.class)
+    public ResponseEntity<?> handleEntidadeEmUso(EntidadeEmUsoException ex, WebRequest request) {
+        HttpStatus status = HttpStatus.CONFLICT;
+        ProblemType problemType = ProblemType.ENTIDADE_EM_USO;
+        String detail = ex.getMessage();
+        Problem problem = createProblemBuilder(status, problemType, detail)
+                .userMessage(detail)
+                .build();
+        return handleExceptionInternal(ex, problem, new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
 
     private Problem.ProblemBuilder createProblemBuilder(HttpStatus status, ProblemType problemType, String detail) {
