@@ -5,33 +5,28 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "ColaboradorCompetencia")
+@Table(name = "colaborador_competencia")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 public class ColaboradorCompetencia implements Serializable {
-
-
     @EmbeddedId
     private ColaboradorCompetenciaID id;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_colaborador", referencedColumnName = "id", insertable = false, updatable = false)
-    private Colaborador colaboradorCompetencia;
+    private Colaborador colaborador;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_competencia", referencedColumnName = "id",insertable = false, updatable = false )
-    private Competencia competenciaColaborador;
+    private Competencia competencia;
 
-
-
+    @Enumerated(value = EnumType.ORDINAL)
+    @Column(name = "nivel")
+    private Nivel nivel;
 }

@@ -5,19 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "colaborador")
@@ -26,9 +17,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class Colaborador implements Serializable {
-
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_colaborador")
     @SequenceGenerator(name = "seq_colaborador", sequenceName = "seq_colaborador", allocationSize = 1)
@@ -60,5 +48,7 @@ public class Colaborador implements Serializable {
     @Column(name = "data_admi", nullable = false)
     private LocalDateTime dataAdmissao;
 
+    @OneToMany(mappedBy = "colaborador")
+    private List<ColaboradorCompetencia> competencias;
 
 }
