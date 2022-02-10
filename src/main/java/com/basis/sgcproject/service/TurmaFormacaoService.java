@@ -27,7 +27,7 @@ public class TurmaFormacaoService {
 
     public TurmaFormacaoDto buscarPeloId(Integer turmaFormacaoId) {
         return turmaFormacaoMapper.toDto(turmaFormacaoRepository.findById(turmaFormacaoId)
-                .orElseThrow(() -> new RuntimeException(String.format("Não existe uma turma com codigo %d", turmaFormacaoId))));
+                .orElseThrow(() -> new EntidadeNaoEncontradaException(String.format("Não existe uma turma com codigo %d", turmaFormacaoId))));
     }
 
     public TurmaFormacaoDto salvar(TurmaFormacaoDto turmaFormacaoDto) {
@@ -43,7 +43,7 @@ public class TurmaFormacaoService {
 
     public TurmaFormacaoDto atualizar(Integer turmaFormacaoId, TurmaFormacaoDto turmaFormacaoDto) {
         TurmaFormacao turmaFormacaoAtual = turmaFormacaoRepository.findById(turmaFormacaoId)
-                .orElseThrow(() -> new RuntimeException(String.format("Não existe uma turma com codigo %d", turmaFormacaoId)));
+                .orElseThrow(() -> new EntidadeNaoEncontradaException(String.format("Não existe uma turma com codigo %d", turmaFormacaoId)));
         BeanUtils.copyProperties(turmaFormacaoDto, turmaFormacaoAtual, "id");
         return turmaFormacaoMapper.toDto(turmaFormacaoRepository.save(turmaFormacaoAtual));
     }
