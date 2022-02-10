@@ -17,25 +17,28 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/colaborador")
+@RequestMapping("/api/colaborador")
 @RequiredArgsConstructor
 public class ColaboradorResource {
 //aqui foi criado uma variável service usando o import da class Colaborador service para que se posssa usar seus serviços.
     private final ColaboradorService service;
 
     @GetMapping
-    public ResponseEntity obterTodos() {
+    public ResponseEntity<List<ColaboradorDTO>> obterTodos() {
         return ResponseEntity.ok(service.obterTodos());
     }
 
     @PostMapping
-    public ResponseEntity salvar( @RequestBody ColaboradorDTO colaboradorDTO){
-        return ResponseEntity.ok(service.salvar(colaboradorDTO));
+    public ResponseEntity<ColaboradorDTO> salvar(@RequestBody ColaboradorDTO colaboradorDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.salvar(colaboradorDTO));
+
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity obterPorId(@PathVariable("id")Integer id){
+    public ResponseEntity<ColaboradorDTO> obterPorId(@PathVariable("id")Integer id){
         return ResponseEntity.ok(service.obterPorId(id));
     }
 
@@ -46,7 +49,9 @@ public class ColaboradorResource {
 
 
     @PutMapping
-    public ResponseEntity editar(@RequestBody  ColaboradorDTO colaboradorDTO){
+    public ResponseEntity<ColaboradorDTO> editar(@RequestBody  ColaboradorDTO colaboradorDTO){
         return ResponseEntity.ok(service.salvar(colaboradorDTO));
     }
+
+
 }

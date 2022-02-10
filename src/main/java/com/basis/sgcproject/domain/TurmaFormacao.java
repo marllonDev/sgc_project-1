@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "turma_formacao")
 public class TurmaFormacao implements Serializable {
-
     @Id
     @SequenceGenerator(name = "seq_id_turma_formacao" , sequenceName = "seq_id_turma_formacao", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_id_turma_formacao")

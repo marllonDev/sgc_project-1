@@ -7,12 +7,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "status" )
 @Getter
 @Setter
-public class Status {
+public class Status implements Serializable {
     @Id
     @Column(name = "id", nullable = false)
     private Integer id;

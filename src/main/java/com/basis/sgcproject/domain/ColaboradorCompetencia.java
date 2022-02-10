@@ -5,15 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.Optional;
 
 @Entity
 @Table(name = "ColaboradorCompetencia")
@@ -35,8 +32,6 @@ public class ColaboradorCompetencia implements Serializable {
     @JoinColumn(name = "id_competencia", referencedColumnName = "id",insertable = false, updatable = false )
     private Competencia competenciaColaborador;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "id_senioridade", referencedColumnName = "id")
-    private Senioridade senioridadeColaborador;
+
 
 }

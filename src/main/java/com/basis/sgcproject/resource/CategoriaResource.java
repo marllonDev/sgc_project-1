@@ -17,12 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/categoria")
+@RequestMapping("/api/categorias")
 @AllArgsConstructor
 public class CategoriaResource {
 
     private final CategoriaService categoriaService;
-
 
     @GetMapping
     public ResponseEntity<List<CategoriaDTO>> buscar(){
@@ -40,7 +39,6 @@ public class CategoriaResource {
 
     @PostMapping
     public ResponseEntity<CategoriaDTO> salvar(@RequestBody CategoriaDTO categoriaDTO){
-
          return ResponseEntity.status(HttpStatus.CREATED).body(categoriaService.salvar(categoriaDTO));
     }
 

@@ -8,35 +8,33 @@
         <comment>Inserindo os inserts de Status</comment>
         <insert tableName="senioridade">
             <column name="id" value="1"></column>
-            <column name="descricao" value="Estagiário"></column>
+            <column name="descricao" value="Estagiario"/>
         </insert>
         <insert tableName="senioridade">
             <column name="id" value="2"></column>
-            <column name="descricao" value="Júnior"></column>
+            <column name="descricao" value="Junior"/>
         </insert>
         <insert tableName="senioridade">
             <column name="id" value="3"></column>
-            <column name="descricao" value="Pleno"></column>
+            <column name="descricao" value="Pleno"/>
         </insert>
         <insert tableName="senioridade">
             <column name="id" value="4"></column>
-            <column name="descricao" value="Sênior"></column>
+            <column name="descricao" value="Senior"/>
         </insert>
 
 
-        <comment>Inserindo em Status</comment>
         <insert tableName="status">
             <column name="id" value="1"></column>
-            <column name="descricao" value="Pendente"></column>
+            <column name="descricao" value="Pendente"/>
         </insert>
         <insert tableName="status">
-            <column name="id" value="2"
-            ></column>
-            <column name="descricao" value="Iniciada"></column>
+            <column name="id" value="2"></column>
+            <column name="descricao" value="Iniciada"/>
         </insert>
         <insert tableName="status">
             <column name="id" value="3"></column>
-            <column name="descricao" value="Concluída"></column>
+            <column name="descricao" value="Concluida"/>
         </insert>
     </changeSet>
 </databaseChangeLog>
