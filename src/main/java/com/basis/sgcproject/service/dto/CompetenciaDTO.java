@@ -18,7 +18,7 @@ public class CompetenciaDTO {
     private Integer id;
     private String nome;
     private String descricao;
-    private Categoria categoria;
+    private Integer idCategoria;
 
 
 }

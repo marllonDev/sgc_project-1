@@ -3,7 +3,6 @@ package com.basis.sgcproject.resource;
 
 import com.basis.sgcproject.service.ColaboradorService;
 import com.basis.sgcproject.service.dto.ColaboradorDTO;
-import com.basis.sgcproject.service.dto.CompetenciaDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 import java.util.List;
 
 @RestController
-@RequestMapping("/colaborador")
+@RequestMapping("/api/colaborador")
 @RequiredArgsConstructor
 public class ColaboradorResource {
 //aqui foi criado uma variável service usando o import da class Colaborador service para que se posssa usar seus serviços.
@@ -31,8 +32,7 @@ public class ColaboradorResource {
     }
 
     @PostMapping
-    public ResponseEntity<ColaboradorDTO> salvar(@RequestBody ColaboradorDTO colaboradorDTO){
-
+    public ResponseEntity<ColaboradorDTO> salvar(@RequestBody ColaboradorDTO colaboradorDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.salvar(colaboradorDTO));
 
     }
@@ -43,10 +43,10 @@ public class ColaboradorResource {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletar(@PathVariable("id")Integer id){
-        service.deletar(id);
-        return ResponseEntity.noContent().build();
+    public void deletar(@PathVariable("id")Integer id){
+            service.deletar(id);
     }
+
 
     @PutMapping
     public ResponseEntity<ColaboradorDTO> editar(@RequestBody  ColaboradorDTO colaboradorDTO){
