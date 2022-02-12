@@ -1,5 +1,6 @@
 package com.basis.sgcproject.domain;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,13 +8,13 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 
+@EqualsAndHashCode(of = "id")
 @Entity
 @Getter
 @Setter
 @Table( name = "competencia")
 @NoArgsConstructor
 public class Competencia implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_competencia")
     @SequenceGenerator(name = "seq_competencia", sequenceName = "seq_competencia", allocationSize = 1)
@@ -29,5 +30,4 @@ public class Competencia implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_categoria", nullable = false)
     private Categoria categoria;
-
 }

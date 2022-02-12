@@ -20,7 +20,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/colaborador")
+@RequestMapping("/api/colaboradores")
 @RequiredArgsConstructor
 public class ColaboradorResource {
 //aqui foi criado uma variável service usando o import da class Colaborador service para que se posssa usar seus serviços.

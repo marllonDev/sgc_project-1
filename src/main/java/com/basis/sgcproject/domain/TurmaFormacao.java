@@ -1,12 +1,16 @@
 package com.basis.sgcproject.domain;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
+@EqualsAndHashCode(of = "id")
 @Getter
 @Setter
 @Entity
@@ -33,4 +37,7 @@ public class TurmaFormacao implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_status", nullable = false)
     private Status status;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "turma", cascade = CascadeType.ALL)
+    private Set<TurmaCompetenciaColaborador> competenciasColaboradores = new HashSet<>();
 }
