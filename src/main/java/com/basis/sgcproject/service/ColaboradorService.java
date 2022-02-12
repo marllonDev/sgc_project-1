@@ -4,6 +4,7 @@ package com.basis.sgcproject.service;
 import com.basis.sgcproject.domain.Colaborador;
 import com.basis.sgcproject.exception.RegraNegocioException;
 import com.basis.sgcproject.repository.ColaboradorRepository;
+import com.basis.sgcproject.service.dto.ColaboradorCompetenciaListNivelDTO;
 import com.basis.sgcproject.service.dto.ColaboradorDTO;
 import com.basis.sgcproject.service.mapper.ColaboradorMapper;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ public class ColaboradorService {
 
 
     public List<ColaboradorDTO> obterTodos(){
+
         return colaboradorMapper.toDto(colaboradorRepository.findAll());
     }
 
@@ -49,4 +51,14 @@ public class ColaboradorService {
         }
         colaboradorRepository.deleteById(id);
     }
+
+    public List<ColaboradorDTO> findAllColaboradorPorCompetencia(Integer idCompetencia){
+        return colaboradorMapper.toDto(colaboradorRepository.buscarColaboradorPorCompetencia(idCompetencia));
+    }
+
+    public List<ColaboradorCompetenciaListNivelDTO> buscarColaboradorCompetenciaNivel(){
+        return colaboradorRepository.buscarColaboradorCompetenciaNivel();
+    }
+
+
 }

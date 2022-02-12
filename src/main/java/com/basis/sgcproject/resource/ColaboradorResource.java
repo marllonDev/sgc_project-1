@@ -2,7 +2,9 @@ package com.basis.sgcproject.resource;
 
 
 import com.basis.sgcproject.service.ColaboradorService;
+import com.basis.sgcproject.service.dto.ColaboradorCompetenciaListNivelDTO;
 import com.basis.sgcproject.service.dto.ColaboradorDTO;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,11 +25,12 @@ import java.util.List;
 @RequestMapping("/api/colaboradores")
 @RequiredArgsConstructor
 public class ColaboradorResource {
-//aqui foi criado uma variável service usando o import da class Colaborador service para que se posssa usar seus serviços.
+
     private final ColaboradorService service;
 
     @GetMapping
     public ResponseEntity<List<ColaboradorDTO>> obterTodos() {
+
         return ResponseEntity.ok(service.obterTodos());
     }
 
@@ -53,5 +56,13 @@ public class ColaboradorResource {
         return ResponseEntity.ok(service.salvar(colaboradorDTO));
     }
 
+    @GetMapping("/competencia/{idCompetencia}")
+    public ResponseEntity<List<ColaboradorDTO>> obterLstaColaboradorPorCompetencia(@PathVariable("idCompetencia") Integer idCompetencia) {
+        return ResponseEntity.ok(service.findAllColaboradorPorCompetencia(idCompetencia));
+    }
 
+    @GetMapping("/colaboradorCompetenciaNivel")
+    public ResponseEntity<List<ColaboradorCompetenciaListNivelDTO>> obterLstaColaboradorPorCompetenciaNivel() {
+        return ResponseEntity.ok(service.buscarColaboradorCompetenciaNivel());
+    }
 }
