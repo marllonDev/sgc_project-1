@@ -13,7 +13,6 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 public class Categoria implements Serializable {
-
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
@@ -21,5 +20,4 @@ public class Categoria implements Serializable {
 
     @Column(name = "nome", nullable = false)
     private String nome;
-
 }
