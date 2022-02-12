@@ -22,7 +22,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/colaborador")
+@RequestMapping("/api/colaboradores")
 @RequiredArgsConstructor
 public class ColaboradorResource {
 
