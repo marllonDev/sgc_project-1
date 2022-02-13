@@ -1,6 +1,6 @@
 package com.basis.sgcproject.service.dto;
 
-import com.basis.sgcproject.domain.NivelColaboradorCompetenciaEnum;
+import com.basis.sgcproject.domain.Nivel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,5 +22,5 @@ public class ColaboradorCompetenciaListNivelDTO implements Serializable {
 
     private String nomeCompetencia;
 
-    private NivelColaboradorCompetenciaEnum nivel;
+    private Nivel nivel;
 }

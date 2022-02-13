@@ -20,11 +20,13 @@ import java.util.Optional;
 public class StatusService {
 
     private final StatusMapper statusMapper;
-
     private final StatusRepository statusRepository;
 
-    public  List<StatusDTO> buscar(){
-
+    public List<StatusDTO> buscar(){
         return statusMapper.toDto(statusRepository.findAll());
+    }
+
+    public Optional<Status> buscarPeloId(Integer statusId) {
+        return statusRepository.findById(statusId);
     }
 }
