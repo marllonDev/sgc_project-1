@@ -3,18 +3,36 @@ package com.basis.sgcproject.exception.exceptionhandler;
 import com.basis.sgcproject.exception.EntidadeEmUsoException;
 import com.basis.sgcproject.exception.EntidadeNaoEncontradaException;
 import com.basis.sgcproject.exception.RegraNegocioException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class ValidationHandler extends ResponseEntityExceptionHandler {
+
+    @Autowired
+    private MessageSource messageSource;
+
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+                                                                  HttpHeaders headers, HttpStatus status,
+                                                                  WebRequest request) {
+        return handleValidationInternal(ex, ex.getBindingResult(), headers, status, request);
+    }
 
     @ExceptionHandler(RegraNegocioException.class)
     public ResponseEntity<?> handleRegraNegocio(RegraNegocioException ex, WebRequest request) {
@@ -56,5 +74,29 @@ public class ValidationHandler extends ResponseEntityExceptionHandler {
                 .title(problemType.getTitle())
                 .detail(detail)
                 .timestamp(OffsetDateTime.now());
+    }
+
+    public ResponseEntity<Object> handleValidationInternal(Exception ex, BindingResult bindingResult,
+                                                           HttpHeaders headers, HttpStatus status, WebRequest request) {
+        ProblemType problemType = ProblemType.DADOS_INVALIDOS;
+        String detail = "Um ou mais campos estão inválidos. Faça o preenchimento correto e tente novamente.";
+        List<Problem.Properties> problemProperties = bindingResult.getAllErrors().stream()
+                .map(propertyError -> {
+                    String message = messageSource.getMessage(propertyError, LocaleContextHolder.getLocale());
+                    String name = propertyError.getObjectName();
+                    if (propertyError instanceof FieldError) {
+                        name = ((FieldError) propertyError).getField();
+                    }
+                    return Problem.Properties.builder()
+                            .name(name)
+                            .userMessage(message)
+                            .build();
+                })
+                .collect(Collectors.toList());
+        Problem problem = createProblemBuilder(status, problemType, detail)
+                .userMessage(detail)
+                .objects(problemProperties)
+                .build();
+        return handleExceptionInternal(ex, problem, headers, status, request);
     }
 }

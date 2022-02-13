@@ -18,11 +18,11 @@ public class Problem {
     private String detail;
     private String userMessage;
     private OffsetDateTime timestamp;
-    private List<Object> objects;
+    private List<Properties> objects;
 
     @Getter
     @Builder
-    public static class Object {
+    public static class Properties {
         private String name;
         private String userMessage;
     }

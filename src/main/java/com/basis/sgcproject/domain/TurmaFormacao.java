@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -22,22 +24,28 @@ public class TurmaFormacao implements Serializable {
     @Column(name = "id", nullable = false)
     private Integer id;
 
+    @NotBlank
     @Column(name = "nome", nullable = false)
     private String nome;
 
+    @NotBlank
     @Column(name = "descricao", nullable = false)
     private String descricao;
 
+    @NotNull
     @Column(name = "data_inicio", nullable = false)
     private LocalDateTime dataInicio;
 
+    @NotNull
     @Column(name = "data_termino", nullable = false)
     private LocalDateTime dataTermino;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "id_status", nullable = false)
     private Status status;
 
+    @NotNull
     @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<TurmaCompetenciaColaborador> competenciasColaboradores = new HashSet<>();
 }
