@@ -59,6 +59,4 @@ public class ColaboradorService {
     public List<ColaboradorCompetenciaListNivelDTO> buscarColaboradorCompetenciaNivel(){
         return colaboradorRepository.buscarColaboradorCompetenciaNivel();
     }
-
-
 }

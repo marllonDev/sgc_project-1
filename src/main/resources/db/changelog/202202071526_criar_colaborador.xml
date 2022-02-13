@@ -27,6 +27,9 @@
                             <column name="id_senioridade" type="integer">
                                 <constraints nullable="false"></constraints>
                             </column>
+<!--                            <column name="id_competencia" type="integer">-->
+<!--                                <constraints nullable="false"></constraints>-->
+<!--                            </column>-->
                             <column name="data_nasc" type="date">
                                 <constraints nullable="false"></constraints>
                             </column>
