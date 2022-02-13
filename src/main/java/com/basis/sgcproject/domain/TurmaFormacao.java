@@ -38,6 +38,6 @@ public class TurmaFormacao implements Serializable {
     @JoinColumn(name = "id_status", nullable = false)
     private Status status;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "turma", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<TurmaCompetenciaColaborador> competenciasColaboradores = new HashSet<>();
 }

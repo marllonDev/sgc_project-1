@@ -56,14 +56,20 @@ public class TurmaFormacaoService {
         return turmaFormacaoMapper.toDto(turmaFormacaoRepository.save(turma));
     }
 
+    @Transactional
     public TurmaFormacaoDto atualizar(Integer turmaFormacaoId, TurmaFormacaoDto turmaFormacaoDto) {
-        TurmaFormacao turmaFormacaoAtual = turmaFormacaoRepository.findById(turmaFormacaoId)
-                .orElseThrow(() -> new EntidadeNaoEncontradaException(String.format("Não existe uma turma com codigo %d", turmaFormacaoId)));
-        BeanUtils.copyProperties(turmaFormacaoDto, turmaFormacaoAtual, "id");
-//        turmaFormacaoAtual.getCompetenciasColaboradores().forEach(item -> {
-//            item.getCompetencia()
-//        });
-        return turmaFormacaoMapper.toDto(turmaFormacaoRepository.save(turmaFormacaoAtual));
+        TurmaFormacao turma = turmaFormacaoMapper.toEntity(turmaFormacaoDto);
+        turma.setId(turmaFormacaoId);
+        turma.getCompetenciasColaboradores().forEach(item -> {
+            Competencia competencia = competenciaRepository.getById(item.getId().getIdCompetencia());
+            Colaborador colaborador = colaboradorRepository.getById(item.getId().getIdColaborador());
+            item.getId().setIdTurma(turma.getId());
+            item.setTurma(turma);
+            item.setCompetencia(competencia);
+            item.setColaborador(colaborador);
+        });
+        TurmaFormacao turmaManaged = turmaFormacaoRepository.save(turma);
+        return turmaFormacaoMapper.toDto(turmaManaged);
     }
 
     @Transactional
