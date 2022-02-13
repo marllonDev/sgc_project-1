@@ -34,8 +34,9 @@ public class TurmaFormacaoResource {
 
     @PutMapping("/{turmaFormacaoId}")
     public ResponseEntity<TurmaFormacaoDto> atualizar(@PathVariable Integer turmaFormacaoId, @RequestBody TurmaFormacaoDto turmaFormacaoDto) {
+        turmaFormacaoDto = turmaFormacaoService.atualizar(turmaFormacaoId, turmaFormacaoDto);
         return ResponseEntity.status(HttpStatus.OK)
-                .body(turmaFormacaoService.atualizar(turmaFormacaoId, turmaFormacaoDto));
+                .body(turmaFormacaoDto);
     }
 
     @DeleteMapping("/{turmaFormacaoId}")
