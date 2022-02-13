@@ -33,7 +33,7 @@ public class TurmaFormacaoService {
     public TurmaFormacaoDto salvar(TurmaFormacaoDto turmaFormacaoDto) {
         TurmaFormacao turma = turmaFormacaoMapper.toEntity(turmaFormacaoDto);
         Integer statusId = turma.getStatus().getId();
-        Status status = statusService.buscarPorId(statusId)
+        Status status = statusService.buscar(statusId)
                 .orElseThrow(() -> new RegraNegocioException(
                         String.format("Não existe um cadastro de status com código %d", statusId)
                 ));
