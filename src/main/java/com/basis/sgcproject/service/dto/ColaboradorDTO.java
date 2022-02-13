@@ -29,6 +29,8 @@ public class ColaboradorDTO implements Serializable {
 
     private Integer senioridadeID;
 
+    private Integer competenciaID;
+
     private LocalDateTime dataNascimento;
 
     private LocalDateTime dataAdmissao;

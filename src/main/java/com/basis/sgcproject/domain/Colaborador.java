@@ -46,7 +46,8 @@ public class Colaborador implements Serializable {
     @Column(name = "data_admi", nullable = false)
     private LocalDateTime dataAdmissao;
 
-    @OneToMany(mappedBy = "colaborador")
-    private List<ColaboradorCompetencia> competencias;
+//    @OneToMany(mappedBy = "colaborador")
+//    private List<ColaboradorCompetencia> competencias;
+
 
 }
