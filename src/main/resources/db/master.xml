@@ -6,7 +6,7 @@
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
     <include file="db/changelog/202202081726_criar_tabela_senioridade_status.xml" relativeToChangelogFile="false"/>
-    <include file="db/changelog/202202081726_inserts_senioridade_status.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/202202072321_inserts_senioridade_status.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/202202080053_criar_tabela_categoria.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/202202071526_criar_colaborador.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/202202080140_criar_tabela_competencia.xml" relativeToChangelogFile="false"/>
