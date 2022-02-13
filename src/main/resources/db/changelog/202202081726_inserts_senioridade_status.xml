@@ -15,11 +15,11 @@
             </insert>
             <insert tableName="senioridade">
                 <column name="id" value="3"/>
-                <column name="descricao" value="Sênior"/>
+                <column name="descricao" value="Pleno"/>
             </insert>
             <insert tableName="senioridade">
                 <column name="id" value="4"/>
-                <column name="descricao" value="Pleno"/>
+                <column name="descricao" value="Sênior"/>
             </insert>
         </changeSet>
 
