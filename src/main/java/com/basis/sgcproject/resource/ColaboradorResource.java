@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -31,13 +32,13 @@ public class ColaboradorResource {
     }
 
     @PostMapping
-    public ResponseEntity<ColaboradorDTO> salvar(@RequestBody ColaboradorDTO colaboradorDTO) {
+    public ResponseEntity<ColaboradorDTO> salvar(@Valid @RequestBody ColaboradorDTO colaboradorDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.salvar(colaboradorDTO));
 
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ColaboradorDTO> obterPorId(@PathVariable("id")Integer id){
+    public ResponseEntity<ColaboradorDTO> obterPorId(@Valid @PathVariable("id")Integer id){
         return ResponseEntity.ok(service.obterPorId(id));
     }
 
@@ -48,7 +49,7 @@ public class ColaboradorResource {
 
 
     @PutMapping
-    public ResponseEntity<ColaboradorDTO> editar(@RequestBody  ColaboradorDTO colaboradorDTO){
+    public ResponseEntity<ColaboradorDTO> editar(@Valid @RequestBody  ColaboradorDTO colaboradorDTO){
         return ResponseEntity.ok(service.salvar(colaboradorDTO));
     }
 
@@ -61,4 +62,6 @@ public class ColaboradorResource {
     public ResponseEntity<List<ColaboradorCompetenciaListNivelDTO>> obterListaColaboradorPorCompetenciaNivel() {
         return ResponseEntity.ok(service.buscarColaboradorCompetenciaNivel());
     }
+
+
 }
