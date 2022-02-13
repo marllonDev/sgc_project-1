@@ -41,7 +41,7 @@ public class TurmaFormacaoService {
             throw new RegraNegocioException("Obrigatório informar ao menos uma compentência");
         }
         Integer statusId = turma.getStatus().getId();
-        Status status = statusService.buscarPorId(statusId)
+        Status status = statusService.buscar(statusId)
                 .orElseThrow(() -> new RegraNegocioException(
                         String.format("Não existe um cadastro de status com código %d", statusId)
                 ));
