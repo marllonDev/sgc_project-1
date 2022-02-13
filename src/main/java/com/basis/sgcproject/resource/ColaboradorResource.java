@@ -4,7 +4,6 @@ package com.basis.sgcproject.resource;
 import com.basis.sgcproject.service.ColaboradorService;
 import com.basis.sgcproject.service.dto.ColaboradorCompetenciaListNivelDTO;
 import com.basis.sgcproject.service.dto.ColaboradorDTO;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-
 import java.util.List;
 
 @RestController
@@ -30,7 +27,6 @@ public class ColaboradorResource {
 
     @GetMapping
     public ResponseEntity<List<ColaboradorDTO>> obterTodos() {
-
         return ResponseEntity.ok(service.obterTodos());
     }
 
@@ -57,12 +53,12 @@ public class ColaboradorResource {
     }
 
     @GetMapping("/competencia/{idCompetencia}")
-    public ResponseEntity<List<ColaboradorDTO>> obterLstaColaboradorPorCompetencia(@PathVariable("idCompetencia") Integer idCompetencia) {
+    public ResponseEntity<List<ColaboradorDTO>> obterListaColaboradorPorCompetencia(@PathVariable("idCompetencia") Integer idCompetencia) {
         return ResponseEntity.ok(service.findAllColaboradorPorCompetencia(idCompetencia));
     }
 
-    @GetMapping("/colaboradorCompetenciaNivel")
-    public ResponseEntity<List<ColaboradorCompetenciaListNivelDTO>> obterLstaColaboradorPorCompetenciaNivel() {
+    @GetMapping("/Nivel")
+    public ResponseEntity<List<ColaboradorCompetenciaListNivelDTO>> obterListaColaboradorPorCompetenciaNivel() {
         return ResponseEntity.ok(service.buscarColaboradorCompetenciaNivel());
     }
 }
