@@ -3,6 +3,9 @@ package com.basis.sgcproject.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -45,9 +48,5 @@ public class Colaborador implements Serializable {
 
     @Column(name = "data_admi", nullable = false)
     private LocalDateTime dataAdmissao;
-
-//    @OneToMany(mappedBy = "colaborador")
-//    private List<ColaboradorCompetencia> competencias;
-
 
 }
