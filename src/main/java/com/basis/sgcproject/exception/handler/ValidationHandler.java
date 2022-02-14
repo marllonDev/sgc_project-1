@@ -1,4 +1,4 @@
-package com.basis.sgcproject.exception.exceptionhandler;
+package com.basis.sgcproject.exception.handler;
 
 import com.basis.sgcproject.exception.EntidadeEmUsoException;
 import com.basis.sgcproject.exception.EntidadeNaoEncontradaException;

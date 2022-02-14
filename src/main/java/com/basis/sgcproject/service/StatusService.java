@@ -1,6 +1,7 @@
 package com.basis.sgcproject.service;
 
 import com.basis.sgcproject.domain.Status;
+import com.basis.sgcproject.exception.RegraNegocioException;
 import com.basis.sgcproject.repository.SenioridadeRepository;
 import com.basis.sgcproject.repository.StatusRepository;
 import com.basis.sgcproject.repository.TurmaFormacaoRepository;
@@ -22,11 +23,14 @@ public class StatusService {
     private final StatusMapper statusMapper;
     private final StatusRepository statusRepository;
 
-    public List<StatusDTO> buscar(){
+    public List<StatusDTO> buscar() {
         return statusMapper.toDto(statusRepository.findAll());
     }
 
-    public Optional<Status> buscarPeloId(Integer statusId) {
-        return statusRepository.findById(statusId);
+    public Status buscarPeloId(Integer statusId) {
+        return statusRepository.findById(statusId)
+                .orElseThrow(() -> new RegraNegocioException(
+                        String.format("Não existe um cadastro de status com código %d", statusId)
+                ));
     }
 }

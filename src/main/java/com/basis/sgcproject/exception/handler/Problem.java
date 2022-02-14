@@ -1,4 +1,4 @@
-package com.basis.sgcproject.exception.exceptionhandler;
+package com.basis.sgcproject.exception.handler;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;

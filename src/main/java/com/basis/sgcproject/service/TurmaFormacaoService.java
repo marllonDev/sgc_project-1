@@ -37,14 +37,8 @@ public class TurmaFormacaoService {
     @Transactional
     public TurmaFormacaoDto salvar(TurmaFormacaoDto turmaFormacaoDto) {
         TurmaFormacao turma = turmaFormacaoMapper.toEntity(turmaFormacaoDto);
-        if (turma.getCompetenciasColaboradores() == null || turma.getCompetenciasColaboradores().isEmpty()) {
-            throw new RegraNegocioException("Obrigatório informar ao menos uma compentência");
-        }
         Integer statusId = turma.getStatus().getId();
-        Status status = statusService.buscarPeloId(statusId)
-                .orElseThrow(() -> new RegraNegocioException(
-                        String.format("Não existe um cadastro de status com código %d", statusId)
-                ));
+        Status status = statusService.buscarPeloId(statusId);
         turma.setStatus(status);
         turma.getCompetenciasColaboradores().forEach(item -> {
             Competencia competencia = competenciaRepository.getById(item.getId().getIdCompetencia());
