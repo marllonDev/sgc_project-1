@@ -1,0 +1,26 @@
+<p-table [value]="turmas">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Data Inicio</th>
+            <th>Status</th>
+            <th [ngStyle]="{'width': '65px'}"></th>
+            <th [ngStyle]="{'width': '65px'}"></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-turma>
+        <tr>
+            <td class="text-center">{{turma.nome}}</td>
+            <td>{{turma.descricao}}</td>
+            <td class="text-center">{{turma.dataInicio | date: 'dd/MM/yyyy'}}</td>
+            <td class="text-center">{{turma.status.descricao}}</td>
+            <td>
+                <button type="button" icon="ui-icon-pencil" pButton (click)="navigateTo(turma.id)"></button>
+            </td>
+            <td>
+                <button type="button" icon="ui-icon-trash" pButton></button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
