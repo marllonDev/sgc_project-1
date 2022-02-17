@@ -1,0 +1,52 @@
+<form [formGroup]="root" (submit)="submitForm()">
+    <p-card>
+        <div class="grid mb-6 pl-2 pr-2 align-items-center">
+            <h2>Formulário de Turma Formação</h2>
+            <span class="col"></span>
+            <div>
+                <button pButton type="button" icon="ui-icon-chevron-left" iconPos="left"
+                    label="Voltar" (click)="navigateTo()"></button>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="col-2">
+                <span class="ui-float-label">
+                    <input id="float-input" type="text" pInputText autocomplete="off" formControlName="nome">
+                    <label for="float-input">Nome da turma</label>
+                </span>
+            </div>
+
+            <div class="col-10">
+                <span class="ui-float-label">
+                    <input id="float-input" type="text" pInputText autocomplete="off" formControlName="descricao">
+                    <label for="float-input">Descrição</label>
+                </span>
+            </div>
+
+            <div class="col-2 mt-5">
+                <span class="ui-float-label">
+                    <p-calendar dateFormat="dd/mm/yy" formControlName="dataInicio"></p-calendar>
+                    <label for="float-input">Data Inicio</label>
+                </span>
+            </div>
+
+            <div class="col-2 mt-5">
+                <span class="ui-float-label">
+                    <p-calendar dateFormat="dd/mm/yy" formControlName="dataTermino"></p-calendar>
+                    <label for="float-input">Data Termino</label>
+                </span>
+            </div>
+
+            <div class="col-2 mt-5">
+                <span class="ui-float-label">
+                    <p-dropdown [options]="status" optionLabel="descricao"
+                        [showClear]="true" formControlName="status">
+                    </p-dropdown>
+                    <label for="float-input">Status</label>
+                </span>
+
+            </div>
+        </div>
+    </p-card>
+</form>
