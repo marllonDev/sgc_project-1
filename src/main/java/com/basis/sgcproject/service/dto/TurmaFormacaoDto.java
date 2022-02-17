@@ -23,8 +23,9 @@ public class TurmaFormacaoDto {
     private LocalDateTime dataInicio;
     @NotNull
     private LocalDateTime dataTermino;
-    @NotNull
-    private Integer statusId;
+//    @NotNull
+//    private Integer statusId;
+    private StatusDTO status;
     @Valid
     @NotEmpty(message = "Obrigatório informar ao menos uma compentência")
     private Set<CompetenciaColaboradorDtoId> competenciasColaboradores = new HashSet<>();
