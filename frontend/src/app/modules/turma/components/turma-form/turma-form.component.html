@@ -15,6 +15,7 @@
                     <input id="float-input" type="text" pInputText autocomplete="off" formControlName="nome">
                     <label for="float-input">Nome da turma</label>
                 </span>
+                <small *ngIf="deveMostrarMensagemDeErro(root.get('nome'))" class="p-invalid" style="color: red;">{{mensagemDeErro(root.get('nome'))}}</small>
             </div>
 
             <div class="col-10">
@@ -22,6 +23,7 @@
                     <input id="float-input" type="text" pInputText autocomplete="off" formControlName="descricao">
                     <label for="float-input">Descrição</label>
                 </span>
+                <small *ngIf="deveMostrarMensagemDeErro(root.get('descricao'))" class="p-invalid" style="color: red;">{{mensagemDeErro(root.get('descricao'))}}</small>
             </div>
 
             <div class="col-2 mt-5">
@@ -29,6 +31,7 @@
                     <p-calendar dateFormat="dd/mm/yy" formControlName="dataInicio"></p-calendar>
                     <label for="float-input">Data Inicio</label>
                 </span>
+                <small *ngIf="deveMostrarMensagemDeErro(root.get('dataInicio'))" class="p-invalid" style="color: red;">{{mensagemDeErro(root.get('dataInicio'))}}</small>
             </div>
 
             <div class="col-2 mt-5">
@@ -36,6 +39,7 @@
                     <p-calendar dateFormat="dd/mm/yy" formControlName="dataTermino"></p-calendar>
                     <label for="float-input">Data Termino</label>
                 </span>
+                <small *ngIf="deveMostrarMensagemDeErro(root.get('dataTermino'))" class="p-invalid" style="color: red;">{{mensagemDeErro(root.get('dataTermino'))}}</small>
             </div>
 
             <div class="col-2 mt-5">
@@ -45,7 +49,6 @@
                     </p-dropdown>
                     <label for="float-input">Status</label>
                 </span>
-
             </div>
         </div>
     </p-card>
