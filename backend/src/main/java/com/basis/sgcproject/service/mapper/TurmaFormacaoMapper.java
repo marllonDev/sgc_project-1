@@ -13,15 +13,18 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface TurmaFormacaoMapper extends EntityMapper<TurmaFormacaoDto, TurmaFormacao> {
     @Override
-    @Mapping(source = "status.id", target = "statusId")
+    @Mapping(source = "status.id", target = "status.id")
+    @Mapping(source = "status.descricao", target = "status.descricao")
     TurmaFormacaoDto toDto(TurmaFormacao turmaFormacao);
 
     @Override
-    @Mapping(source = "status.id", target = "statusId")
+    @Mapping(source = "status.id", target = "status.id")
+    @Mapping(source = "status.descricao", target = "status.descricao")
     List<TurmaFormacaoDto> toDto(List<TurmaFormacao> turmas);
 
     @Override
-    @Mapping(source = "statusId", target = "status.id")
+    @Mapping(source = "status.id", target = "status.id")
+    @Mapping(source = "status.descricao", target = "status.descricao")
     TurmaFormacao toEntity(TurmaFormacaoDto turmaFormacaoDto);
 
     @Mapping(source = "competenciaId", target = "id.idCompetencia")

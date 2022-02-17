@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/turmas")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class TurmaFormacaoResource {
 
     private final TurmaFormacaoService turmaFormacaoService;

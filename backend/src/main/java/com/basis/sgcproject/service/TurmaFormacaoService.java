@@ -25,10 +25,12 @@ public class TurmaFormacaoService {
     ColaboradorRepository colaboradorRepository;
     CompetenciaRepository competenciaRepository;
 
+    @Transactional
     public List<TurmaFormacaoDto> listarTodas() {
         return turmaFormacaoMapper.toDto(turmaFormacaoRepository.findAll());
     }
 
+    @Transactional
     public TurmaFormacaoDto buscarPeloId(Integer turmaFormacaoId) {
         return turmaFormacaoMapper.toDto(turmaFormacaoRepository.findById(turmaFormacaoId)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException(String.format("Não existe uma turma com codigo %d", turmaFormacaoId))));
