@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Status } from '../../model/status.model';
 import { StatusService } from '../../service/status.service';
@@ -48,10 +48,10 @@ export class TurmaFormComponent implements OnInit {
         this.root = new FormGroup({
             id: new FormControl(),
             nome: new FormControl(null, [Validators.required, Validators.minLength(5)]),
-            descricao: new FormControl(null,[Validators.required]),
+            descricao: new FormControl(null,[Validators.required, Validators.minLength(10)]),
             dataInicio: new FormControl(null, [Validators.required]),
             dataTermino: new FormControl(null, [Validators.required]),
-            status: new FormControl(null, [Validators.required])
+            status: new FormControl(null)
         });
     }
 
@@ -67,6 +67,20 @@ export class TurmaFormComponent implements OnInit {
 
     navigateTo() {
         this.router.navigate(['/turmas'], { relativeTo: this.route });
+    }
+
+    deveMostrarMensagemDeErro(control: AbstractControl): boolean {
+        return control.errors && control.touched || control.dirty;
+    }
+
+    mensagemDeErro(control: AbstractControl) {
+        if (control.hasError('required')) {
+            return 'Campo obrigatório.'
+        }
+        if (control.hasError('minlength')) {
+            return `O tamanho minímo é de ${control.getError('minlength').requiredLength} caracteres.`;
+        }
+        return ''
     }
 
 }
