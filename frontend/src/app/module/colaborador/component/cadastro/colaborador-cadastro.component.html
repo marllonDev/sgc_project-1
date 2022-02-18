@@ -1,0 +1,51 @@
+<p-card>
+    <form action="">
+        <span class="ui-float-label">
+            <input type="text" id="colaboradorNome" name="colaboradorNome" pInputText [(ngModel)]="colaborador.nome" />
+            <label for="colaboradorNome">Nome</label>
+        </span>
+        <span class="ui-float-label">
+            <input type="text" id="colaboradorSobrenome" name="colaboradorSobrenome" pInputText
+                [(ngModel)]="colaborador.sobrenome">
+            <label for="colaboradorSobrenome">Sobrenome</label>
+        </span>
+        <span class="ui-float-label">
+            <input type="text" id="colaboradorCPF" name="colaboradorCPF" pInputText [(ngModel)]="colaborador.cpf">
+            <label for="colaboradorCPF">CPF</label>
+        </span>
+        <span class="ui-float-label">
+            <p-inputMask [(ngModel)]="colaborador.email" mask="99-aa" id="colaboradorEmail" name="colaboradorEmail"
+                characterPattern="/\S+@\S+\.\S+/"></p-inputMask>
+            <label for="colaboradorEmail">Email</label>
+        </span>
+        <span class="ui-float-label">
+            <input type="text" id="colaboradorFoto" name="colaboradorFoto" pInputText [(ngModel)]="colaborador.foto">
+            <p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple" accept="image/*" maxFileSize="1000000" [auto]="true">
+            </p-fileUpload>
+            <label for="colaboradorFoto">Foto</label>
+        </span>
+        <span class="ui-float-label">
+            <div>
+                <label>Senioridade:</label>
+                <p-radioButton name="groupname" value="1" label="Estagiário" [(ngModel)]="colaborador.senioridadeID">
+                </p-radioButton>
+                <p-radioButton name="groupname" value="2" label="Junior" [(ngModel)]="colaborador.senioridadeID">
+                </p-radioButton>
+                <p-radioButton name="groupname" value="3" label="Pleno" [(ngModel)]="colaborador.senioridadeID">
+                </p-radioButton>
+                <p-radioButton name="groupname" value="4" label="Sênior" [(ngModel)]="colaborador.senioridadeID">
+                </p-radioButton>
+            </div>
+        </span>
+        <span class="ui-float-label">
+            <p-calendar [(ngModel)]="colaborador.dataNascimento" name="dataNascimento" dateFormat="dd.mm.yy">
+            </p-calendar>
+            <label>Data de Nascimento</label>
+        </span>
+        <span class="ui-float-label">
+            <p-calendar [(ngModel)]="colaborador.dataAdmissao" name="dataAdmissao" dateFormat="dd.mm.yy"></p-calendar>
+            <label>Data de Admissão</label>
+        </span>
+        <p-button label="Adicionar" (onClick)="salvar()"></p-button>
+    </form>
+</p-card>

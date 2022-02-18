@@ -6,6 +6,7 @@ import com.basis.sgcproject.exception.RegraNegocioException;
 import com.basis.sgcproject.repository.ColaboradorRepository;
 import com.basis.sgcproject.service.dto.ColaboradorCompetenciaListNivelDTO;
 import com.basis.sgcproject.service.dto.ColaboradorDTO;
+import com.basis.sgcproject.service.dto.ColaboradorSenioridadeListDTO;
 import com.basis.sgcproject.service.mapper.ColaboradorMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,9 +25,8 @@ public class ColaboradorService {
     private final ColaboradorMapper colaboradorMapper;
 
 
-    public List<ColaboradorDTO> obterTodos(){
-
-        return colaboradorMapper.toDto(colaboradorRepository.findAll());
+    public List<ColaboradorSenioridadeListDTO> obterTodos(){
+        return colaboradorRepository.buscarColaboradorPorSenioridade();
     }
 
     public ColaboradorDTO salvar(ColaboradorDTO colaboradorDTO){
@@ -35,12 +35,12 @@ public class ColaboradorService {
             if (!colaboradorEncontrado.isPresent()) {
                 throw new RegraNegocioException("Colaborador não encontrado para edição");
             }
-        }
+         }
         return colaboradorMapper.toDto(colaboradorRepository.save(colaboradorMapper.toEntity(colaboradorDTO)));
     }
 
     public ColaboradorDTO obterPorId(Integer id){
-        Optional <Colaborador> colaboradorOP = colaboradorRepository.findById(id);
+        Optional <Colaborador> colaboradorOP = colaboradorRepository. findById(id);
         colaboradorOP.orElseThrow(() -> new RegraNegocioException("Colaborador não encontrado"));
         return colaboradorMapper.toDto(colaboradorOP.get());
     }
