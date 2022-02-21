@@ -1,0 +1,33 @@
+<p-card>
+    <div class="grid mb-3 mt-2 pl-2 pr-2 align-items-center">
+        <h2>Listagem de Turma Formação</h2>
+        <span class="col"></span>
+        <button pButton type="button" icon="ui-icon-plus" iconPos="left" label="Nova Turma" [routerLink]="'criar'"></button>
+    </div>
+    <p-table [value]="turmas">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Data Inicio</th>
+                <th>Data Termino</th>
+                <th>Status</th>
+                <th [ngStyle]="{'width': '110px'}">Ações</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-turma>
+            <tr>
+                <td class="text-center">{{turma.nome}}</td>
+                <td>{{turma.descricao}}</td>
+                <td class="text-center">{{turma.dataInicio | date: 'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{turma.dataTermino | date: 'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{turma.status.descricao}}</td>
+                <td>
+                    <button type="button" icon="ui-icon-pencil" pButton (click)="navigateTo(turma.id)"></button>
+                    <span class="pr-2"></span>
+                    <button type="button" icon="ui-icon-trash" pButton (click)="excluirTurma(turma)"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-card>

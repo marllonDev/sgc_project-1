@@ -2,6 +2,7 @@ package com.basis.sgcproject.resource;
 
 import com.basis.sgcproject.service.TurmaFormacaoService;
 import com.basis.sgcproject.service.dto.TurmaFormacaoDto;
+import com.basis.sgcproject.service.dto.input.TurmaFormacaoDtoInput;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/turmas")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class TurmaFormacaoResource {
 
     private final TurmaFormacaoService turmaFormacaoService;
@@ -28,14 +30,14 @@ public class TurmaFormacaoResource {
     }
 
     @PostMapping
-    public ResponseEntity<TurmaFormacaoDto> salvar(@RequestBody @Valid TurmaFormacaoDto turmaFormacaoDto) {
+    public ResponseEntity<TurmaFormacaoDto> salvar(@RequestBody @Valid TurmaFormacaoDtoInput turmaFormacaoDtoInput) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(turmaFormacaoService.salvar(turmaFormacaoDto));
+                .body(turmaFormacaoService.salvar(turmaFormacaoDtoInput));
     }
 
     @PutMapping("/{turmaFormacaoId}")
-    public ResponseEntity<TurmaFormacaoDto> atualizar(@PathVariable Integer turmaFormacaoId, @RequestBody TurmaFormacaoDto turmaFormacaoDto) {
-        turmaFormacaoDto = turmaFormacaoService.atualizar(turmaFormacaoId, turmaFormacaoDto);
+    public ResponseEntity<TurmaFormacaoDto> atualizar(@PathVariable Integer turmaFormacaoId, @RequestBody TurmaFormacaoDtoInput turmaFormacaoDtoInput) {
+        TurmaFormacaoDto turmaFormacaoDto = turmaFormacaoService.atualizar(turmaFormacaoId, turmaFormacaoDtoInput);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(turmaFormacaoDto);
     }
