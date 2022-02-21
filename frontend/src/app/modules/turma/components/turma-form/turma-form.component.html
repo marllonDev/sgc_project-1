@@ -48,14 +48,16 @@
 
             <div class="col-2 mt-5">
                 <span class="ui-float-label">
-                    <p-dropdown [options]="status" optionLabel="descricao" [showClear]="true" formControlName="status">
+                    <p-dropdown [options]="status" placeholder="." optionLabel="descricao" [showClear]="true"
+                        formControlName="status">
                     </p-dropdown>
                     <label for="float-input">Status</label>
                 </span>
             </div>
         </div>
         <div class="grid mt-3 pl-2 pr-2">
-            <button type="submit" pButton label="Salvar" [disabled]="submittingForm || root.invalid || !root.dirty"></button>
+            <button type="submit" pButton label="Salvar"
+                [disabled]="submittingForm || root.invalid || !root.dirty"></button>
         </div>
     </p-card>
 </form>
@@ -69,7 +71,7 @@
             <div class="grid mb-6 pl-2 pr-2 align-items-center">
                 <div class="col-2 mt-5">
                     <span class="ui-float-label">
-                        <p-dropdown [options]="competencias" optionLabel="nome" [showClear]="true"
+                        <p-dropdown [options]="competencias" placeholder="." optionLabel="nome" [showClear]="true"
                             formControlName="competencia">
                         </p-dropdown>
                         <label for="float-input">Competencia</label>
@@ -78,7 +80,7 @@
                 <span class="pr-3"></span>
                 <div class="col-2 mt-5">
                     <span class="ui-float-label">
-                        <p-dropdown [options]="colaboradores" optionLabel="nome" [showClear]="true"
+                        <p-dropdown [options]="colaboradores" placeholder="." optionLabel="nome" [showClear]="true"
                             formControlName="colaborador">
                         </p-dropdown>
                         <label for="float-input">Colaborador</label>
@@ -103,7 +105,8 @@
                             <td class="text-center">{{cc.competencia.nome}}</td>
                             <td class="text-center">{{cc.colaborador.nome}} {{cc.colaborador.sobrenome}}</td>
                             <td class="text-center">
-                                <button type="button" icon="ui-icon-trash" pButton (click)="excluirItem(rowIndex)"></button>
+                                <button type="button" icon="ui-icon-trash" pButton
+                                    (click)="excluirItem(rowIndex)"></button>
                             </td>
                         </tr>
                     </ng-template>
