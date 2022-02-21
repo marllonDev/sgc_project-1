@@ -20,7 +20,7 @@ public interface ColaboradorRepository extends JpaRepository<Colaborador, Intege
 
 
 
-    @Query(value = "select new com.basis.sgcproject.service.dto.ColaboradorCompetenciaListNivelDTO(cc.id.idColaborador, cc.colaborador.nome, cc.id.idCompetencia, cc.competencia.nome, cc.nivel) from ColaboradorCompetencia cc ")
+    @Query(value = "select new com.basis.sgcproject.service.dto.ColaboradorCompetenciaListNivelDTO(cc.id.idColaborador, cc.colaborador.nome, cc.colaborador.sobrenome, cc.id.idCompetencia, cc.competencia.nome, cc.nivel) from ColaboradorCompetencia cc where cc.nivel=2")
     List<ColaboradorCompetenciaListNivelDTO> buscarColaboradorCompetenciaNivel();
 
 
