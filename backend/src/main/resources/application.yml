@@ -13,7 +13,6 @@ spring:
             poolName: Hikari
             auto-commit: false
     jackson:
-        date-format: yyyy-MM-dd
         deserialization:
             fail-on-unknown-properties: false
     jpa:
