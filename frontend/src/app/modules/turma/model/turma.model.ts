@@ -1,3 +1,4 @@
+import { CompetenciaColaborador } from "./competencia-colaborador.model";
 import { Status } from "./status.model";
 
 export class Turma {
@@ -7,4 +8,5 @@ export class Turma {
     dataInicio: string | Date;
     dataTermino: string | Date;
     status: Status;
+    competenciasColaboradores: CompetenciaColaborador[];
 }

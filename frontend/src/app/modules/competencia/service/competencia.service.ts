@@ -1,20 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Status } from '../model/status.model';
+import { CompetenciaModel } from '../model/competencia.models';
 
 @Injectable({
   providedIn: 'root'
 })
-export class StatusService {
+export class CompetenciaService {
 
     private apiUrl: string;
 
     constructor(private http: HttpClient) {
-        this.apiUrl = '/api/status';
+        this.apiUrl = '/api/competencias';
     }
 
-    listarStatus(): Observable<Status[]> {
-        return this.http.get<Status[]>(this.apiUrl);
+    getAll(): Observable<CompetenciaModel[]> {
+        return this.http.get<CompetenciaModel[]>(this.apiUrl);
     }
 }
