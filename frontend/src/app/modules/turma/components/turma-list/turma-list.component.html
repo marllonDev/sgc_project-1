@@ -10,6 +10,7 @@
                 <th>Nome</th>
                 <th>Descrição</th>
                 <th>Data Inicio</th>
+                <th>Data Termino</th>
                 <th>Status</th>
                 <th [ngStyle]="{'width': '110px'}">Ações</th>
             </tr>
@@ -19,6 +20,7 @@
                 <td class="text-center">{{turma.nome}}</td>
                 <td>{{turma.descricao}}</td>
                 <td class="text-center">{{turma.dataInicio | date: 'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{turma.dataTermino | date: 'dd/MM/yyyy'}}</td>
                 <td class="text-center">{{turma.status.descricao}}</td>
                 <td>
                     <button type="button" icon="ui-icon-pencil" pButton (click)="navigateTo(turma.id)"></button>

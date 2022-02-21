@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ColaboradorModel } from 'src/app/modules/colaborador/model/colaborador.model';
@@ -10,21 +10,23 @@ import { SelectItem } from 'primeng/api';
 import { Turma } from '../../model/turma.model';
 import { TurmaDtoInput } from '../../model/turma-dto-input.model';
 import { CompetenciaColaborador } from '../../model/competencia-colaborador.model';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: 'app-turma-form',
     templateUrl: './turma-form.component.html',
     styleUrls: ['./turma-form.component.css']
 })
-export class TurmaFormComponent implements OnInit {
+export class TurmaFormComponent implements OnInit, OnDestroy {
 
     @ViewChild(FormGroupDirective) form: FormGroupDirective;
+    unsubscribeAll = new Subject<void>();
 
     //status: SelectItem[];
     status: Status[];
     root: FormGroup;
     competenciaColaboradorForm: FormGroup;
-    acaoAtual: string;
     submittingForm: boolean = false;
 
     competencias: CompetenciaModel[] = [
@@ -48,38 +50,44 @@ export class TurmaFormComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.setAcaoAtual();
         this.buscarStatus();
         this.criarForm();
         this.criarFormCompetenciaColaborador();
-        this.route.paramMap.subscribe(
-            params => {
-                const id = params.get("id");
-                if (id === 'criar') {
-                    this.root.setValue({
-                        id: null,
-                        nome: null,
-                        descricao: null,
-                        dataInicio: null,
-                        dataTermino: null,
-                        status: null,
-                        competenciasColaboradores: []
-                    });
-                    this.root.markAsPristine();
-                    this.root.markAsUntouched();
-                } else {
-                    this.turmaService.getById(+id).subscribe(
-                        turma => {
-                            turma.dataInicio = new Date(turma.dataInicio);
-                            turma.dataTermino = new Date(turma.dataTermino);
-                            this.root.patchValue(turma);
-                            this.root.markAsPristine();
-                            this.root.markAsUntouched();
-                        }
-                    )
+        this.route.paramMap
+            .pipe(takeUntil(this.unsubscribeAll))
+            .subscribe(
+                params => {
+                    const id = params.get("id");
+                    if (id === 'criar') {
+                        this.root.setValue({
+                            id: null,
+                            nome: null,
+                            descricao: null,
+                            dataInicio: null,
+                            dataTermino: null,
+                            status: null,
+                            competenciasColaboradores: []
+                        });
+                        this.root.markAsPristine();
+                        this.root.markAsUntouched();
+                    } else {
+                        this.turmaService.getById(+id).subscribe(
+                            turma => {
+                                turma.dataInicio = new Date(turma.dataInicio);
+                                turma.dataTermino = new Date(turma.dataTermino);
+                                this.root.patchValue(turma);
+                                this.root.markAsPristine();
+                                this.root.markAsUntouched();
+                            }
+                        )
+                    }
                 }
-            }
-        )
+            )
+    }
+
+    ngOnDestroy() {
+        this.unsubscribeAll.next();
+        this.unsubscribeAll.complete();
     }
 
     protected criarForm() {
@@ -164,14 +172,6 @@ export class TurmaFormComponent implements OnInit {
             this.status = s);
     }
 
-    setAcaoAtual() {
-        if (this.route.snapshot.url[0].path == 'criar') {
-            this.acaoAtual = 'criar';
-        } else {
-            this.acaoAtual = 'editar';
-        }
-    }
-
     irParaTurmaList() {
         this.router.navigate(['/turmas'], { relativeTo: this.route });
     }
@@ -182,12 +182,12 @@ export class TurmaFormComponent implements OnInit {
 
     mensagemDeErro(control: AbstractControl) {
         if (control.hasError('required')) {
-            return 'Campo obrigatório.'
+            return 'Campo obrigatório.';
         }
         if (control.hasError('minlength')) {
             return `O tamanho minímo é de ${control.getError('minlength').requiredLength} caracteres.`;
         }
-        return ''
+        return '';
     }
 
     adicionarCompetenciaColaborador() {
@@ -195,25 +195,27 @@ export class TurmaFormComponent implements OnInit {
             return console.log('deu ruim');
         }
         const ccForm: CompetenciaColaborador = this.competenciaColaboradorForm.value;
-        let colaboradores: CompetenciaColaborador[] = this.root.get('competenciasColaboradores').value;
+        let ccItens: CompetenciaColaborador[] = this.root.get('competenciasColaboradores').value;
 
-        if (colaboradores.some(c=> c.colaborador.id == ccForm.colaborador.id && c.competencia.id == ccForm.competencia.id)){
+        if (ccItens.some(cc => cc.colaborador.id == ccForm.colaborador.id && cc.competencia.id == ccForm.competencia.id)) {
             console.log("Este colaborador já está cadastrado para esta competência")
             return;
         }
 
-        colaboradores = [...colaboradores, ccForm];
+        ccItens = [...ccItens, ccForm];
 
-        this.root.get('competenciasColaboradores').setValue(colaboradores);
+        this.root.get('competenciasColaboradores').setValue(ccItens);
         this.competenciaColaboradorForm.setValue({
             colaborador: null,
             competencia: null
         })
+        this.root.markAsDirty();
     }
 
-    excluirItem(indexRow: number){
-        let colaboradores: CompetenciaColaborador[] = [...this.root.get('competenciasColaboradores').value];
-        colaboradores.splice(indexRow, 1);
-        this.root.get('competenciasColaboradores').setValue(colaboradores);
+    excluirItem(indexRow: number) {
+        let ccItens: CompetenciaColaborador[] = [...this.root.get('competenciasColaboradores').value];
+        ccItens.splice(indexRow, 1);
+        this.root.get('competenciasColaboradores').setValue(ccItens);
+        this.root.markAsDirty();
     }
 }
