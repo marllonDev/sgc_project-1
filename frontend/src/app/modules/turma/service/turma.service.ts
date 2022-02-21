@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { TurmaDtoInput } from '../model/turma-dto-input.model';
 import { Turma } from '../model/turma.model';
 
 @Injectable({
@@ -11,7 +12,7 @@ export class TurmaService {
     private apiUrl: string;
 
     constructor(private http: HttpClient) {
-        this.apiUrl = 'http://localhost:8080/api/turmas';
+        this.apiUrl = '/api/turmas';
     }
 
     getAll(): Observable<Turma[]> {
@@ -22,11 +23,11 @@ export class TurmaService {
         return this.http.get<Turma>(`${this.apiUrl}/${id}`);
     }
 
-    save(turma: Turma): Observable<Turma> {
+    save(turma: TurmaDtoInput): Observable<Turma> {
         return this.http.post<Turma>(this.apiUrl, turma);
     }
 
-    update(id: number, turma: Turma): Observable<Turma> {
+    update(id: number, turma: TurmaDtoInput): Observable<Turma> {
         return this.http.put<Turma>(`${this.apiUrl}/${id}`, turma);
     }
 

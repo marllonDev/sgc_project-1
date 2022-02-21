@@ -28,6 +28,15 @@ export class TurmaListComponent implements OnInit {
         );
     }
 
+    excluirTurma(turma: Turma) {
+        const deveDeletar = confirm('Deseja realmente excluir este item?');
+        if (deveDeletar) {
+            this.turmaService.delete(turma.id).subscribe(() => {
+                this.turmas = this.turmas.filter(t => t.id !== turma.id);
+            })
+        }
+    }
+
     navigateTo(id: number) {
         this.router.navigate([`${id}`], { relativeTo: this.route });
     }
