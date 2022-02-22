@@ -5,6 +5,7 @@ import com.basis.sgcproject.service.ColaboradorService;
 import com.basis.sgcproject.service.dto.ColaboradorCompetenciaListNivelDTO;
 import com.basis.sgcproject.service.dto.ColaboradorDTO;
 import com.basis.sgcproject.service.dto.ColaboradorSenioridadeListDTO;
+import com.basis.sgcproject.service.dto.CompetenciaColaboradorNivelMaximoDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,5 +59,9 @@ public class ColaboradorResource {
         return ResponseEntity.ok(service.buscarColaboradorCompetenciaNivel());
     }
 
+//    @GetMapping("/competencias/nivel")
+//    public ResponseEntity<List<CompetenciaColaboradorNivelMaximoDto>> buscarCompetenciaColaboradorNivelMaximo() {
+//        return ResponseEntity.ok(service.buscarCompetenciaColaboradorNivelMaximo());
+//    }
 
 }

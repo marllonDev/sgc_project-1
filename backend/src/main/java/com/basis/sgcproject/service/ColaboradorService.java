@@ -4,16 +4,17 @@ package com.basis.sgcproject.service;
 import com.basis.sgcproject.domain.Colaborador;
 import com.basis.sgcproject.exception.RegraNegocioException;
 import com.basis.sgcproject.repository.ColaboradorRepository;
-import com.basis.sgcproject.service.dto.ColaboradorCompetenciaListNivelDTO;
-import com.basis.sgcproject.service.dto.ColaboradorDTO;
-import com.basis.sgcproject.service.dto.ColaboradorSenioridadeListDTO;
+import com.basis.sgcproject.service.dto.*;
 import com.basis.sgcproject.service.mapper.ColaboradorMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -59,4 +60,8 @@ public class ColaboradorService {
     public List<ColaboradorCompetenciaListNivelDTO> buscarColaboradorCompetenciaNivel(){
         return colaboradorRepository.buscarColaboradorCompetenciaNivel();
     }
+
+//    public List<CompetenciaColaboradorNivelMaximoDto> buscarCompetenciaColaboradorNivelMaximo() {
+//         return colaboradorRepository.buscarColaboradorCompetenciaNivelMaximo();
+//    }
 }
