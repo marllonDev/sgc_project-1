@@ -1,5 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PageNotificationService } from '@nuvem/primeng-components';
 import { Turma } from '../../model/turma.model';
 import { TurmaService } from '../../service/turma.service';
 
@@ -14,6 +16,7 @@ export class TurmaListComponent implements OnInit {
 
     constructor(
         private turmaService: TurmaService,
+        private messageService: PageNotificationService,
         private router: Router,
         private route: ActivatedRoute
     ) { }
@@ -33,6 +36,10 @@ export class TurmaListComponent implements OnInit {
         if (deveDeletar) {
             this.turmaService.delete(turma.id).subscribe(() => {
                 this.turmas = this.turmas.filter(t => t.id !== turma.id);
+            },
+            (error: HttpErrorResponse) => {
+                console.log(error)
+                this.messageService.addErrorMessage(error.error.userMessage);
             })
         }
     }
