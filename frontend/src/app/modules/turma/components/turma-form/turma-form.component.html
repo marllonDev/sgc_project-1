@@ -71,7 +71,7 @@
             <div class="grid mb-6 pl-2 pr-2 align-items-center">
                 <div class="col-2 mt-5">
                     <span class="ui-float-label">
-                        <p-dropdown [options]="competencias" placeholder="." optionLabel="nome" [showClear]="true"
+                        <p-dropdown [options]="competenciaColaboradorNivelMax" placeholder="." optionLabel="competencia.nome" [showClear]="true"
                             formControlName="competencia">
                         </p-dropdown>
                         <label for="float-input">Competencia</label>
@@ -80,7 +80,7 @@
                 <span class="pr-3"></span>
                 <div class="col-2 mt-5">
                     <span class="ui-float-label">
-                        <p-dropdown [options]="colaboradores" placeholder="." optionLabel="nome" [showClear]="true"
+                        <p-dropdown [options]="colaboradores" placeholder="." [showClear]="true"
                             formControlName="colaborador">
                         </p-dropdown>
                         <label for="float-input">Colaborador</label>

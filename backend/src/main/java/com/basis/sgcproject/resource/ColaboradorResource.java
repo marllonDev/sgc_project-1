@@ -59,9 +59,9 @@ public class ColaboradorResource {
         return ResponseEntity.ok(service.buscarColaboradorCompetenciaNivel());
     }
 
-//    @GetMapping("/competencias/nivel")
-//    public ResponseEntity<List<CompetenciaColaboradorNivelMaximoDto>> buscarCompetenciaColaboradorNivelMaximo() {
-//        return ResponseEntity.ok(service.buscarCompetenciaColaboradorNivelMaximo());
-//    }
+    @GetMapping("/competencias/nivel")
+    public ResponseEntity<List<CompetenciaColaboradorNivelMaximoDto>> buscarCompetenciaColaboradorNivelMaximo() {
+        return ResponseEntity.ok(service.buscarCompetenciaColaboradorNivelMaximo());
+    }
 
 }

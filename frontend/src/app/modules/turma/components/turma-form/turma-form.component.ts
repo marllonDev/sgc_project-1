@@ -1,20 +1,19 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PageNotificationService } from '@nuvem/primeng-components';
+import { SelectItem } from 'primeng/api';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ColaboradorModel } from 'src/app/modules/colaborador/model/colaborador.model';
-import { CompetenciaModel } from 'src/app/modules/competencia/model/competencia.models';
-import { Status } from '../../model/status.model';
+import { ColaboradorService } from 'src/app/modules/colaborador/service/colaborador.service';
+import { CompetenciaColaboradorNivelMaximo } from '../../models/competencia-colaborador-nivel-maximo.model';
+import { CompetenciaColaborador } from '../../models/competencia-colaborador.model';
+import { Status } from '../../models/status.model';
+import { TurmaDtoInput } from '../../models/turma-dto-input.model';
+import { Turma } from '../../models/turma.model';
 import { StatusService } from '../../service/status.service';
 import { TurmaService } from '../../service/turma.service';
-import { SelectItem } from 'primeng/api';
-import { Turma } from '../../model/turma.model';
-import { TurmaDtoInput } from '../../model/turma-dto-input.model';
-import { CompetenciaColaborador } from '../../model/competencia-colaborador.model';
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
-import { ColaboradorService } from 'src/app/modules/colaborador/service/colaborador.service';
-import { CompetenciaColaboradorNivelMaxino } from '../../model/competencia-colaborador-nivel-maximo.model';
-import { PageNotificationService } from '@nuvem/primeng-components';
 
 @Component({
     selector: 'app-turma-form',
@@ -28,23 +27,11 @@ export class TurmaFormComponent implements OnInit, OnDestroy {
 
     //status: SelectItem[];
     status: Status[];
-    compColabNivelMax: CompetenciaColaboradorNivelMaxino[];
+    competenciaColaboradorNivelMax: CompetenciaColaboradorNivelMaximo[];
     root: FormGroup;
     competenciaColaboradorForm: FormGroup;
     submittingForm: boolean = false;
-
-    competencias: CompetenciaModel[] = [
-        { id: 1, nome: 'Spring', categoria: null },
-        { id: 2, nome: 'Angular', categoria: null },
-        { id: 3, nome: 'Git', categoria: null },
-        { id: 4, nome: 'Postgres', categoria: null }
-    ];
-
-    colaboradores: ColaboradorModel[] = [
-        { id: 1, nome: 'Vinicius', sobrenome: 'M' },
-        { id: 2, nome: 'Fulano', sobrenome: 'Silva' },
-        { id: 3, nome: 'Ciclano', sobrenome: null }
-    ];
+    colaboradores: SelectItem[] = [];
 
     constructor(
         private turmaService: TurmaService,
@@ -57,9 +44,9 @@ export class TurmaFormComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.buscarStatus();
-        this.buscarCompColabNivelMax();
+        this.buscarCompetenciaColaboradoreNivelMax();
         this.criarForm();
-        this.criarFormCompetenciaColaborador();
+        this.criarCompetenciaColaboradorForm();
         this.route.paramMap
             .pipe(takeUntil(this.unsubscribeAll))
             .subscribe(
@@ -109,11 +96,27 @@ export class TurmaFormComponent implements OnInit, OnDestroy {
         });
     }
 
-    private criarFormCompetenciaColaborador() {
+    private criarCompetenciaColaboradorForm() {
         this.competenciaColaboradorForm = new FormGroup({
             competencia: new FormControl(null),
             colaborador: new FormControl(null)
         });
+        this.competenciaColaboradorForm.get('competencia')
+            .valueChanges
+            .pipe(takeUntil(this.unsubscribeAll))
+            .subscribe((valorSelecionado: CompetenciaColaboradorNivelMaximo) => {
+                if (valorSelecionado && valorSelecionado.colaboradores) {
+                    this.colaboradores = valorSelecionado.colaboradores.map(c => {
+                        const item: SelectItem = {
+                            label: `${c.nome} ${c.sobrenome}`,
+                            value: c
+                        }
+                        return item;
+                    });
+                } else {
+                    this.colaboradores = [];
+                }
+            });
     }
 
     submitForm() {
@@ -181,10 +184,10 @@ export class TurmaFormComponent implements OnInit, OnDestroy {
             this.status = s);
     }
 
-    buscarCompColabNivelMax() {
+    buscarCompetenciaColaboradoreNivelMax() {
         return this.colaboradorService.buscarColaboradorCompetenciaPorNivelMaximo()
             .subscribe(ccNivelMax =>
-                this.compColabNivelMax = ccNivelMax
+                this.competenciaColaboradorNivelMax = ccNivelMax
             );
     }
 
@@ -211,17 +214,26 @@ export class TurmaFormComponent implements OnInit, OnDestroy {
             this.messageService.addErrorMessage("Deve ser informado pelo menos uma competência e um colaborador.", "Falha ao inserir");
             return;
         }
-        const ccForm: CompetenciaColaborador = this.competenciaColaboradorForm.value;
-        let ccItens: CompetenciaColaborador[] = this.root.get('competenciasColaboradores').value;
+        const competenciaColaboradorForm: {
+            competencia: CompetenciaColaboradorNivelMaximo,
+            colaborador: ColaboradorModel
+        } = this.competenciaColaboradorForm.value;
 
-        if (ccItens.some(cc => cc.colaborador.id == ccForm.colaborador.id && cc.competencia.id == ccForm.competencia.id)) {
+        const competenciaColaborador: CompetenciaColaborador = {
+            competencia: competenciaColaboradorForm.competencia.competencia,
+            colaborador: competenciaColaboradorForm.colaborador
+        }
+
+        let competenciasColaboradoresItens: CompetenciaColaborador[] = this.root.get('competenciasColaboradores').value;
+
+        if (competenciasColaboradoresItens.some(cc => cc.colaborador.id == competenciaColaboradorForm.colaborador.id && cc.competencia.id == competenciaColaborador.competencia.id)) {
             this.messageService.addErrorMessage("Este colaborador já está cadastrado para esta competência.", "Falha ao inserir");
             return;
         }
 
-        ccItens = [...ccItens, ccForm];
+        competenciasColaboradoresItens = [...competenciasColaboradoresItens, competenciaColaborador];
 
-        this.root.get('competenciasColaboradores').setValue(ccItens);
+        this.root.get('competenciasColaboradores').setValue(competenciasColaboradoresItens);
         this.competenciaColaboradorForm.setValue({
             colaborador: null,
             competencia: null
