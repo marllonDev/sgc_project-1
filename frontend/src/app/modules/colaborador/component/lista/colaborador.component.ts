@@ -1,70 +1,71 @@
-import { ColaboradorService } from './../../service/colaborador.service';
-import { ColaboradorModel } from './../../model/colaborador.model';
-import { ColaboradorListModel } from './../../model/colaboradorList.model';
 
-import { MenuItem, MessageService } from 'primeng/api';
-import { OnInit, Component } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+    MessageService
+} from 'primeng/api';
+import {
+    OnInit,
+    Component
+} from '@angular/core';
+import {
+    Router,
+    ActivatedRoute
+} from '@angular/router';
+
+import {
+    ColaboradorService
+} from './../../service/colaborador.service';
+import {
+    ColaboradorListModel
+} from './../../model/colaboradorList.model';
 
 
-
-
+const baseUrl = '/api/colaboradores';
 
 @Component({
-  selector: 'app-colaborador',
-  templateUrl: 'colaborador.component.html',
-  styleUrls: ['colaborador.component.css']
+    selector: 'app-colaborador',
+    templateUrl: 'colaborador.component.html',
+    styleUrls: ['colaborador.component.css']
 })
-
 export class ColaboradorComponent implements OnInit {
 
-  items: MenuItem[];
-  colaboradores: ColaboradorListModel[];
-  colaborador: ColaboradorModel;
+    colaboradores: ColaboradorListModel[];
+    idColaborador: any;
 
-  constructor(private colaboradorService: ColaboradorService, 
-    private messageService: MessageService,  private router: Router) { }
+    constructor(private colaboradorService: ColaboradorService,
+        private messageService: MessageService, private router: Router, private route: ActivatedRoute) {}
 
-  ngOnInit(): void {
-    this.colaboradorService.getAll().subscribe(response => {
-      this.colaboradores = response;
+    ngOnInit(): void {
+        this.colaboradorService.getAll().subscribe(response => {
+            this.colaboradores = response;
+        });
+    }
 
-      this.items = [
-        {label: 'Update', icon: 'pi pi-refresh', command: () => {
-            this.update();
-        }},
-        {label: 'Delete', icon: 'pi pi-times', command: () => {
-            this.delete();
-        }},
-    ];  
-    
-    });    
-  }
+    adicionar() {
+        this.router.navigate(['colaboradores/cadastro']);
+    }
 
- adicionar(){
-    this.router.navigate(['colaboradores/cadastro']);
- }
+    editar(idColaborador) {
+        this.router.navigate(['colaboradores/cadastro', {
+            id: idColaborador
+        }]);
+    }
 
-  save(colaborador: ColaboradorModel) {
-    this.colaboradorService.save(this.colaborador).subscribe((response) => {
-      this.colaborador = response;
-    });
-  }
+    // update(id: number, colaborador: ColaboradorModel) {
+    //  this.colaboradorService.atualizar(id, colaborador).subscribe((response) => {
+    //  this.router.navigate([`${baseUrl}/${id}`]);
+    //  this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Dados Atualizados' });
+    //})
 
-  update() {
-    this.messageService.add({severity:'success', summary:'Success', detail:'Data Updated'});
-  }
-  
-  delete() {
-    this.messageService.add({severity:'success', summary:'Success', detail:'Data Deleted'});
-  }
-  
-  //save(severity: string) {
-  //this.messageService.add({severity: severity, summary:'Success', detail:'Data Saved'});
-  //}
-  
 
+
+    deletar(colaborador: ColaboradorListModel) {
+        this.colaboradorService.deletar(colaborador.id).subscribe((response) => {
+            this.colaboradores.splice(this.colaboradores.indexOf(colaborador), 1);
+            this.messageService.add({
+                severity: 'success',
+                summary: 'Sucesso',
+                detail: 'Dados Deletados'
+            });
+        });
+    }
 }
-
-
-

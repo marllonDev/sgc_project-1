@@ -1,5 +1,6 @@
 package com.basis.sgcproject.resource;
 
+import com.basis.sgcproject.domain.Competencia;
 import com.basis.sgcproject.service.CompetenciaService;
 import com.basis.sgcproject.service.dto.CompetenciaDTO;
 import lombok.AllArgsConstructor;
@@ -40,5 +41,10 @@ public class CompetenciaResource {
     @PutMapping("/{id}")
     public ResponseEntity<CompetenciaDTO> atualizar(@RequestBody CompetenciaDTO competenciaDTO){
         return ResponseEntity.ok(service.salvar(competenciaDTO));
+    }
+
+    @GetMapping("/categorias/{id}")
+    public ResponseEntity<List<CompetenciaDTO>> findAllByCategoriaId(@PathVariable Integer id){
+        return ResponseEntity.ok(service.findAllByCategoriaId(id));
     }
 }

@@ -5,8 +5,8 @@ import { PageNotificationService } from '@nuvem/primeng-components';
 import { SelectItem } from 'primeng/api';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ColaboradorModel } from 'src/app/modules/colaborador/model/colaborador.model';
 import { ColaboradorService } from 'src/app/modules/colaborador/service/colaborador.service';
+import { Colaborador } from '../../models/colaborador.model';
 import { CompetenciaColaboradorNivelMaximo } from '../../models/competencia-colaborador-nivel-maximo.model';
 import { CompetenciaColaborador } from '../../models/competencia-colaborador.model';
 import { Status } from '../../models/status.model';
@@ -25,7 +25,6 @@ export class TurmaFormComponent implements OnInit, OnDestroy {
     @ViewChild(FormGroupDirective) form: FormGroupDirective;
     unsubscribeAll = new Subject<void>();
 
-    //status: SelectItem[];
     status: Status[];
     competenciaColaboradorNivelMax: CompetenciaColaboradorNivelMaximo[];
     root: FormGroup;
@@ -216,7 +215,7 @@ export class TurmaFormComponent implements OnInit, OnDestroy {
         }
         const competenciaColaboradorForm: {
             competencia: CompetenciaColaboradorNivelMaximo,
-            colaborador: ColaboradorModel
+            colaborador: Colaborador
         } = this.competenciaColaboradorForm.value;
 
         const competenciaColaborador: CompetenciaColaborador = {
