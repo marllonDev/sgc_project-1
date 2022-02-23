@@ -1,24 +1,31 @@
-<p-button label="+ Adicionar" (onClick)="adicionar()"></p-button>
-<p-table [value]="colaboradores" responsiveLayout="scroll">
-    <ng-template pTemplate="header">
-        <tr>
-            <th>Nome</th>
-            <th>Sobrenome</th>
-            <th>Email</th>
-            <th>Senioridade</th>
-            <th>Ação</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-colaborador>
-        <tr>
-            <td>{{colaborador.nome}}</td>
-            <td>{{colaborador.sobrenome}}</td>
-            <td>{{colaborador.email}}</td>
-            <td>{{colaborador.senioridadeNome}}</td>
-            <td>
-                <p-button icon="ui-icon-pencil"(onClick)="editar(colaborador.id)" styleClass="ui-button-success"></p-button>
-                <p-button icon="ui-icon-trash" (onClick)="deletar(colaborador)" styleClass="ui-button-success"></p-button>
-            </td>
-        </tr>
-    </ng-template>
-</p-table>
+<p-card>
+    <div class="grid mb-3 mt-2 pl-2 pr-2 align-items-center">
+        <h2>Listagem de Colaboradores</h2>
+        <span class="col"></span>
+        <p-button label="+ Adicionar" (onClick)="adicionar()"></p-button>
+    </div>
+    <p-table [value]="colaboradores" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Nome</th>
+                <th>Data Nascimento</th>
+                <th>Email</th>
+                <th>Senioridade</th>
+                <th [ngStyle]="{'width': '110px'}">Ação</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-colaborador>
+            <tr>
+                <td class="text-center">{{colaborador.nome}} {{colaborador.sobrenome}}</td>
+                <td class="text-center"></td>
+                <td class="text-center">{{colaborador.email}}</td>
+                <td class="text-center">{{colaborador.senioridadeNome}}</td>
+                <td>
+                    <p-button icon="ui-icon-pencil" (onClick)="editar(colaborador.id)"></p-button>
+                    <span class="pr-2"></span>
+                    <p-button icon="ui-icon-trash" (onClick)="deletar(colaborador)"></p-button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-card>
