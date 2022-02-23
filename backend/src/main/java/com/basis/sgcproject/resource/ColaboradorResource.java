@@ -53,10 +53,8 @@ public class ColaboradorResource {
         return ResponseEntity.ok(service.findAllColaboradorPorCompetencia(idCompetencia));
     }
 
-    @GetMapping("/Nivel")
+    @GetMapping("/nivel")
     public ResponseEntity<List<ColaboradorCompetenciaListNivelDTO>> obterListaColaboradorPorCompetenciaNivel() {
         return ResponseEntity.ok(service.buscarColaboradorCompetenciaNivel());
     }
-
-
 }

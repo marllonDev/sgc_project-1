@@ -1,4 +1,4 @@
-<p-button label="Adicionar" (onClick)="adicionar()" ></p-button>
+<p-button label="+ Adicionar" (onClick)="adicionar()"></p-button>
 <p-table [value]="colaboradores" responsiveLayout="scroll">
     <ng-template pTemplate="header">
         <tr>
@@ -15,7 +15,10 @@
             <td>{{colaborador.sobrenome}}</td>
             <td>{{colaborador.email}}</td>
             <td>{{colaborador.senioridadeNome}}</td>
-            <td><p-splitButton label="Update" icon="pi pi-check" (onClick)="update()" [model]="items"></p-splitButton></td>
+            <td>
+                <p-button icon="ui-icon-pencil"(onClick)="editar(colaborador.id)" styleClass="ui-button-success"></p-button>
+                <p-button icon="ui-icon-trash" (onClick)="deletar(colaborador)" styleClass="ui-button-success"></p-button>
+            </td>
         </tr>
     </ng-template>
 </p-table>

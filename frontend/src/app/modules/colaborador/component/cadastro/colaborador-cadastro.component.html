@@ -14,13 +14,14 @@
             <label for="colaboradorCPF">CPF</label>
         </span>
         <span class="ui-float-label">
-            <p-inputMask [(ngModel)]="colaborador.email" mask="99-aa" id="colaboradorEmail" name="colaboradorEmail"
-                characterPattern="/\S+@\S+\.\S+/"></p-inputMask>
+            <input id="colaboradorEmail" name="colaboradorEmail" pInputText [(ngModel)]="colaborador.email">
             <label for="colaboradorEmail">Email</label>
         </span>
         <span class="ui-float-label">
+            <іmg src="data:image/jpeg;base64,{{imagebase64}}" />
             <input type="text" id="colaboradorFoto" name="colaboradorFoto" pInputText [(ngModel)]="colaborador.foto">
-            <p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple" accept="image/*" maxFileSize="1000000" [auto]="true">
+            <p-fileUpload name="myfile[]" accept="image/*" maxFileSize="5000000"
+                [auto]="true" (uploadHandler)="tratarFoto($event)">
             </p-fileUpload>
             <label for="colaboradorFoto">Foto</label>
         </span>
@@ -38,14 +39,25 @@
             </div>
         </span>
         <span class="ui-float-label">
-            <p-calendar [(ngModel)]="colaborador.dataNascimento" name="dataNascimento" dateFormat="dd.mm.yy">
+            <p-calendar [(ngModel)]="colaborador.dataNascimento" name="dataNascimento">
             </p-calendar>
             <label>Data de Nascimento</label>
         </span>
         <span class="ui-float-label">
-            <p-calendar [(ngModel)]="colaborador.dataAdmissao" name="dataAdmissao" dateFormat="dd.mm.yy"></p-calendar>
+            <p-calendar [(ngModel)]="colaborador.dataAdmissao" name="dataAdmissao"></p-calendar>
             <label>Data de Admissão</label>
         </span>
-        <p-button label="Adicionar" (onClick)="salvar()"></p-button>
+        <p-button label="Salvar" (onClick)="salvar('success')" styleClass="ui-button-success"></p-button>
     </form>
 </p-card>
+
+
+<!--
+<p-card>
+aqui vai ficar 
+<p-dropdown [options]="categorias" placeholder="Categoria"  optionLabel="nome" [showClear]="true"
+formControlName="competencia">
+</p-dropdown>
+<label for="float-input">Competencia</label>
+
+</p-card>-->

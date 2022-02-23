@@ -1,5 +1,5 @@
 export class ColaboradorListModel {
-    id: String;
+    id: number;
     nome: String;
     sobrenome: String;
     email: String;

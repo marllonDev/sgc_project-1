@@ -1,12 +1,10 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ColaboradorModel } from 'src/app/modules/colaborador/model/colaborador.model';
 import { CompetenciaModel } from 'src/app/modules/competencia/model/competencia.models';
 import { Status } from '../../model/status.model';
 import { StatusService } from '../../service/status.service';
 import { TurmaService } from '../../service/turma.service';
-import { SelectItem } from 'primeng/api';
 import { Turma } from '../../model/turma.model';
 import { TurmaDtoInput } from '../../model/turma-dto-input.model';
 import { CompetenciaColaborador } from '../../model/competencia-colaborador.model';
@@ -36,11 +34,11 @@ export class TurmaFormComponent implements OnInit, OnDestroy {
         { id: 4, nome: 'Postgres', categoria: null }
     ];
 
-    colaboradores: ColaboradorModel[] = [
-        { id: 1, nome: 'Vinicius', sobrenome: 'M' },
-        { id: 2, nome: 'Fulano', sobrenome: 'Silva' },
-        { id: 3, nome: 'Ciclano', sobrenome: null }
-    ];
+  //  colaboradores: ColaboradorModel[] = [
+    //      { id: 1, nome: 'Vinicius', sobrenome: 'M' },
+     //     { id: 2, nome: 'Fulano', sobrenome: 'Silva' },
+     //     { id: 3, nome: 'Ciclano', sobrenome: null }
+   //   ];
 
     constructor(
         private turmaService: TurmaService,
