@@ -2,6 +2,7 @@ package com.basis.sgcproject.repository;
 
 
 import com.basis.sgcproject.domain.Colaborador;
+import com.basis.sgcproject.domain.ColaboradorCompetencia;
 import com.basis.sgcproject.service.dto.ColaboradorCompetenciaListNivelDTO;
 import com.basis.sgcproject.service.dto.ColaboradorSenioridadeListDTO;
 import com.basis.sgcproject.service.dto.CompetenciaColaboradorNivelMaximoDto;
