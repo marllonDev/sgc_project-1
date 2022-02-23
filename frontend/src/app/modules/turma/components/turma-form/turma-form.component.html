@@ -16,7 +16,7 @@
                     <label for="float-input">Nome da turma</label>
                 </span>
                 <small *ngIf="deveMostrarMensagemDeErro(root.get('nome'))" class="p-invalid"
-                    style="color: red;">{{mensagemDeErro(root.get('nome'))}}</small>
+                    style="color: red;">{{mensagemDeValidacao(root.get('nome'))}}</small>
             </div>
 
             <div class="col-10">
@@ -25,7 +25,7 @@
                     <label for="float-input">Descrição</label>
                 </span>
                 <small *ngIf="deveMostrarMensagemDeErro(root.get('descricao'))" class="p-invalid"
-                    style="color: red;">{{mensagemDeErro(root.get('descricao'))}}</small>
+                    style="color: red;">{{mensagemDeValidacao(root.get('descricao'))}}</small>
             </div>
 
             <div class="col-2 mt-5">
@@ -34,7 +34,7 @@
                     <label for="float-input">Data Inicio</label>
                 </span>
                 <small *ngIf="deveMostrarMensagemDeErro(root.get('dataInicio'))" class="p-invalid"
-                    style="color: red;">{{mensagemDeErro(root.get('dataInicio'))}}</small>
+                    style="color: red;">{{mensagemDeValidacao(root.get('dataInicio'))}}</small>
             </div>
 
             <div class="col-2 mt-5">
@@ -43,7 +43,7 @@
                     <label for="float-input">Data Termino</label>
                 </span>
                 <small *ngIf="deveMostrarMensagemDeErro(root.get('dataTermino'))" class="p-invalid"
-                    style="color: red;">{{mensagemDeErro(root.get('dataTermino'))}}</small>
+                    style="color: red;">{{mensagemDeValidacao(root.get('dataTermino'))}}</small>
             </div>
 
             <div class="col-2 mt-5">
