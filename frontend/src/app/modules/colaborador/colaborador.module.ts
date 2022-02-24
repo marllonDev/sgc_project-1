@@ -1,3 +1,6 @@
+
+import { CompetenciaModule } from './../competencia/competencia.module';
+import { ColaboradorService } from './service/colaborador.service';
 import { ColaboradorHomeComponent } from './colaborador-home.component';
 import { ColaboradorCadastroComponent } from './component/cadastro/colaborador-cadastro.component';
 import { SharedModule } from './../../shared/shared.module';
@@ -17,6 +20,7 @@ import { ColaboradorComponent } from './component/lista/colaborador.component';
     SharedModule,
     CommonModule,
     ColaboradorRoutingModule
-  ]
+  ],
+  providers: [ColaboradorService]
 })
 export class ColaboradorModule { }

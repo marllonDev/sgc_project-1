@@ -17,12 +17,11 @@
             <input id="colaboradorEmail" name="colaboradorEmail" pInputText [(ngModel)]="colaborador.email">
             <label for="colaboradorEmail">Email</label>
         </span>
+        <img [src]="imagebase64"/>
         <span class="ui-float-label">
-            <іmg src="data:image/jpeg;base64,{{imagebase64}}" />
             <input type="text" id="colaboradorFoto" name="colaboradorFoto" pInputText [(ngModel)]="colaborador.foto">
             <p-fileUpload name="myfile[]" accept="image/*" maxFileSize="5000000"
-                [auto]="true" (uploadHandler)="tratarFoto($event)">
-            </p-fileUpload>
+                [auto]="true" customUpload = "true" (uploadHandler)="tratarFoto($event)"></p-fileUpload>
             <label for="colaboradorFoto">Foto</label>
         </span>
         <span class="ui-float-label">
@@ -51,6 +50,9 @@
     </form>
 </p-card>
 
+<p-card>
+<!--<p-dropdown [options]="categoria" [(ngModel)]="categorias" optionLabel="name"></p-dropdown>
+</p-card>
 
 <!--
 <p-card>

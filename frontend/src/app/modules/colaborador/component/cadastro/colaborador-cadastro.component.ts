@@ -1,3 +1,10 @@
+
+import {
+    CategoriaModel
+} from './../../../competencia/model/categoria.model';
+import {
+    CompetenciaModel
+} from './../../../competencia/model/competencia.models';
 import {
     ActivatedRoute
 } from '@angular/router';
@@ -16,6 +23,9 @@ import {
 import {
     ColaboradorModel
 } from '../../model/colaborador.model';
+import {
+    DomSanitizer
+} from '@angular/platform-browser';
 
 const baseUrl = '/api/colaboradores';
 
@@ -28,12 +38,20 @@ const baseUrl = '/api/colaboradores';
 
 export class ColaboradorCadastroComponent implements OnInit {
 
+    //categoria: CategoriaModel;
+    categorias: CategoriaModel[];
     colaborador: ColaboradorModel = new ColaboradorModel;
-    imagebase64: String;
+    imagebase64: string = '';
     idColaborador: any;
 
+    image: string = 'data:image/jpg;base64,'
+
     constructor(private colaboradorService: ColaboradorService,
-        private messageService: MessageService, private route: ActivatedRoute) {}
+        private messageService: MessageService, private route: ActivatedRoute, private _sanitizer: DomSanitizer) {
+         this.categorias = [
+           //{label:'Categoria', value: this.categoria}
+          ]
+        }
 
     ngOnInit() {
         this.idColaborador = this.route.snapshot.paramMap.get('id');
@@ -44,12 +62,26 @@ export class ColaboradorCadastroComponent implements OnInit {
                 this.colaborador.dataNascimento = new Date(response.dataNascimento);
             });
         }
+
+        
+
     }
 
-    validarEmail(email) {
-        var re = /\S+@\S+\.\S+/;
-        return re.test(email);
-    }
+    //domSanitizer() {
+     //   this._sanitizer.bypassSecurityTrustUrl(this.imagebase64);
+    //}
+
+    //validarEmail(email) {
+    //   var re = /\S+@\S+\.\S+/;
+    //  return re.test(email);
+    //}
+
+   // pegarCategorias() {
+   //     this.categoriaService.getAll().subscribe(response => {
+   //         this.categoria = response;
+   //     });
+   // }
+
 
 
     salvar(severity: string) {
@@ -60,19 +92,18 @@ export class ColaboradorCadastroComponent implements OnInit {
                 summary: 'Sucesso',
                 detail: 'Dados Salvos'
             });
-        });
+        })
     }
 
-    tratarFoto(arquivos: File[]) {
+    tratarFoto(arquivos: any) {
+        console.log(arquivos);
         let fileReader: FileReader = new FileReader();
-        fileReader.onload = (evento: ProgressEvent < FileReader > ) => this.converterFoto(evento);
-        fileReader.readAsText(arquivos[0]);
-        console.log(arquivos[0]);
-
+        fileReader.readAsDataURL(arquivos.files[0]);
+        fileReader.onload = (evento: any) => this.converterFoto(evento);
     }
 
-    converterFoto(evento: ProgressEvent < FileReader > ) {
-        this.imagebase64 = btoa(evento.target.result as string);
+    converterFoto(evento) {
+        console.log(evento)
+        this.imagebase64 = evento.srcElement.result;
     }
-
 }

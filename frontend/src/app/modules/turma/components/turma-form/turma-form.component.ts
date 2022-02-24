@@ -1,15 +1,48 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CompetenciaModel } from 'src/app/modules/competencia/model/competencia.models';
-import { Status } from '../../model/status.model';
-import { StatusService } from '../../service/status.service';
-import { TurmaService } from '../../service/turma.service';
-import { Turma } from '../../model/turma.model';
-import { TurmaDtoInput } from '../../model/turma-dto-input.model';
-import { CompetenciaColaborador } from '../../model/competencia-colaborador.model';
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { ColaboradorModel } from './../../../colaborador/model/colaborador.model';
+import {
+    Component,
+    OnDestroy,
+    OnInit,
+    ViewChild
+} from '@angular/core';
+import {
+    AbstractControl,
+    FormControl,
+    FormGroup,
+    FormGroupDirective,
+    Validators
+} from '@angular/forms';
+import {
+    ActivatedRoute,
+    Router
+} from '@angular/router';
+import {
+    CompetenciaModel
+} from 'src/app/modules/competencia/model/competencia.models';
+import {
+    Status
+} from '../../model/status.model';
+import {
+    StatusService
+} from '../../service/status.service';
+import {
+    TurmaService
+} from '../../service/turma.service';
+import {
+    Turma
+} from '../../model/turma.model';
+import {
+    TurmaDtoInput
+} from '../../model/turma-dto-input.model';
+import {
+    CompetenciaColaborador
+} from '../../model/competencia-colaborador.model';
+import {
+    takeUntil
+} from 'rxjs/operators';
+import {
+    Subject
+} from 'rxjs';
 
 @Component({
     selector: 'app-turma-form',
@@ -19,7 +52,7 @@ import { Subject } from 'rxjs';
 export class TurmaFormComponent implements OnInit, OnDestroy {
 
     @ViewChild(FormGroupDirective) form: FormGroupDirective;
-    unsubscribeAll = new Subject<void>();
+    unsubscribeAll = new Subject < void > ();
 
     //status: SelectItem[];
     status: Status[];
@@ -27,25 +60,40 @@ export class TurmaFormComponent implements OnInit, OnDestroy {
     competenciaColaboradorForm: FormGroup;
     submittingForm: boolean = false;
 
-    competencias: CompetenciaModel[] = [
-        { id: 1, nome: 'Spring', categoria: null },
-        { id: 2, nome: 'Angular', categoria: null },
-        { id: 3, nome: 'Git', categoria: null },
-        { id: 4, nome: 'Postgres', categoria: null }
+    competencias: CompetenciaModel[] = [{
+            id: 1,
+            nome: 'Spring',
+            categoria: null
+        },
+        {
+            id: 2,
+            nome: 'Angular',
+            categoria: null
+        },
+        {
+            id: 3,
+            nome: 'Git',
+            categoria: null
+        },
+        {
+            id: 4,
+            nome: 'Postgres',
+            categoria: null
+        }
     ];
 
-  //  colaboradores: ColaboradorModel[] = [
-    //      { id: 1, nome: 'Vinicius', sobrenome: 'M' },
-     //     { id: 2, nome: 'Fulano', sobrenome: 'Silva' },
-     //     { id: 3, nome: 'Ciclano', sobrenome: null }
-   //   ];
+     colaboradores: ColaboradorModel[] = [
+        //{ id: 1, nome: 'Vinicius', sobrenome: 'M' },
+      // { id: 2, nome: 'Fulano', sobrenome: 'Silva' },
+      // { id: 3, nome: 'Ciclano', sobrenome: null }
+    ];
 
     constructor(
         private turmaService: TurmaService,
         private statusService: StatusService,
         private router: Router,
         private route: ActivatedRoute,
-    ) { }
+    ) {}
 
     ngOnInit() {
         this.buscarStatus();
@@ -171,7 +219,9 @@ export class TurmaFormComponent implements OnInit, OnDestroy {
     }
 
     irParaTurmaList() {
-        this.router.navigate(['/turmas'], { relativeTo: this.route });
+        this.router.navigate(['/turmas'], {
+            relativeTo: this.route
+        });
     }
 
     deveMostrarMensagemDeErro(control: AbstractControl): boolean {
@@ -198,6 +248,7 @@ export class TurmaFormComponent implements OnInit, OnDestroy {
         if (ccItens.some(cc => cc.colaborador.id == ccForm.colaborador.id && cc.competencia.id == ccForm.competencia.id)) {
             console.log("Este colaborador já está cadastrado para esta competência")
             return;
+            3
         }
 
         ccItens = [...ccItens, ccForm];
