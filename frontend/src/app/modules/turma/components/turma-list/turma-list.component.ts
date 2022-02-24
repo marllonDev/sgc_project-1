@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageNotificationService } from '@nuvem/primeng-components';
-import { Turma } from '../../model/turma.model';
+import { Turma } from '../../models/turma.model';
 import { TurmaService } from '../../service/turma.service';
 
 @Component({

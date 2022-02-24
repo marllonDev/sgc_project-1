@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TurmaDtoInput } from '../model/turma-dto-input.model';
-import { Turma } from '../model/turma.model';
+import { TurmaDtoInput } from '../models/turma-dto-input.model';
+import { Turma } from '../models/turma.model';
 
 @Injectable({
   providedIn: 'root'
