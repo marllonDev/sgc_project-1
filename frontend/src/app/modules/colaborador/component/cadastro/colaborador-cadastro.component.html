@@ -1,3 +1,4 @@
+         
 <form action="">
     <p-card>
         <div class="grid mb-4 pl-2 pr-2 align-items-center">
@@ -73,9 +74,18 @@
 
         <p-button label="Salvar" (onClick)="salvar('success')" styleClass="ui-button-success"></p-button>
 
-    </p-card>
-</form>
 
+        <div class='img-wrapper'>
+        <img [src]="imagebase64" />
+        </div>
+        <span class="ui-float-label">
+            <input type="text" id="colaboradorFoto" name="colaboradorFoto" pInputText [(ngModel)]="colaborador.foto">
+            <p-fileUpload name="myfile[]" accept="image/*" maxFileSize="5000000" [auto]="true" customUpload="true"
+                (uploadHandler)="tratarFoto($event)"></p-fileUpload>
+            <label for="colaboradorFoto">Foto</label>
+        </span>
+     
+                  
 <!--
 <p-card>
 aqui vai ficar

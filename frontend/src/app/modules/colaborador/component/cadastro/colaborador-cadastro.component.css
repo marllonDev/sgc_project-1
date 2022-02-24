@@ -1,4 +1,10 @@
-.ui-float-label{
-    display: block;
-    margin-bottom: .5rem;
+.img-wrapper {
+    height: 12rem;
+    width: 12rem;
+    border-radius: 50%;
+    overflow: hidden
+}
+
+.img-wrapper>img {
+    height: 100%
 }
