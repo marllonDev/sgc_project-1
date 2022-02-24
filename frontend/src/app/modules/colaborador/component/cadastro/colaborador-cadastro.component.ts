@@ -102,8 +102,7 @@ export class ColaboradorCadastroComponent implements OnInit {
         fileReader.onload = (evento: any) => this.converterFoto(evento);
     }
 
-    converterFoto(evento) {
-        console.log(evento)
+    converterFoto(evento){
         this.imagebase64 = evento.srcElement.result;
     }
 }
