@@ -1,3 +1,4 @@
+import { Colaborador } from './../../../turma/models/colaborador.model';
 
 import {
     MessageService
@@ -29,6 +30,7 @@ const baseUrl = '/api/colaboradores';
 export class ColaboradorComponent implements OnInit {
 
     colaboradores: ColaboradorListModel[];
+    colaboradorDate: ColaboradorListModel = new ColaboradorListModel; 
     idColaborador: any;
 
     constructor(private colaboradorService: ColaboradorService,

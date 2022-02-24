@@ -4,7 +4,7 @@ export class ColaboradorModel {
     sobrenome: string;
     cpf: String;
     email: String;
-    foto: Blob;
+    foto: string;
     senioridadeID: String;
     dataNascimento: Date;
     dataAdmissao: Date;

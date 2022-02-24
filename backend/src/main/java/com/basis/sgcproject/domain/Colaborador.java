@@ -39,7 +39,7 @@ public class Colaborador implements Serializable {
     @Column(name = "foto")
     private byte[] foto;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_senioridade", referencedColumnName = "id" )
     private Senioridade senioridade;
 

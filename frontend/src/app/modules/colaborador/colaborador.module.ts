@@ -1,5 +1,3 @@
-
-import { CompetenciaModule } from './../competencia/competencia.module';
 import { ColaboradorService } from './service/colaborador.service';
 import { ColaboradorHomeComponent } from './colaborador-home.component';
 import { ColaboradorCadastroComponent } from './component/cadastro/colaborador-cadastro.component';
@@ -9,6 +7,7 @@ import { CommonModule } from '@angular/common';
 
 import { ColaboradorRoutingModule } from './colaborador-routing.module';
 import { ColaboradorComponent } from './component/lista/colaborador.component';
+import { CategoriaModel } from '../competencia/model/categoria.model';
 
 
 

@@ -1,4 +1,3 @@
-         
 <form action="">
     <p-card>
         <div class="grid mb-4 pl-2 pr-2 align-items-center">
@@ -51,7 +50,7 @@
                 <p-radioButton name="groupname" value="1" label="Estagiário" class="pr-2"
                     [(ngModel)]="colaborador.senioridadeID">
                 </p-radioButton>
-                <p-radioButton name="groupname" value="2" label="Junior" class="pr-2"
+                <p-radioButton name="groupname" value="2" label="Júnior" class="pr-2"
                     [(ngModel)]="colaborador.senioridadeID">
                 </p-radioButton>
                 <p-radioButton name="groupname" value="3" label="Pleno" class="pr-2"
@@ -61,37 +60,22 @@
                 </p-radioButton>
             </div>
         </div>
-
-        <div class="grid">
-            <div class="mt-5">
-                <іmg src="data:image/jpeg;base64,{{imagebase64}}" />
+        <div class="grid" >
+            <div class="col-2 mt-5" class='img-wrapper'>
+            <img [src]="imagebase64" />
+            </div>
+            <div class=" col-5 mt-5" >
                 <input type="text" id="colaboradorFoto" name="colaboradorFoto" pInputText [(ngModel)]="colaborador.foto">
                 <p-fileUpload name="myfile[]" accept="image/*" maxFileSize="5000000" [auto]="true"
-                    (uploadHandler)="tratarFoto($event)">
+                    (uploadHandler)="tratarFoto($event)" customUpload="true" chooseLabel="Escolher Foto">
                 </p-fileUpload>
             </div>
         </div>
-
         <p-button label="Salvar" (onClick)="salvar('success')" styleClass="ui-button-success"></p-button>
+        <p-card>
+            <p-dropdown [options]="categorias" (onChange)="buscarCompetencias($event)" [(ngModel)]="categoriaSelecionada" name="categoria"></p-dropdown>
+            <p-dropdown [options]="competencias" ></p-dropdown>
+            <button type="button" icon="ui-icon-plus" pButton
+            (click)="adicionarCompetencia()"></button>
+        </p-card>
 
-
-        <div class='img-wrapper'>
-        <img [src]="imagebase64" />
-        </div>
-        <span class="ui-float-label">
-            <input type="text" id="colaboradorFoto" name="colaboradorFoto" pInputText [(ngModel)]="colaborador.foto">
-            <p-fileUpload name="myfile[]" accept="image/*" maxFileSize="5000000" [auto]="true" customUpload="true"
-                (uploadHandler)="tratarFoto($event)"></p-fileUpload>
-            <label for="colaboradorFoto">Foto</label>
-        </span>
-     
-                  
-<!--
-<p-card>
-aqui vai ficar
-<p-dropdown [options]="categorias" placeholder="Categoria"  optionLabel="nome" [showClear]="true"
-formControlName="competencia">
-</p-dropdown>
-<label for="float-input">Competencia</label>
-
-</p-card>-->

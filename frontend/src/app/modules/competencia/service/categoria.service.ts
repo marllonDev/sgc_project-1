@@ -11,14 +11,14 @@ import {
     Injectable
 } from '@angular/core';
 
-const baseUrl = '/api/colaboradores';
+const baseUrl = '/api/categorias';
 
 @Injectable({
     providedIn: 'root'
 })
 export class CategoriaService {
 
-    constructor(private httpClient: HttpClient, private categoria: CategoriaModel) {}
+    constructor(private httpClient: HttpClient) {}
 
 
     ngOnInit(): void {}
@@ -27,7 +27,7 @@ export class CategoriaService {
         return this.httpClient.get < CategoriaModel > (`${baseUrl}/${id}`);
     }
 
-    //getAll(): Observable < any > {
-    //    return this.httpClient.get (baseUrl);
-   // }
+    getAll(): Observable < CategoriaModel[] > {
+       return this.httpClient.get < CategoriaModel[] >(baseUrl);
+    }
 }

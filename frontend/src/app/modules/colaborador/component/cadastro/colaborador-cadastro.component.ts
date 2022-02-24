@@ -1,16 +1,17 @@
-
+import {
+    CompetenciaService
+} from './../../../competencia/service/competencia.service';
+import {
+    CategoriaService
+} from '../../../competencia/service/categoria.service';
 import {
     CategoriaModel
-} from './../../../competencia/model/categoria.model';
-import {
-    CompetenciaModel
-} from './../../../competencia/model/competencia.models';
+} from '../../../competencia/model/categoria.model';
 import {
     ActivatedRoute
 } from '@angular/router';
 import {
     MessageService,
-    MenuItem
 } from 'primeng/api';
 import {
     Component,
@@ -24,8 +25,9 @@ import {
     ColaboradorModel
 } from '../../model/colaborador.model';
 import {
-    DomSanitizer
-} from '@angular/platform-browser';
+    SelectModel
+} from '../../model/select.model';
+
 
 const baseUrl = '/api/colaboradores';
 
@@ -38,20 +40,19 @@ const baseUrl = '/api/colaboradores';
 
 export class ColaboradorCadastroComponent implements OnInit {
 
-    //categoria: CategoriaModel;
-    categorias: CategoriaModel[];
     colaborador: ColaboradorModel = new ColaboradorModel;
     imagebase64: string = '';
     idColaborador: any;
+    imagem: any;
+    categorias: SelectModel[] = [];
+    competencias: SelectModel[] = [];
+    categoriaSelecionada: any;
+    competenciaSelecionada: any;
 
     image: string = 'data:image/jpg;base64,'
 
     constructor(private colaboradorService: ColaboradorService,
-        private messageService: MessageService, private route: ActivatedRoute, private _sanitizer: DomSanitizer) {
-         this.categorias = [
-           //{label:'Categoria', value: this.categoria}
-          ]
-        }
+        private messageService: MessageService, private route: ActivatedRoute, private categoriaService: CategoriaService, private competenciaService: CompetenciaService) {}
 
     ngOnInit() {
         this.idColaborador = this.route.snapshot.paramMap.get('id');
@@ -62,29 +63,40 @@ export class ColaboradorCadastroComponent implements OnInit {
                 this.colaborador.dataNascimento = new Date(response.dataNascimento);
             });
         }
-
-        
-
+        this.buscarCategorias();
     }
 
-    //domSanitizer() {
-     //   this._sanitizer.bypassSecurityTrustUrl(this.imagebase64);
-    //}
+    adicionarCompetencia(){
+        
+    }
 
-    //validarEmail(email) {
-    //   var re = /\S+@\S+\.\S+/;
-    //  return re.test(email);
-    //}
 
-   // pegarCategorias() {
-   //     this.categoriaService.getAll().subscribe(response => {
-   //         this.categoria = response;
-   //     });
-   // }
+    buscarCategorias() {
+        this.categoriaService.getAll().subscribe((response) => {
+            response.map((categoria) => {
+                let select = new SelectModel();
+                select.label = categoria.nome;
+                select.value = categoria.id;
+                this.categorias.push(select);
+            });
+        })
+    }
 
+    buscarCompetencias(event) {
+        this.competencias = [];
+        this.competenciaService.getAllCompetenciasByCategoriaId(event.value).subscribe((response) => {
+            response.map((competencia) => {
+                let select = new SelectModel();
+                select.label = competencia.nome;
+                select.value = competencia.id;
+                this.competencias.push(select);
+            });
+        })
+    }
 
 
     salvar(severity: string) {
+        this.colaborador.foto = this.imagem;
         this.colaboradorService.save(this.colaborador).subscribe((response) => {
             this.colaborador = response;
             this.messageService.add({
@@ -95,14 +107,16 @@ export class ColaboradorCadastroComponent implements OnInit {
         })
     }
 
+
     tratarFoto(arquivos: any) {
-        console.log(arquivos);
+        this.imagem = arquivos.files[0];
         let fileReader: FileReader = new FileReader();
         fileReader.readAsDataURL(arquivos.files[0]);
         fileReader.onload = (evento: any) => this.converterFoto(evento);
     }
 
-    converterFoto(evento){
+
+    converterFoto(evento) {
         this.imagebase64 = evento.srcElement.result;
     }
 }
