@@ -1,48 +1,18 @@
-import { ColaboradorModel } from './../../../colaborador/model/colaborador.model';
-import {
-    Component,
-    OnDestroy,
-    OnInit,
-    ViewChild
-} from '@angular/core';
-import {
-    AbstractControl,
-    FormControl,
-    FormGroup,
-    FormGroupDirective,
-    Validators
-} from '@angular/forms';
-import {
-    ActivatedRoute,
-    Router
-} from '@angular/router';
-import {
-    CompetenciaModel
-} from 'src/app/modules/competencia/model/competencia.models';
-import {
-    Status
-} from '../../model/status.model';
-import {
-    StatusService
-} from '../../service/status.service';
-import {
-    TurmaService
-} from '../../service/turma.service';
-import {
-    Turma
-} from '../../model/turma.model';
-import {
-    TurmaDtoInput
-} from '../../model/turma-dto-input.model';
-import {
-    CompetenciaColaborador
-} from '../../model/competencia-colaborador.model';
-import {
-    takeUntil
-} from 'rxjs/operators';
-import {
-    Subject
-} from 'rxjs';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CompetenciaModel } from 'src/app/modules/competencia/model/competencia.models';
+import { Status } from '../../model/status.model';
+import { StatusService } from '../../service/status.service';
+import { TurmaService } from '../../service/turma.service';
+import { Turma } from '../../model/turma.model';
+import { TurmaDtoInput } from '../../model/turma-dto-input.model';
+import { CompetenciaColaborador } from '../../model/competencia-colaborador.model';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { ColaboradorService } from 'src/app/modules/colaborador/service/colaborador.service';
+import { CompetenciaColaboradorNivelMaxino } from '../../model/competencia-colaborador-nivel-maximo.model';
+import { PageNotificationService } from '@nuvem/primeng-components';
 
 @Component({
     selector: 'app-turma-form',
@@ -56,6 +26,7 @@ export class TurmaFormComponent implements OnInit, OnDestroy {
 
     //status: SelectItem[];
     status: Status[];
+    compColabNivelMax: CompetenciaColaboradorNivelMaxino[];
     root: FormGroup;
     competenciaColaboradorForm: FormGroup;
     submittingForm: boolean = false;
@@ -82,21 +53,24 @@ export class TurmaFormComponent implements OnInit, OnDestroy {
         }
     ];
 
-     colaboradores: ColaboradorModel[] = [
-        //{ id: 1, nome: 'Vinicius', sobrenome: 'M' },
-      // { id: 2, nome: 'Fulano', sobrenome: 'Silva' },
-      // { id: 3, nome: 'Ciclano', sobrenome: null }
-    ];
+  //  colaboradores: ColaboradorModel[] = [
+    //      { id: 1, nome: 'Vinicius', sobrenome: 'M' },
+     //     { id: 2, nome: 'Fulano', sobrenome: 'Silva' },
+     //     { id: 3, nome: 'Ciclano', sobrenome: null }
+   //   ];
 
     constructor(
         private turmaService: TurmaService,
         private statusService: StatusService,
+        private colaboradorService: ColaboradorService,
+        private messageService: PageNotificationService,
         private router: Router,
         private route: ActivatedRoute,
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.buscarStatus();
+        this.buscarCompColabNivelMax();
         this.criarForm();
         this.criarFormCompetenciaColaborador();
         this.route.paramMap
@@ -185,6 +159,7 @@ export class TurmaFormComponent implements OnInit, OnDestroy {
             this.submittingForm = false;
             this.irParaTurmaList();
         });
+        this.messageService.addCreateMsg("Turma criada com sucesso!");
     }
 
     atualizarTurma() {
@@ -208,6 +183,7 @@ export class TurmaFormComponent implements OnInit, OnDestroy {
             this.submittingForm = false;
             this.irParaTurmaList();
         });
+        this.messageService.addUpdateMsg("Turma atualizada com sucesso!");
     }
 
     buscarStatus() {
@@ -216,6 +192,13 @@ export class TurmaFormComponent implements OnInit, OnDestroy {
         //});
         return this.statusService.listarStatus().subscribe(s =>
             this.status = s);
+    }
+
+    buscarCompColabNivelMax() {
+        return this.colaboradorService.buscarColaboradorCompetenciaPorNivelMaximo()
+            .subscribe(ccNivelMax =>
+                this.compColabNivelMax = ccNivelMax
+            );
     }
 
     irParaTurmaList() {
@@ -228,7 +211,7 @@ export class TurmaFormComponent implements OnInit, OnDestroy {
         return control.errors && control.touched || control.dirty;
     }
 
-    mensagemDeErro(control: AbstractControl) {
+    mensagemDeValidacao(control: AbstractControl) {
         if (control.hasError('required')) {
             return 'Campo obrigatório.';
         }
@@ -240,15 +223,15 @@ export class TurmaFormComponent implements OnInit, OnDestroy {
 
     adicionarCompetenciaColaborador() {
         if (this.competenciaColaboradorForm.get('colaborador').value == null || this.competenciaColaboradorForm.get('competencia').value == null) {
-            return console.log('deu ruim');
+            this.messageService.addErrorMessage("Deve ser informado pelo menos uma competência e um colaborador.", "Falha ao inserir");
+            return;
         }
         const ccForm: CompetenciaColaborador = this.competenciaColaboradorForm.value;
         let ccItens: CompetenciaColaborador[] = this.root.get('competenciasColaboradores').value;
 
         if (ccItens.some(cc => cc.colaborador.id == ccForm.colaborador.id && cc.competencia.id == ccForm.competencia.id)) {
-            console.log("Este colaborador já está cadastrado para esta competência")
+            this.messageService.addErrorMessage("Este colaborador já está cadastrado para esta competência.", "Falha ao inserir");
             return;
-            3
         }
 
         ccItens = [...ccItens, ccForm];

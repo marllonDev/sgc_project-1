@@ -1,3 +1,4 @@
+
 import {
     ColaboradorListModel
 } from './../model/colaboradorList.model';
@@ -16,6 +17,13 @@ import {
 import {
     ColaboradorModel
 } from '../model/colaborador.model';
+=======
+import { Observable } from 'rxjs/internal/Observable';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ColaboradorModel } from '../model/colaborador.model';
+import { CompetenciaColaboradorNivelMaxino } from '../../turma/model/competencia-colaborador-nivel-maximo.model';
+
 
 
 const baseUrl = '/api/colaboradores';
@@ -25,6 +33,14 @@ const baseUrl = '/api/colaboradores';
 })
 
 export class ColaboradorService {
+
+=======
+
+  constructor(private http: HttpClient) { }
+  getAll(): Observable<any> {
+    return this.http.get(baseUrl);
+  }
+
 
     constructor(private httpClient: HttpClient) {}
 
@@ -50,4 +66,9 @@ export class ColaboradorService {
     deletar(id: any): Observable < ColaboradorListModel > {
         return this.httpClient.delete < ColaboradorListModel > (`${baseUrl}/${id}`);
     }
+=======
+  buscarColaboradorCompetenciaPorNivelMaximo(): Observable<CompetenciaColaboradorNivelMaxino[]> {
+      return this.http.get<CompetenciaColaboradorNivelMaxino[]>(`${baseUrl}/nivel`);
+  }
+
 }
