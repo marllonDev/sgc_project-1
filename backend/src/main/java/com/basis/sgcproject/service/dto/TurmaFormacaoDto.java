@@ -15,17 +15,10 @@ import java.util.Set;
 @Setter
 public class TurmaFormacaoDto {
     private Integer id;
-    @NotBlank(message = "Nome é obrigatório")
     private String nome;
-    @NotBlank(message = "Descrição é obrigatória")
     private String descricao;
-    @NotNull
     private LocalDateTime dataInicio;
-    @NotNull
     private LocalDateTime dataTermino;
-    @NotNull
-    private Integer statusId;
-    @Valid
-    @NotEmpty(message = "Obrigatório informar ao menos uma compentência")
-    private Set<CompetenciaColaboradorDtoId> competenciasColaboradores = new HashSet<>();
+    private StatusDTO status;
+    private Set<CompetenciaColaboradorDto> competenciasColaboradores = new HashSet<>();
 }

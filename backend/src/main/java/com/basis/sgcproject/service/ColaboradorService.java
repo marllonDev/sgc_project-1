@@ -3,16 +3,16 @@ package com.basis.sgcproject.service;
 
 import com.basis.sgcproject.domain.Colaborador;
 import com.basis.sgcproject.exception.RegraNegocioException;
+import com.basis.sgcproject.repository.ColaboradorCompetenciaRepository;
 import com.basis.sgcproject.repository.ColaboradorRepository;
-import com.basis.sgcproject.service.dto.ColaboradorCompetenciaListNivelDTO;
-import com.basis.sgcproject.service.dto.ColaboradorDTO;
+import com.basis.sgcproject.service.dto.*;
 import com.basis.sgcproject.service.mapper.ColaboradorMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -23,13 +23,16 @@ public class ColaboradorService {
 
     private final ColaboradorMapper colaboradorMapper;
 
+    private final ColaboradorCompetenciaService colaboradorCompetenciaService;
 
-    public List<ColaboradorDTO> obterTodos(){
+    private final ColaboradorCompetenciaRepository colaboradorCompetenciaRepository;
 
-        return colaboradorMapper.toDto(colaboradorRepository.findAll());
+
+    public List<ColaboradorSenioridadeListDTO> obterTodos() {
+        return colaboradorRepository.buscarColaboradorPorSenioridade();
     }
 
-    public ColaboradorDTO salvar(ColaboradorDTO colaboradorDTO){
+    public ColaboradorDTO salvar(ColaboradorDTO colaboradorDTO) {
         if (colaboradorDTO != null && colaboradorDTO.getId() != null) {
             Optional<Colaborador> colaboradorEncontrado = colaboradorRepository.findById(colaboradorDTO.getId());
             if (!colaboradorEncontrado.isPresent()) {
@@ -46,17 +49,46 @@ public class ColaboradorService {
     }
 
     public void deletar(Integer id) {
-        if(!colaboradorRepository.existsById(id)){
+        if (!colaboradorRepository.existsById(id)) {
             throw new RuntimeException("Esse ID não existe!");
         }
+        removerCompetenciasColaborador(id);
         colaboradorRepository.deleteById(id);
+//        }else if (colaboradorCompetenciaRepository.findAllByColaboradorId(id) != null){
+//        removerCompetenciasColaborador(id);
+//        }
     }
 
-    public List<ColaboradorDTO> findAllColaboradorPorCompetencia(Integer idCompetencia){
+    public void removerCompetenciasColaborador(Integer idColaborador){
+        colaboradorCompetenciaService.removerCompetenciasColaborador(idColaborador);
+    }
+
+    public List<ColaboradorDTO> findAllColaboradorPorCompetencia(Integer idCompetencia) {
         return colaboradorMapper.toDto(colaboradorRepository.buscarColaboradorPorCompetencia(idCompetencia));
     }
 
-    public List<ColaboradorCompetenciaListNivelDTO> buscarColaboradorCompetenciaNivel(){
+    public List<ColaboradorCompetenciaListNivelDTO> buscarColaboradorCompetenciaNivel() {
         return colaboradorRepository.buscarColaboradorCompetenciaNivel();
+    }
+
+    public List<CompetenciaColaboradorNivelMaximoDto> buscarCompetenciaColaboradorNivelMaximo() {
+        List<ColaboradorCompetenciaListNivelDTO> resultQuery = colaboradorRepository.buscarColaboradorCompetenciaNivel();
+        Map<Integer, CompetenciaColaboradorNivelMaximoDto> map = new HashMap<>();
+
+        for (ColaboradorCompetenciaListNivelDTO colaboradorCompetenciaResultQuery : resultQuery) {
+            CompetenciaColaboradorNivelMaximoDto competenciaKey = map.computeIfAbsent(colaboradorCompetenciaResultQuery.getIdCompetencia(), (k) -> {
+                CompetenciaColaboradorNivelMaximoDto competencia = new CompetenciaColaboradorNivelMaximoDto();
+                competencia.setCompetencia(new CompetenciaResumoDto());
+                competencia.getCompetencia().setId(colaboradorCompetenciaResultQuery.getIdCompetencia());
+                competencia.getCompetencia().setNome(colaboradorCompetenciaResultQuery.getNomeCompetencia());
+                return competencia;
+            });
+            ColaboradorResumoDto colaborador = new ColaboradorResumoDto();
+            colaborador.setId(colaboradorCompetenciaResultQuery.getIdColaborador());
+            colaborador.setNome(colaboradorCompetenciaResultQuery.getNomeDoColaborador());
+            colaborador.setSobrenome(colaboradorCompetenciaResultQuery.getSobreNomeColaborador());
+            competenciaKey.getColaboradores().add(colaborador);
+        }
+        return new ArrayList<>(map.values());
     }
 }

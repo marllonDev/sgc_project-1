@@ -1,4 +1,4 @@
-package com.basis.sgcproject.service.dto;
+package com.basis.sgcproject.service.dto.input;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode
 @Getter
 @Setter
-public class CompetenciaColaboradorDtoId {
+public class CompetenciaColaboradorDtoIdInput {
     @NotNull
     private Integer competenciaId;
     @NotNull

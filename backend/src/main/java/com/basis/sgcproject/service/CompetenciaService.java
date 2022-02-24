@@ -45,5 +45,9 @@ public class CompetenciaService {
 
     }
 
+    public List<CompetenciaDTO> findAllByCategoriaId(Integer categoriaId){
+        return competenciaMapper.toDto(competenciaRepository.findAllByCategoriaId(categoriaId));
+    }
+
 
 }

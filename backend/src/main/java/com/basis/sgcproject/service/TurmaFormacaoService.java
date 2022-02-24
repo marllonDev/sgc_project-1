@@ -7,6 +7,7 @@ import com.basis.sgcproject.repository.ColaboradorRepository;
 import com.basis.sgcproject.repository.CompetenciaRepository;
 import com.basis.sgcproject.repository.TurmaFormacaoRepository;
 import com.basis.sgcproject.service.dto.TurmaFormacaoDto;
+import com.basis.sgcproject.service.dto.input.TurmaFormacaoDtoInput;
 import com.basis.sgcproject.service.mapper.TurmaFormacaoMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -25,18 +26,20 @@ public class TurmaFormacaoService {
     ColaboradorRepository colaboradorRepository;
     CompetenciaRepository competenciaRepository;
 
+    @Transactional
     public List<TurmaFormacaoDto> listarTodas() {
         return turmaFormacaoMapper.toDto(turmaFormacaoRepository.findAll());
     }
 
+    @Transactional
     public TurmaFormacaoDto buscarPeloId(Integer turmaFormacaoId) {
         return turmaFormacaoMapper.toDto(turmaFormacaoRepository.findById(turmaFormacaoId)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException(String.format("Não existe uma turma com codigo %d", turmaFormacaoId))));
     }
 
     @Transactional
-    public TurmaFormacaoDto salvar(TurmaFormacaoDto turmaFormacaoDto) {
-        TurmaFormacao turma = turmaFormacaoMapper.toEntity(turmaFormacaoDto);
+    public TurmaFormacaoDto salvar(TurmaFormacaoDtoInput turmaFormacaoDtoInput) {
+        TurmaFormacao turma = turmaFormacaoMapper.toEntity(turmaFormacaoDtoInput);
         Integer statusId = turma.getStatus().getId();
         Status status = statusService.buscarPeloId(statusId);
         turma.setStatus(status);
@@ -51,8 +54,8 @@ public class TurmaFormacaoService {
     }
 
     @Transactional
-    public TurmaFormacaoDto atualizar(Integer turmaFormacaoId, TurmaFormacaoDto turmaFormacaoDto) {
-        TurmaFormacao turma = turmaFormacaoMapper.toEntity(turmaFormacaoDto);
+    public TurmaFormacaoDto atualizar(Integer turmaFormacaoId, TurmaFormacaoDtoInput turmaFormacaoDtoInput) {
+        TurmaFormacao turma = turmaFormacaoMapper.toEntity(turmaFormacaoDtoInput);
         turma.setId(turmaFormacaoId);
         turma.getCompetenciasColaboradores().forEach(item -> {
             Competencia competencia = competenciaRepository.getById(item.getId().getIdCompetencia());
@@ -68,6 +71,10 @@ public class TurmaFormacaoService {
 
     @Transactional
     public void excluir(Integer turmaFormacaoId) {
+        TurmaFormacao turma = turmaFormacaoRepository.getById(turmaFormacaoId);
+        if (turma.getStatus().getDescricao().equals("Iniciada")) {
+            throw new RegraNegocioException("Esta turma não pode ser excluida pois está em andamento.");
+        }
         turmaFormacaoRepository.deleteById(turmaFormacaoId);
     }
 }

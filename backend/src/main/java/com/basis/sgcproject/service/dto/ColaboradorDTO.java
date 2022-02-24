@@ -49,7 +49,5 @@ public class ColaboradorDTO implements Serializable {
     @Past(message = "A data não pode ser maior que a data atual.")
     private LocalDateTime dataNascimento;
 
-    @NotEmpty
-    @Past(message = "A data não pode ser maior que a data atual.")
     private LocalDateTime dataAdmissao;
 }

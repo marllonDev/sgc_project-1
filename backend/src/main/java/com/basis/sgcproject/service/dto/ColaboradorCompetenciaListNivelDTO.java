@@ -13,14 +13,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ColaboradorCompetenciaListNivelDTO implements Serializable {
-
     private Integer idColaborador;
-
     private String nomeDoColaborador;
-
+    private String sobreNomeColaborador;
     private Integer idCompetencia;
-
     private String nomeCompetencia;
-
     private Nivel nivel;
 }
