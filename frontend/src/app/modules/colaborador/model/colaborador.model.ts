@@ -1,3 +1,6 @@
+import { ColaboradorCompetenciaNivel } from './colaboradorCompetenciaNivel.model';
+import { CompetenciaModel } from 'src/app/modules/competencia/model/competencia.models';
+
 export class ColaboradorModel {
     id: number | String;
     nome: string;
@@ -8,4 +11,5 @@ export class ColaboradorModel {
     senioridadeID: String;
     dataNascimento: Date;
     dataAdmissao: Date;
+    colaboradorCompetencias: ColaboradorCompetenciaNivel[];
 }

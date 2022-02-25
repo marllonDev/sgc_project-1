@@ -1,3 +1,10 @@
+import { ColaboradorCompetenciaNivel } from './../../model/colaboradorCompetenciaNivel.model';
+import {
+    CompetenciaModel
+} from 'src/app/modules/competencia/model/competencia.models';
+import {
+    CategoriaCompetenciaListModel
+} from './../../model/categoriaCompetenciaList.model';
 import {
     CompetenciaService
 } from './../../../competencia/service/competencia.service';
@@ -29,6 +36,7 @@ import {
 } from '../../model/select.model';
 
 
+
 const baseUrl = '/api/colaboradores';
 
 @Component({
@@ -46,8 +54,11 @@ export class ColaboradorCadastroComponent implements OnInit {
     imagem: any;
     categorias: SelectModel[] = [];
     competencias: SelectModel[] = [];
-    categoriaSelecionada: any;
-    competenciaSelecionada: any;
+    categoriaSelecionada: CategoriaModel;
+    competenciaSelecionada: CompetenciaModel;
+    categoriaCompetencia: CategoriaCompetenciaListModel[] = [];
+    categoriaCompetencias: CategoriaCompetenciaListModel[] = [];
+
 
     image: string = 'data:image/jpg;base64,'
 
@@ -61,13 +72,17 @@ export class ColaboradorCadastroComponent implements OnInit {
                 this.colaborador = response;
                 this.colaborador.dataAdmissao = new Date(response.dataAdmissao);
                 this.colaborador.dataNascimento = new Date(response.dataNascimento);
+                this.categoriaCompetencia = this.colaborador.colaboradorCompetencias;
             });
         }
         this.buscarCategorias();
     }
 
-    adicionarCompetencia(){
-        
+    adicionarCompetencia() {
+        let categoriaC = new CategoriaCompetenciaListModel();
+        categoriaC.competencia = this.competenciaSelecionada;
+        categoriaC.competencia.categoria = this.categoriaSelecionada;
+        this.categoriaCompetencia.push(categoriaC);
     }
 
 
@@ -76,7 +91,7 @@ export class ColaboradorCadastroComponent implements OnInit {
             response.map((categoria) => {
                 let select = new SelectModel();
                 select.label = categoria.nome;
-                select.value = categoria.id;
+                select.value = categoria;
                 this.categorias.push(select);
             });
         })
@@ -84,11 +99,11 @@ export class ColaboradorCadastroComponent implements OnInit {
 
     buscarCompetencias(event) {
         this.competencias = [];
-        this.competenciaService.getAllCompetenciasByCategoriaId(event.value).subscribe((response) => {
+        this.competenciaService.getAllCompetenciasByCategoriaId(event.value.id).subscribe((response) => {
             response.map((competencia) => {
                 let select = new SelectModel();
                 select.label = competencia.nome;
-                select.value = competencia.id;
+                select.value = competencia;
                 this.competencias.push(select);
             });
         })
@@ -96,6 +111,12 @@ export class ColaboradorCadastroComponent implements OnInit {
 
 
     salvar(severity: string) {
+        this.colaborador.colaboradorCompetencias = this.categoriaCompetencia.map((categoriaCompetencia)=>{
+            let ccN =  new ColaboradorCompetenciaNivel();
+            ccN.competencia = categoriaCompetencia.competencia;
+            ccN.nivel = "CONHECE";
+            return ccN;
+        });
         this.colaborador.foto = this.imagem;
         this.colaboradorService.save(this.colaborador).subscribe((response) => {
             this.colaborador = response;
@@ -113,10 +134,25 @@ export class ColaboradorCadastroComponent implements OnInit {
         let fileReader: FileReader = new FileReader();
         fileReader.readAsDataURL(arquivos.files[0]);
         fileReader.onload = (evento: any) => this.converterFoto(evento);
+        console.log(arquivos.files[0]);
     }
 
 
     converterFoto(evento) {
         this.imagebase64 = evento.srcElement.result;
+        console.log(btoa(this.imagebase64));
+    }
+
+
+    deletar(categoriaCompetencia: CategoriaCompetenciaListModel) {
+        this.categoriaCompetencia = [];
+        this.categoriaService.deletar(categoriaCompetencia.competencia.categoria.id).subscribe((response) => {
+            this.categoriaCompetencias.splice(this.categoriaCompetencias.indexOf(categoriaCompetencia), 1);
+            this.messageService.add({
+                severity: 'success',
+                summary: 'Sucesso',
+                detail: 'Dados Deletados'
+            });
+        });
     }
 }

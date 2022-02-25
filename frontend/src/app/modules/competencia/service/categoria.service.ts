@@ -1,3 +1,4 @@
+import { CategoriaCompetenciaListModel } from './../../colaborador/model/categoriaCompetenciaList.model';
 import {
     Observable
 } from 'rxjs';
@@ -29,5 +30,9 @@ export class CategoriaService {
 
     getAll(): Observable < CategoriaModel[] > {
        return this.httpClient.get < CategoriaModel[] >(baseUrl);
+    }
+
+    deletar(id: any): Observable<CategoriaCompetenciaListModel> {
+        return this.httpClient.delete<CategoriaCompetenciaListModel>(`${baseUrl}/${id}`);
     }
 }

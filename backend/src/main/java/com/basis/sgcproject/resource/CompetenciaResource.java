@@ -33,7 +33,7 @@ public class CompetenciaResource {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletar(@PathVariable Integer id){
+    public ResponseEntity<?> deletar(@PathVariable("id") Integer id){
         service.deletar(id);
         return ResponseEntity.noContent().build();
     }

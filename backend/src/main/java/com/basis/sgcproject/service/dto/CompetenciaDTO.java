@@ -13,12 +13,12 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CompetenciaDTO {
+public class CompetenciaDTO implements Serializable {
 
     private Integer id;
     private String nome;
     private String descricao;
-    private Integer idCategoria;
+    private CategoriaDTO categoria;
 
 
 }

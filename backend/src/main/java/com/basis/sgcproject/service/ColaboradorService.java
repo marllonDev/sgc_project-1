@@ -25,7 +25,6 @@ public class ColaboradorService {
 
     private final ColaboradorCompetenciaService colaboradorCompetenciaService;
 
-    private final ColaboradorCompetenciaRepository colaboradorCompetenciaRepository;
 
 
     public List<ColaboradorSenioridadeListDTO> obterTodos() {
@@ -54,9 +53,6 @@ public class ColaboradorService {
         }
         removerCompetenciasColaborador(id);
         colaboradorRepository.deleteById(id);
-//        }else if (colaboradorCompetenciaRepository.findAllByColaboradorId(id) != null){
-//        removerCompetenciasColaborador(id);
-//        }
     }
 
     public void removerCompetenciasColaborador(Integer idColaborador){
@@ -68,19 +64,19 @@ public class ColaboradorService {
     }
 
     public List<ColaboradorCompetenciaListNivelDTO> buscarColaboradorCompetenciaNivel() {
-        return colaboradorRepository.buscarColaboradorCompetenciaNivel();
+        return colaboradorCompetenciaService.buscarColaboradorCompetenciaMaiorNivel();
     }
 
     public List<CompetenciaColaboradorNivelMaximoDto> buscarCompetenciaColaboradorNivelMaximo() {
-        List<ColaboradorCompetenciaListNivelDTO> resultQuery = colaboradorRepository.buscarColaboradorCompetenciaNivel();
+        List<ColaboradorCompetenciaListNivelDTO> resultQuery = colaboradorCompetenciaService.buscarColaboradorCompetenciaMaiorNivel();
         Map<Integer, CompetenciaColaboradorNivelMaximoDto> map = new HashMap<>();
 
         for (ColaboradorCompetenciaListNivelDTO colaboradorCompetenciaResultQuery : resultQuery) {
-            CompetenciaColaboradorNivelMaximoDto competenciaKey = map.computeIfAbsent(colaboradorCompetenciaResultQuery.getIdCompetencia(), (k) -> {
+            CompetenciaColaboradorNivelMaximoDto competenciaKey = map.computeIfAbsent(colaboradorCompetenciaResultQuery.getCompetencia().getId(), (k) -> {
                 CompetenciaColaboradorNivelMaximoDto competencia = new CompetenciaColaboradorNivelMaximoDto();
                 competencia.setCompetencia(new CompetenciaResumoDto());
-                competencia.getCompetencia().setId(colaboradorCompetenciaResultQuery.getIdCompetencia());
-                competencia.getCompetencia().setNome(colaboradorCompetenciaResultQuery.getNomeCompetencia());
+                competencia.getCompetencia().setId(colaboradorCompetenciaResultQuery.getCompetencia().getId());
+                competencia.getCompetencia().setNome(colaboradorCompetenciaResultQuery.getCompetencia().getNome());
                 return competencia;
             });
             ColaboradorResumoDto colaborador = new ColaboradorResumoDto();

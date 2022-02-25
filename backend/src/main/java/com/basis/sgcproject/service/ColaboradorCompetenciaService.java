@@ -42,6 +42,9 @@ public class ColaboradorCompetenciaService {
             return;
         }
         lista.forEach(colaboradorCompetenciaRepository::delete);
+    }
 
+    public List<ColaboradorCompetenciaListNivelDTO> buscarColaboradorCompetenciaMaiorNivel(){
+       return colaboradorCompetenciaMapper.toDto(colaboradorCompetenciaRepository.buscarColaboradorCompetenciaNivel());
     }
 }

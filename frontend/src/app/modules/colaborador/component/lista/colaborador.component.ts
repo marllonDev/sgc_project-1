@@ -52,13 +52,6 @@ export class ColaboradorComponent implements OnInit {
         }]);
     }
 
-    // update(id: number, colaborador: ColaboradorModel) {
-    //  this.colaboradorService.atualizar(id, colaborador).subscribe((response) => {
-    //  this.router.navigate([`${baseUrl}/${id}`]);
-    //  this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Dados Atualizados' });
-    //})
-
-
 
     deletar(colaborador: ColaboradorListModel) {
         this.colaboradorService.deletar(colaborador.id).subscribe((response) => {
