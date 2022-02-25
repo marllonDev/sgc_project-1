@@ -121,8 +121,8 @@ export class TurmaFormComponent implements OnInit, OnDestroy {
             descricao: new FormControl(null, [Validators.required, Validators.minLength(10)]),
             dataInicio: new FormControl(null, [Validators.required]),
             dataTermino: new FormControl(null, [Validators.required]),
-            status: new FormControl(null),
-            competenciasColaboradores: new FormControl(null)
+            status: new FormControl(null, [Validators.required]),
+            competenciasColaboradores: new FormControl(null, [Validators.required])
         });
     }
 
