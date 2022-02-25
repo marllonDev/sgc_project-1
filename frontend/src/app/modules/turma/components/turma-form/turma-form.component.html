@@ -53,6 +53,8 @@
                     </p-dropdown>
                     <label for="float-input">Status</label>
                 </span>
+                <small *ngIf="deveMostrarMensagemDeErro(root.get('status'))" class="p-invalid"
+                    style="color: red;">{{mensagemDeValidacao(root.get('status'))}}</small>
             </div>
         </div>
         <div class="grid mt-3 pl-2 pr-2">
@@ -65,11 +67,11 @@
 <form [formGroup]="competenciaColaboradorForm">
     <div class="grid pl-2 pr-2">
         <p-card class="mt-3">
-            <div class="grid mb-6 pl-2 pr-2 align-items-center">
+            <div class="grid mb-3 pl-3 pr-2 align-items-center">
                 <h2>Adicionar Competencias e Colaboradores</h2>
             </div>
             <div class="grid mb-6 pl-2 pr-2 align-items-center">
-                <div class="col-2 mt-5">
+                <div class="col-2 mt-3">
                     <span class="ui-float-label">
                         <p-dropdown [options]="competenciaColaboradorNivelMax" placeholder="." optionLabel="competencia.nome" [showClear]="true"
                             formControlName="competencia">
@@ -78,7 +80,7 @@
                     </span>
                 </div>
                 <span class="pr-3"></span>
-                <div class="col-2 mt-5">
+                <div class="col-2 mt-3">
                     <span class="ui-float-label">
                         <p-dropdown [options]="colaboradores" placeholder="." [showClear]="true"
                             formControlName="colaborador">

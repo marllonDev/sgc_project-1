@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TurmaFormacaoRepository extends JpaRepository<TurmaFormacao, Integer> {
+    TurmaFormacao findByStatusId(Integer statusId);
 }
