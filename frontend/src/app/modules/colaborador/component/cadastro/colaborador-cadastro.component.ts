@@ -125,7 +125,7 @@ export class ColaboradorCadastroComponent implements OnInit {
                 summary: 'Sucesso',
                 detail: 'Dados Salvos'
             });
-        })
+        });
     }
 
 
@@ -145,14 +145,21 @@ export class ColaboradorCadastroComponent implements OnInit {
 
 
     deletar(categoriaCompetencia: CategoriaCompetenciaListModel) {
-        this.categoriaCompetencia = [];
-        this.categoriaService.deletar(categoriaCompetencia.competencia.categoria.id).subscribe((response) => {
-            this.categoriaCompetencias.splice(this.categoriaCompetencias.indexOf(categoriaCompetencia), 1);
-            this.messageService.add({
-                severity: 'success',
-                summary: 'Sucesso',
-                detail: 'Dados Deletados'
-            });
-        });
+        this.categoriaCompetencias.splice(this.categoriaCompetencias.indexOf(categoriaCompetencia), 1);
+        console.log(this.categoriaCompetencias);
     }
+
+   // deletar(categoriaCompetencia: CategoriaCompetenciaListModel) {
+     //   this.categoriaService.deletar(categoriaCompetencia.competencia.categoria.id).//subscribe((response) => {
+     //      this.categoriaCompetencias.splice(this.categoriaCompetencias.indexOf//(categoriaCompetencia), 1);
+     //       this.messageService.add({
+     //           severity: 'success',
+     //           summary: 'Sucesso',
+     //           detail: 'Dados Deletados'
+     //       });
+    //    });
 }
+
+
+    
+

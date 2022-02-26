@@ -35,4 +35,5 @@ export class CategoriaService {
     deletar(id: any): Observable<CategoriaCompetenciaListModel> {
         return this.httpClient.delete<CategoriaCompetenciaListModel>(`${baseUrl}/${id}`);
     }
+
 }
