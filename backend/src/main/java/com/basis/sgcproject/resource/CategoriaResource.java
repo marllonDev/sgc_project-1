@@ -37,9 +37,7 @@ public class CategoriaResource {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletar(@PathVariable Integer id){
-
         categoriaService.delete(id);
-
         return ResponseEntity.noContent().build();
     }
 

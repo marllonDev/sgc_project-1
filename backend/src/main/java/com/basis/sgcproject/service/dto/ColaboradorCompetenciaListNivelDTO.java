@@ -16,7 +16,6 @@ public class ColaboradorCompetenciaListNivelDTO implements Serializable {
     private Integer idColaborador;
     private String nomeDoColaborador;
     private String sobreNomeColaborador;
-    private Integer idCompetencia;
-    private String nomeCompetencia;
+    private CompetenciaDTO competencia;
     private Nivel nivel;
 }

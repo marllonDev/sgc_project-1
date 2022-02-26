@@ -40,7 +40,7 @@ public class ColaboradorResource {
 
     @DeleteMapping("/{id}")
     public void deletar(@PathVariable("id")Integer id){
-            service.deletar(id);
+        service.deletar(id);
     }
 
 

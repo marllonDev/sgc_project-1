@@ -15,5 +15,7 @@ public interface ColaboradorCompetenciaRepository extends JpaRepository<Colabora
     @Query(value = "select cc from ColaboradorCompetencia cc join cc.colaborador c where c.id = :idColaborador")
     List buscarPorId(@Param("idColaborador") Integer colaboradorId);
 
-    void deleteAllByColaboradorId(Integer colaboradorid);
+    @Query(value = "select cc from ColaboradorCompetencia cc where cc.nivel=2")
+    List<ColaboradorCompetencia> buscarColaboradorCompetenciaNivel();
+
 }

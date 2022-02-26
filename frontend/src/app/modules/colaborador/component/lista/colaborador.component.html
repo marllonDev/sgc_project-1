@@ -8,7 +8,6 @@
         <ng-template pTemplate="header">
             <tr>
                 <th>Nome</th>
-                <th>Data Nascimento</th>
                 <th>Email</th>
                 <th>Senioridade</th>
                 <th [ngStyle]="{'width': '110px'}">Ação</th>
@@ -17,7 +16,6 @@
         <ng-template pTemplate="body" let-colaborador>
             <tr>
                 <td class="text-center">{{colaborador.nome}} {{colaborador.sobrenome}}</td>
-                <td class="text-center"></td>
                 <td class="text-center">{{colaborador.email}}</td>
                 <td class="text-center">{{colaborador.senioridadeNome}}</td>
                 <td>

@@ -13,6 +13,7 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -44,6 +45,8 @@ public class ColaboradorDTO implements Serializable {
 
     @NotEmpty
     private Integer senioridadeID;
+
+    private List<ColaboradorCompetenciaListNivelDTO> colaboradorCompetencias;
 
     @NotEmpty
     @Past(message = "A data não pode ser maior que a data atual.")
