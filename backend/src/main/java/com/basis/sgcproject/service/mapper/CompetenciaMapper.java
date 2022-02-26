@@ -12,11 +12,9 @@ import org.mapstruct.Mapping;
 public interface CompetenciaMapper extends EntityMapper<CompetenciaDTO, Competencia> {
 
     @Override
-    @Mapping(source = "categoria.id", target = "idCategoria")
     CompetenciaDTO toDto(Competencia competencia);
 
     @Override
-    @Mapping(target = "categoria.id", source = "idCategoria")
     Competencia toEntity(CompetenciaDTO competenciaDTO);
 
 }

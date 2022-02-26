@@ -13,14 +13,9 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ColaboradorCompetenciaListNivelDTO implements Serializable {
-
     private Integer idColaborador;
-
     private String nomeDoColaborador;
-
-    private Integer idCompetencia;
-
-    private String nomeCompetencia;
-
+    private String sobreNomeColaborador;
+    private CompetenciaDTO competencia;
     private Nivel nivel;
 }

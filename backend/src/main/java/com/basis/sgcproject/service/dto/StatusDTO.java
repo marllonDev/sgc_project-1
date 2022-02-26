@@ -7,7 +7,6 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
-
 public class StatusDTO {
     @NotNull
     private Integer id;

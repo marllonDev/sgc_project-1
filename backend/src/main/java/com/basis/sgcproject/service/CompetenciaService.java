@@ -40,9 +40,12 @@ public class CompetenciaService {
 
 
     public void deletar(Integer id){
-
         competenciaRepository.deleteById(id);
 
+    }
+
+    public List<CompetenciaDTO> findAllByCategoriaId(Integer categoriaId){
+        return competenciaMapper.toDto(competenciaRepository.findAllByCategoriaId(categoriaId));
     }
 
 

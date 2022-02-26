@@ -11,11 +11,13 @@ import com.basis.sgcproject.service.mapper.ColaboradorCompetenciaMapper;
 import com.basis.sgcproject.service.mapper.CompetenciaMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class ColaboradorCompetenciaService {
 
     private final ColaboradorCompetenciaRepository colaboradorCompetenciaRepository;
@@ -31,5 +33,18 @@ public class ColaboradorCompetenciaService {
     public ColaboradorCompetenciaListNivelDTO salvar(ColaboradorCompetenciaNivelDTO dto){
         ColaboradorCompetencia colaboradorCompetencia = colaboradorCompetenciaMapper.toEntity(dto);
         return colaboradorCompetenciaMapper.toDto(colaboradorCompetenciaRepository.save(colaboradorCompetencia));
+    }
+
+    public void removerCompetenciasColaborador(Integer colaboradorId){
+        colaboradorCompetenciaRepository.flush();
+        List<ColaboradorCompetencia> lista = colaboradorCompetenciaRepository.buscarPorId(colaboradorId);
+        if (lista.isEmpty()){
+            return;
+        }
+        lista.forEach(colaboradorCompetenciaRepository::delete);
+    }
+
+    public List<ColaboradorCompetenciaListNivelDTO> buscarColaboradorCompetenciaMaiorNivel(){
+       return colaboradorCompetenciaMapper.toDto(colaboradorCompetenciaRepository.buscarColaboradorCompetenciaNivel());
     }
 }

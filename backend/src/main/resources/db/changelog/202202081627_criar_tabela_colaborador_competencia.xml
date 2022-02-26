@@ -9,11 +9,11 @@
         <createTable tableName="colaborador_competencia">
             <column name="id_colaborador" type="int">
                 <constraints primaryKey="true" primaryKeyName="pk_colaborador_competencia" nullable="false"
-                             foreignKeyName="fk_id_colaborador" references="colaborador(id)"/>
+                             foreignKeyName="fk_cc_id_colaborador" references="colaborador(id)"/>
             </column>
             <column name="id_competencia" type="int">
                 <constraints primaryKey="true" primaryKeyName="pk_colaborador_competencia" nullable="false"
-                             foreignKeyName="fk_id_competencia" references="competencia(id)"/>
+                             foreignKeyName="fk_cc_id_competencia" references="competencia(id)"/>
             </column>
             <column name="nivel" type="int">
                 <constraints nullable="false"/>
