@@ -8,7 +8,6 @@ import com.basis.sgcproject.repository.TurmaFormacaoRepository;
 import com.basis.sgcproject.service.TurmaFormacaoService;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.hibernate.exception.ConstraintViolationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

@@ -39,7 +39,7 @@
 
             <div class="col-2 mt-5">
                 <span class="ui-float-label">
-                    <p-calendar dateFormat="dd/mm/yy" formControlName="dataTermino"></p-calendar>
+                    <p-calendar dateFormat="dd/mm/yy" [minDate]="root.get('dataInicio').value" [defaultDate]="root.get('dataInicio').value" formControlName="dataTermino"></p-calendar>
                     <label for="float-input">Data Termino</label>
                 </span>
                 <small *ngIf="deveMostrarMensagemDeErro(root.get('dataTermino'))" class="p-invalid"

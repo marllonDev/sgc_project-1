@@ -23,43 +23,12 @@ import { TurmaService } from '../../service/turma.service';
 export class TurmaFormComponent implements OnInit, OnDestroy {
 
     @ViewChild(FormGroupDirective) form: FormGroupDirective;
-    unsubscribeAll = new Subject < void > ();
-
+    unsubscribeAll = new Subject<void>();
     status: Status[];
     competenciaColaboradorNivelMax: CompetenciaColaboradorNivelMaximo[];
     root: FormGroup;
     competenciaColaboradorForm: FormGroup;
     submittingForm: boolean = false;
-
-
-    competencias: CompetenciaModel[] = [{
-            id: 1,
-            nome: 'Spring',
-            categoria: null
-        },
-        {
-            id: 2,
-            nome: 'Angular',
-            categoria: null
-        },
-        {
-            id: 3,
-            nome: 'Git',
-            categoria: null
-        },
-        {
-            id: 4,
-            nome: 'Postgres',
-            categoria: null
-        }
-    ];
-
-  //  colaboradores: ColaboradorModel[] = [
-    //      { id: 1, nome: 'Vinicius', sobrenome: 'M' },
-     //     { id: 2, nome: 'Fulano', sobrenome: 'Silva' },
-     //     { id: 3, nome: 'Ciclano', sobrenome: null }
-   //   ];
-
     colaboradores: SelectItem[] = [];
 
 
@@ -69,7 +38,7 @@ export class TurmaFormComponent implements OnInit, OnDestroy {
         private colaboradorService: ColaboradorService,
         private messageService: PageNotificationService,
         private router: Router,
-        private route: ActivatedRoute,
+        private route: ActivatedRoute
     ) { }
 
     ngOnInit() {
