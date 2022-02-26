@@ -17,4 +17,8 @@ export class CompetenciaService {
     getAll(): Observable<CompetenciaModel[]> {
         return this.http.get<CompetenciaModel[]>(this.apiUrl);
     }
+
+    getAllCompetenciasByCategoriaId(id: number): Observable<CompetenciaModel[]> {
+        return this.http.get<CompetenciaModel[]>(`${this.apiUrl}/categorias/${id}`);
+    }
 }

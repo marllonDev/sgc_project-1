@@ -1,3 +1,4 @@
+import { Colaborador } from './../../../turma/models/colaborador.model';
 
 import {
     MessageService
@@ -29,6 +30,7 @@ const baseUrl = '/api/colaboradores';
 export class ColaboradorComponent implements OnInit {
 
     colaboradores: ColaboradorListModel[];
+    colaboradorDate: ColaboradorListModel = new ColaboradorListModel; 
     idColaborador: any;
 
     constructor(private colaboradorService: ColaboradorService,
@@ -49,13 +51,6 @@ export class ColaboradorComponent implements OnInit {
             id: idColaborador
         }]);
     }
-
-    // update(id: number, colaborador: ColaboradorModel) {
-    //  this.colaboradorService.atualizar(id, colaborador).subscribe((response) => {
-    //  this.router.navigate([`${baseUrl}/${id}`]);
-    //  this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Dados Atualizados' });
-    //})
-
 
 
     deletar(colaborador: ColaboradorListModel) {

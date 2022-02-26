@@ -40,7 +40,6 @@ public class CompetenciaService {
 
 
     public void deletar(Integer id){
-
         competenciaRepository.deleteById(id);
 
     }
