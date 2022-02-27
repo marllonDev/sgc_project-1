@@ -1,49 +1,54 @@
-<h1>Competência</h1>
+<p-card>
+    <style type="text/css">
+        button.ui-button {
+            margin-right: .5rem;
+        }
+    </style>
 
-<p-table [value]="competencias" dataKey="id">
-    <ng-template pTemplate="header">
-        <tr>
-        
-            <th>Nome</th>
-            <th>Descrição</th>
-            <th>Categoria</th>
-            <th>Ação</th>
-            
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-competencia>
-        <tr>
+    <div class="grid mb-3 mt-2 pl-2 pr-2 align-items-center">
+        <h2>LISTAGEM DE COMPETÊNCIAS</h2>
+        <span class="col"></span>
+        <button pButton type="button" icon="ui-icon-plus" class="ui-button-success" iconPos="left" label="Nova Turma"
+            (click)="showBasicDialog2()" ></button>
+    </div>
+    <p-table [value]="competencias" dataKey="id" paginator="true" rows="5">
+        <ng-template pTemplate="header">
+            <tr>
 
-            <td  style="text-align:center">{{competencia.nome}}</td>
-            <td  style="text-align:center">{{competencia.descricao}}</td>
-            <td  style="text-align:center">{{competencia.nomeCategoria}}</td>
+                <th>NOME</th>
+                <th>DESCRIÇÃO</th>
+                <th>CATEGORIAS</th>
+                <th>AÇÃO</th>
 
-            <td  style="text-align:center">
-                <button pButton type="button" label="Editar" (click)="onEdit(competencia.id)" icon="pi pi-reply"></button>
-                <button pButton type="button" label="Apagar" (click)="confirm(competencia.id)"></button>
-            </td>
-            
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="summary">
-        <div style="text-align:center">
-            <button type="button" (click)="showBasicDialog2()" pButton icon="pi pi-plus" label="Adicionar"></button>
-        </div>
-    </ng-template>  
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-competencia>
+            <tr>
 
-</p-table>
+                <td style="text-align:center">{{competencia.nome}}</td>
+                <td style="text-align:center">{{competencia.descricao}}</td>
+                <td style="text-align:center">{{competencia.nomeCategoria}}</td>
+
+                <td style="text-align:center">
+                    <button pButton type="button" (click)="onEdit(competencia.id)" icon="pi pi-pencil"
+                        styleClass="rounded-button ui-button-help"></button>
+                    <button pButton type="button" (click)="confirm(competencia.id)" icon="pi pi-trash"
+                        class="ui-button-danger" styleClass="rounded-button ui-button-danger"></button>
+                </td>
+
+            </tr>
+        </ng-template>
+
+    </p-table>
+</p-card>
+
+<p-dialog header="Competencia" [(visible)]="displayBasic2" styleClass="mydialog" (onHide)="escondeu()"
+    [style]="{height: '30vw', width: '40vw'}" [draggable]="false">
 
 
-<p-dialog header="Competencia" [(visible)]="displayBasic2" styleClass="mydialog" (onHide)="escondeu()" [style]="{height: '50vw'}">
-
-
-    <app-competencias-form *ngIf="displayBasic2" [competencia]="currentItem" (respForm)="reciverFeedback($event)"></app-competencias-form>
+    <app-competencias-form *ngIf="displayBasic2" [competencia]="currentItem" (respForm)="reciverFeedback($event)">
+    </app-competencias-form>
 
 </p-dialog>
 
-<p-confirmDialog header="Excluir Competência" icon="pi pi-exclamation-triangle" ></p-confirmDialog>
-
-
-<p-messages [value]="msgs"></p-messages>
-
-
+<p-confirmDialog header="Excluir Competência" icon="pi pi-exclamation-triangle"></p-confirmDialog>

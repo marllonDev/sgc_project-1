@@ -7,6 +7,8 @@ import {ConfirmationService} from 'primeng/api';
 
 import { Competencia } from '../model/competencia';
 import { CompetenciasService } from '../services/competencias.service';
+import { BlockUIService } from 'ng-block-ui';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-competencias',
@@ -22,19 +24,22 @@ export class CompetenciasComponent implements OnInit {
   categorias: Categoria[]
 
   competencia: Competencia;
-  
+
   display: boolean = false;
-  
+
   displayBasic2: boolean;
+  yearTimeout: any
 
   currentItem: Competencia | undefined;
-  
-  constructor(private competenciasService: CompetenciasService, 
+
+  constructor(private competenciasService: CompetenciasService,
     private router: Router,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService) {
+    private confirmationService: ConfirmationService,
+    private blockUI: BlockUIService,
+    ) {
 
-  
+
   }
 
   ngOnInit(): void {
@@ -42,29 +47,28 @@ export class CompetenciasComponent implements OnInit {
     this.listarCompetencia()
 
     this.listarCategoria()
-    
+
   }
 
 
   listarCompetencia(){
+    this.blockUI.start("Carregando Competencias");
+    this.competenciasService.listar().pipe(finalize(() => this.blockUI.stop("Carregadas")))
+    .subscribe((res) => {
+        if(res){
+            this.competencias = res;
+            this.messageService.add({severity: 'success', summary: 'Sucesso', detail: 'Compentencias Listadas'})
+        }
+    }, () => this.messageService.add({severity: 'error', summary: 'Erro', detail: 'Erro ao listar competências'})
 
-    this.competenciasService.listar()
-    .subscribe(
-      (competencia) => {
-        this.competencias = competencia
-      
-
-      }    
-    ); 
-
-  }
+    )
+}
 
   listarCategoria(){
 
     this.competenciasService.listarCategoria()
     .subscribe(
       (categoria) => {
-        console.log(categoria)
         this.categorias = categoria
       }
     )
@@ -72,7 +76,7 @@ export class CompetenciasComponent implements OnInit {
   }
 
   showBasicDialog2() {
-    
+
     this.display = true;
     this.displayBasic2 = true;
   }
@@ -85,19 +89,19 @@ export class CompetenciasComponent implements OnInit {
 
   onEdit(id){
 
-    
+
     this.competenciasService.listaId(id)
     .subscribe(
       (comp) => {
 
         this.currentItem = comp;
-        
+
       }
     )
 
     this.showEditDialog();
-  
-  } 
+
+  }
 
   escondeu(){
     this.displayBasic2 = false;
@@ -115,7 +119,7 @@ export class CompetenciasComponent implements OnInit {
         console.error("error", error);
       }
     }
-  
+
     )
 
   }
@@ -138,7 +142,7 @@ export class CompetenciasComponent implements OnInit {
   confirm(id) {
 
     this.confirmationService.confirm({
-        
+
         message: 'Tem certeza que deseja excluir esta competência?',
         accept: () => {
 
@@ -148,14 +152,15 @@ export class CompetenciasComponent implements OnInit {
             //this.listarCompetencia();
         }
 
-        
+
     });
-
-
-    
 }
 
-  
-  
+
+
+
 
 }
+
+
+
