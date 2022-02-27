@@ -17,4 +17,6 @@ public interface CompetenciaRepository extends JpaRepository<Competencia, Intege
             "from Competencia c join c.categoria ca")
     public List<ListCompetenciaDTO> mostrar();
 
+    List<Competencia>findAllByCategoriaId(Integer categoriaId);
+
 }
