@@ -14,5 +14,5 @@
     <include file="db/changelog/202202081617_criar_tabela_turma_competencia_colaborador.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/202202081627_criar_tabela_colaborador_competencia.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/202202091430_inserts_categoria.xml" relativeToChangelogFile="false"/>
-
+    <include file="db/changelog/202202271649_alter_colum_type.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

@@ -46,11 +46,12 @@ public class ColaboradorDTO implements Serializable {
     @NotEmpty
     private Integer senioridadeID;
 
-    private List<ColaboradorCompetenciaListNivelDTO> colaboradorCompetencias;
-
     @NotEmpty
     @Past(message = "A data não pode ser maior que a data atual.")
     private LocalDateTime dataNascimento;
 
     private LocalDateTime dataAdmissao;
+
+    private List<ColaboradorCompetenciaListNivelDTO> colaboradorCompetencias;
+
 }
