@@ -14,7 +14,7 @@ import {
 
 import {
     ColaboradorService
-} from './../../service/colaborador.service';
+} from '../../service/colaborador.service';
 import {
     ColaboradorListModel
 } from './../../model/colaboradorList.model';

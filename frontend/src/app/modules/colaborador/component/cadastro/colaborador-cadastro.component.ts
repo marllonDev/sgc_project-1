@@ -1,4 +1,7 @@
-import { ColaboradorCompetenciaNivel } from './../../model/colaboradorCompetenciaNivel.model';
+import { Nivel } from './../../model/nivel.model';
+import {
+    ColaboradorCompetenciaNivel
+} from './../../model/colaboradorCompetenciaNivel.model';
 import {
     CompetenciaModel
 } from 'src/app/modules/competencia/model/competencia.models';
@@ -27,13 +30,17 @@ import {
 
 import {
     ColaboradorService
-} from './../../service/colaborador.service';
+} from '../../service/colaborador.service';
 import {
     ColaboradorModel
 } from '../../model/colaborador.model';
 import {
     SelectModel
 } from '../../model/select.model';
+import {
+    NivelService
+} from '../../service/nivel.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 
 
@@ -49,21 +56,28 @@ const baseUrl = '/api/colaboradores';
 export class ColaboradorCadastroComponent implements OnInit {
 
     colaborador: ColaboradorModel = new ColaboradorModel;
-    imagebase64: string = '';
+    imagebase64: string = null;
     idColaborador: any;
-    imagem: any;
+    imagem: File;
     categorias: SelectModel[] = [];
     competencias: SelectModel[] = [];
     categoriaSelecionada: CategoriaModel;
     competenciaSelecionada: CompetenciaModel;
+    nivelSelecionado: Nivel;
+    nivel: Nivel[] = [
+        {nome: 'CONHECE'},
+        {nome: 'SABE_APLICAR'},
+        {nome: 'SABE_ENSINAR'}
+    ]
     categoriaCompetencia: CategoriaCompetenciaListModel[] = [];
     categoriaCompetencias: CategoriaCompetenciaListModel[] = [];
+    
 
-
-    image: string = 'data:image/jpg;base64,'
+    formato: string = '';
+    base64image: string = 'data:*;base64,'
 
     constructor(private colaboradorService: ColaboradorService,
-        private messageService: MessageService, private route: ActivatedRoute, private categoriaService: CategoriaService, private competenciaService: CompetenciaService) {}
+        private messageService: MessageService, private route: ActivatedRoute, private categoriaService: CategoriaService, private competenciaService: CompetenciaService, private nivelService: NivelService, private domSanitizer: DomSanitizer) {}
 
     ngOnInit() {
         this.idColaborador = this.route.snapshot.paramMap.get('id');
@@ -76,12 +90,16 @@ export class ColaboradorCadastroComponent implements OnInit {
             });
         }
         this.buscarCategorias();
+        //this.buscarNivel();
     }
 
+    
     adicionarCompetencia() {
         let categoriaC = new CategoriaCompetenciaListModel();
         categoriaC.competencia = this.competenciaSelecionada;
         categoriaC.competencia.categoria = this.categoriaSelecionada;
+        categoriaC.nivel = this.nivelSelecionado;
+        console.log(categoriaC);
         this.categoriaCompetencia.push(categoriaC);
     }
 
@@ -109,15 +127,20 @@ export class ColaboradorCadastroComponent implements OnInit {
         })
     }
 
+    //buscarNivel() {
+      // Object.keys(Nivel);
+       //console.log(Object.keys(Nivel));
+    //}
+
 
     salvar(severity: string) {
-        this.colaborador.colaboradorCompetencias = this.categoriaCompetencia.map((categoriaCompetencia)=>{
-            let ccN =  new ColaboradorCompetenciaNivel();
+        this.colaborador.colaboradorCompetencias = this.categoriaCompetencia.map((categoriaCompetencia) => {
+            let ccN = new ColaboradorCompetenciaNivel();
             ccN.competencia = categoriaCompetencia.competencia;
-            ccN.nivel = "CONHECE";
+            ccN.nivel = this.nivelSelecionado;
             return ccN;
         });
-        this.colaborador.foto = this.imagem;
+        this.colaborador.foto = this.imagebase64;
         this.colaboradorService.save(this.colaborador).subscribe((response) => {
             this.colaborador = response;
             this.messageService.add({
@@ -132,34 +155,38 @@ export class ColaboradorCadastroComponent implements OnInit {
     tratarFoto(arquivos: any) {
         this.imagem = arquivos.files[0];
         let fileReader: FileReader = new FileReader();
-        fileReader.readAsDataURL(arquivos.files[0]);
-        fileReader.onload = (evento: any) => this.converterFoto(evento);
-        console.log(arquivos.files[0]);
+        fileReader.readAsBinaryString(this.imagem);
+        fileReader.onload = (evento: any) => this.converterParaBase64(evento.srcElement.result);
+        this.formato = this.imagem.type;
+        console.log(this.imagem.type);
     }
 
 
-    converterFoto(evento) {
-        this.imagebase64 = evento.srcElement.result;
-        console.log(btoa(this.imagebase64));
+    converterParaBase64(bytes: string){
+        this.imagebase64 = this.base64image.replace("*", this.formato) + btoa(bytes);
+    }
+
+    tratarUrlImagem(imageEmBase64): SafeResourceUrl {
+        return this.domSanitizer.bypassSecurityTrustResourceUrl(imageEmBase64);
+    }
+
+    imagemForm(){
+        return this.tratarUrlImagem(this.imagebase64 ? this.imagebase64 : this.colaborador.foto);
     }
 
 
     deletar(categoriaCompetencia: CategoriaCompetenciaListModel) {
-        this.categoriaCompetencias.splice(this.categoriaCompetencias.indexOf(categoriaCompetencia), 1);
+        this.categoriaCompetencia.splice(this.categoriaCompetencia.indexOf(categoriaCompetencia), 1);
         console.log(this.categoriaCompetencias);
     }
 
-   // deletar(categoriaCompetencia: CategoriaCompetenciaListModel) {
-     //   this.categoriaService.deletar(categoriaCompetencia.competencia.categoria.id).//subscribe((response) => {
-     //      this.categoriaCompetencias.splice(this.categoriaCompetencias.indexOf//(categoriaCompetencia), 1);
-     //       this.messageService.add({
-     //           severity: 'success',
-     //           summary: 'Sucesso',
-     //           detail: 'Dados Deletados'
-     //       });
+    // deletar(categoriaCompetencia: CategoriaCompetenciaListModel) {
+    //   this.categoriaService.deletar(categoriaCompetencia.competencia.categoria.id).//subscribe((response) => {
+    //      this.categoriaCompetencias.splice(this.categoriaCompetencias.indexOf//(categoriaCompetencia), 1);
+    //       this.messageService.add({
+    //           severity: 'success',
+    //           summary: 'Sucesso',
+    //           detail: 'Dados Deletados'
+    //       });
     //    });
 }
-
-
-    
-

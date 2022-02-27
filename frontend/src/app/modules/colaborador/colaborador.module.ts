@@ -1,3 +1,4 @@
+import { NivelService } from './service/nivel.service';
 import { ColaboradorService } from './service/colaborador.service';
 import { ColaboradorHomeComponent } from './colaborador-home.component';
 import { ColaboradorCadastroComponent } from './component/cadastro/colaborador-cadastro.component';
@@ -20,6 +21,6 @@ import { CategoriaModel } from '../competencia/model/categoria.model';
     CommonModule,
     ColaboradorRoutingModule
   ],
-  providers: [ColaboradorService]
+  providers: [ColaboradorService, NivelService]
 })
 export class ColaboradorModule { }

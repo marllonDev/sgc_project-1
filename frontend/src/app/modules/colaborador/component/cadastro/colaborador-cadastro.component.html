@@ -62,10 +62,9 @@
         </div>
         <div class="grid" >
             <div class="col-2 mt-5" class='img-wrapper'>
-            <img [src]="imagebase64" />
+            <img [src]="imagemForm()" *ngIf="colaborador.foto || imagebase64" />
             </div>
             <div class=" col-5 mt-5" >
-                <input type="text" id="colaboradorFoto" name="colaboradorFoto" pInputText [(ngModel)]="colaborador.foto">
                 <p-fileUpload name="myfile[]" accept="image/*" maxFileSize="5000000" [auto]="true"
                     (uploadHandler)="tratarFoto($event)" customUpload="true" chooseLabel="Escolher Foto">
                 </p-fileUpload>
@@ -80,7 +79,11 @@
                 <span class="col"></span>
                 <p-card>
                     <p-dropdown [options]="categorias" (onChange)="buscarCompetencias($event)" [(ngModel)]="categoriaSelecionada" name="categoria" placeholder="Selecione uma Categoria"></p-dropdown>
+
                     <p-dropdown [options]="competencias" name="competencia" [(ngModel)]="competenciaSelecionada" placeholder="Selecione uma Competência"></p-dropdown>
+
+                    <p-dropdown [options]="nivel" optionLabel="nome" [(ngModel)]="nivelSelecionado" placeholder="Selecione um Nível"></p-dropdown>
+
                     <button type="button" icon="ui-icon-plus" pButton
                     (click)="adicionarCompetencia()"></button>
                 </p-card>
@@ -92,19 +95,17 @@
                     <tr>
                         <th>Categoria</th>
                         <th>Competência</th>
+                        <th>Nível</th>
                         <th [ngStyle]="{'width': '110px'}">Ação</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-cc >
                     <tr>
                         <td class="text-center">{{cc.competencia.categoria.nome}}</td>
-                        <td class="text-center">{{cc.competencia.nome}}</td>
-                        <td>
-                            <span class="pr-2"></span>
-                            <p-button icon="ui-icon-trash" (onClick)="deletar(cc)"></p-button>
-                        </td>
+                        <td class="text-center">{{cc.competencia.nome}}</td> 
+                        <td class="text-center">{{cc.nivel}}</td>
+                        <td><p-button icon="ui-icon-trash" (onClick)="deletar(cc)"></p-button></td>
                     </tr>
                 </ng-template>
             </p-table>
         </p-card>
-
