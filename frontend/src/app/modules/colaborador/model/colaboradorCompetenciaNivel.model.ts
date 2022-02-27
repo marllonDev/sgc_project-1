@@ -4,6 +4,6 @@ import { CompetenciaModel } from 'src/app/modules/competencia/model/competencia.
 export class ColaboradorCompetenciaNivel{
     idColaborador: number;
     competencia: CompetenciaModel;
-    nivel: Nivel;
+    nivel: string;
 }
 

@@ -3,5 +3,5 @@ import { Nivel } from './nivel.model';
 
 export class CategoriaCompetenciaListModel{
     competencia: CompetenciaModel;
-    nivel: Nivel;
+    nivel: string;
 }

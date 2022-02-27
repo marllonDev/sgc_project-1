@@ -1,4 +1,3 @@
-import { Nivel } from './../../model/nivel.model';
 import {
     ColaboradorCompetenciaNivel
 } from './../../model/colaboradorCompetenciaNivel.model';
@@ -41,6 +40,7 @@ import {
     NivelService
 } from '../../service/nivel.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { SelectItem } from 'primeng/api';
 
 
 
@@ -63,11 +63,11 @@ export class ColaboradorCadastroComponent implements OnInit {
     competencias: SelectModel[] = [];
     categoriaSelecionada: CategoriaModel;
     competenciaSelecionada: CompetenciaModel;
-    nivelSelecionado: Nivel;
-    nivel: Nivel[] = [
-        {nome: 'CONHECE'},
-        {nome: 'SABE_APLICAR'},
-        {nome: 'SABE_ENSINAR'}
+    nivelSelecionado: string;
+    nivel: SelectItem[] = [
+        {label: 'Conhece', value: 'CONHECE'},
+        {label: 'Sabe Aplicar', value: 'SABE_APLICAR'},
+        {label: 'Sabe Ensinar', value: 'SABE_ENSINAR'}
     ]
     categoriaCompetencia: CategoriaCompetenciaListModel[] = [];
     categoriaCompetencias: CategoriaCompetenciaListModel[] = [];
@@ -93,13 +93,15 @@ export class ColaboradorCadastroComponent implements OnInit {
         //this.buscarNivel();
     }
 
-    
+
     adicionarCompetencia() {
         let categoriaC = new CategoriaCompetenciaListModel();
         categoriaC.competencia = this.competenciaSelecionada;
         categoriaC.competencia.categoria = this.categoriaSelecionada;
-        categoriaC.nivel = this.nivelSelecionado;
+        categoriaC.nivel= this.nivelSelecionado;
+        //this.categoriaCompetencia.nive = this.nivelSelecionado
         console.log(categoriaC);
+        console.log(this.categoriaCompetencia)
         this.categoriaCompetencia.push(categoriaC);
     }
 
@@ -143,6 +145,7 @@ export class ColaboradorCadastroComponent implements OnInit {
         this.colaborador.foto = this.imagebase64;
         this.colaboradorService.save(this.colaborador).subscribe((response) => {
             this.colaborador = response;
+            console.log(this.colaborador)
             this.messageService.add({
                 severity: severity,
                 summary: 'Sucesso',

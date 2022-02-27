@@ -26,7 +26,7 @@ public class ColaboradorCompetencia implements Serializable {
     @JoinColumn(name = "id_competencia", referencedColumnName = "id",insertable = false, updatable = false )
     private Competencia competencia;
 
-    @Enumerated(value = EnumType.ORDINAL)
+    @Enumerated(value = EnumType.STRING)
     @Column(name = "nivel")
     private Nivel nivel;
 }
