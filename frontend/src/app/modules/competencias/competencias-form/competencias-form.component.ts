@@ -43,21 +43,17 @@ export class CompetenciasFormComponent implements OnInit {
     this.novoFormulario()
 
     this.listarCategoria()
-  
-    
+
+
   };
 
   novoFormulario(){
-
     this.formulario = this.fb.group({
-
-      id: [null],
+      id: [null, Validators.required],
       nome: [null, [Validators.required,Validators.minLength(3)]],
-      descricao: [null],
+      descricao: [null, Validators.required],
       idCategoria: [null, Validators.required]
-      
-
-    });  
+    });
 
   }
 
@@ -66,7 +62,7 @@ export class CompetenciasFormComponent implements OnInit {
     this.competenciasService.listarCategoria()
     .subscribe(
       (categoria) => {
-        
+
 
         this.categorias = categoria
 
@@ -74,7 +70,7 @@ export class CompetenciasFormComponent implements OnInit {
         if(this.competencia){
 
           this.atualizaForm(this.competencia)
-          
+
         }
 
       }
@@ -84,7 +80,7 @@ export class CompetenciasFormComponent implements OnInit {
 
   onSubmit(){
 
-  
+
     if(this.formulario.valid){
 
       this.formulario.patchValue(this.formulario)
@@ -96,7 +92,7 @@ export class CompetenciasFormComponent implements OnInit {
 
           success => this.showSuccess("Competência atualizada com sucesso"),
           error => this.showError(),
-          
+
         )
 
       }else{
@@ -105,9 +101,9 @@ export class CompetenciasFormComponent implements OnInit {
 
           success => this.showSuccess("Competência criada com sucesso"),
           error => this.showError(),
-          
+
         )
-        
+
       }
 
     }
@@ -115,9 +111,9 @@ export class CompetenciasFormComponent implements OnInit {
   }
 
   atualizaForm(competencia){
-    
+
     this.formulario.patchValue(competencia)
-    
+
   }
 
   showSuccess(message) {
@@ -125,8 +121,8 @@ export class CompetenciasFormComponent implements OnInit {
     this.messageService.add({severity:'success', summary: 'Success Message', detail: message});
     this.fecharForm(false);
 
-  
-    
+
+
   }
 
   showError() {
