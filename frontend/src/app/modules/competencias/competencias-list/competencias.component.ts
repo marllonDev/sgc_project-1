@@ -31,12 +31,11 @@ export class CompetenciasComponent implements OnInit {
   
   constructor(private competenciasService: CompetenciasService, 
     private router: Router,
-    private route: ActivatedRoute,
     private messageService: MessageService,
     private confirmationService: ConfirmationService) {
 
   
-  }localhost:3000
+  }
 
   ngOnInit(): void {
 
@@ -53,7 +52,7 @@ export class CompetenciasComponent implements OnInit {
     .subscribe(
       (competencia) => {
         this.competencias = competencia
-        console.log(competencia)
+      
 
       }    
     ); 
@@ -65,6 +64,7 @@ export class CompetenciasComponent implements OnInit {
     this.competenciasService.listarCategoria()
     .subscribe(
       (categoria) => {
+        console.log(categoria)
         this.categorias = categoria
       }
     )
