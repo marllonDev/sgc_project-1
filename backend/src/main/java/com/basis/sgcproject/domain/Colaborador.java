@@ -47,7 +47,7 @@ public class Colaborador implements Serializable {
     @Column(name = "data_admi", nullable = false)
     private LocalDateTime dataAdmissao;
 
-    @OneToMany(cascade =CascadeType.ALL, mappedBy = "colaborador")
+    @OneToMany(cascade =CascadeType.ALL, mappedBy = "colaborador", orphanRemoval = true)
     private List<ColaboradorCompetencia> colaboradorCompetencias;
 
 }

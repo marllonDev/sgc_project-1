@@ -1,3 +1,4 @@
+import { Nivel } from './../../model/nivel.model';
 import {
     ColaboradorCompetenciaNivel
 } from './../../model/colaboradorCompetenciaNivel.model';
@@ -39,7 +40,6 @@ import {
 import {
     NivelService
 } from '../../service/nivel.service';
-import { type } from 'os';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 
@@ -63,9 +63,15 @@ export class ColaboradorCadastroComponent implements OnInit {
     competencias: SelectModel[] = [];
     categoriaSelecionada: CategoriaModel;
     competenciaSelecionada: CompetenciaModel;
-    nivelSelecionado: CategoriaCompetenciaListModel;
+    nivelSelecionado: Nivel;
+    nivel: Nivel[] = [
+        {nome: 'CONHECE'},
+        {nome: 'SABE_APLICAR'},
+        {nome: 'SABE_ENSINAR'}
+    ]
     categoriaCompetencia: CategoriaCompetenciaListModel[] = [];
     categoriaCompetencias: CategoriaCompetenciaListModel[] = [];
+    
 
     formato: string = '';
     base64image: string = 'data:*;base64,'
@@ -84,12 +90,16 @@ export class ColaboradorCadastroComponent implements OnInit {
             });
         }
         this.buscarCategorias();
+        //this.buscarNivel();
     }
 
+    
     adicionarCompetencia() {
         let categoriaC = new CategoriaCompetenciaListModel();
         categoriaC.competencia = this.competenciaSelecionada;
         categoriaC.competencia.categoria = this.categoriaSelecionada;
+        categoriaC.nivel = this.nivelSelecionado;
+        console.log(categoriaC);
         this.categoriaCompetencia.push(categoriaC);
     }
 
@@ -117,19 +127,17 @@ export class ColaboradorCadastroComponent implements OnInit {
         })
     }
 
-    buscarNivel() {
-        this.nivelService.getAll().subscribe((response) => {
-            response.nivel;
-            console.log(response.nivel);
-        })
-    }
+    //buscarNivel() {
+      // Object.keys(Nivel);
+       //console.log(Object.keys(Nivel));
+    //}
 
 
     salvar(severity: string) {
         this.colaborador.colaboradorCompetencias = this.categoriaCompetencia.map((categoriaCompetencia) => {
             let ccN = new ColaboradorCompetenciaNivel();
             ccN.competencia = categoriaCompetencia.competencia;
-            ccN.nivel = categoriaCompetencia.nivel;
+            ccN.nivel = this.nivelSelecionado;
             return ccN;
         });
         this.colaborador.foto = this.imagebase64;
@@ -168,7 +176,7 @@ export class ColaboradorCadastroComponent implements OnInit {
 
 
     deletar(categoriaCompetencia: CategoriaCompetenciaListModel) {
-        this.categoriaCompetencias.splice(this.categoriaCompetencias.indexOf(categoriaCompetencia), 1);
+        this.categoriaCompetencia.splice(this.categoriaCompetencia.indexOf(categoriaCompetencia), 1);
         console.log(this.categoriaCompetencias);
     }
 

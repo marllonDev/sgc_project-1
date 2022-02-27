@@ -79,8 +79,11 @@
                 <span class="col"></span>
                 <p-card>
                     <p-dropdown [options]="categorias" (onChange)="buscarCompetencias($event)" [(ngModel)]="categoriaSelecionada" name="categoria" placeholder="Selecione uma Categoria"></p-dropdown>
+
                     <p-dropdown [options]="competencias" name="competencia" [(ngModel)]="competenciaSelecionada" placeholder="Selecione uma Competência"></p-dropdown>
-                    <p-dropdown [options]="categoriaCompetencia" name="nivel" [(ngModel)]="categoriaCompetencia" placeholder="Selecione um Nível"></p-dropdown>
+
+                    <p-dropdown [options]="nivel" optionLabel="nome" [(ngModel)]="nivelSelecionado" placeholder="Selecione um Nível"></p-dropdown>
+
                     <button type="button" icon="ui-icon-plus" pButton
                     (click)="adicionarCompetencia()"></button>
                 </p-card>
@@ -99,7 +102,8 @@
                 <ng-template pTemplate="body" let-cc >
                     <tr>
                         <td class="text-center">{{cc.competencia.categoria.nome}}</td>
-                        <td class="text-center">{{cc.competencia.nome}}</td> <span class="pr-2"></span>
+                        <td class="text-center">{{cc.competencia.nome}}</td> 
+                        <td class="text-center">{{cc.nivel}}</td>
                         <td><p-button icon="ui-icon-trash" (onClick)="deletar(cc)"></p-button></td>
                     </tr>
                 </ng-template>
