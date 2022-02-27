@@ -41,7 +41,7 @@ public class ColaboradorDTO implements Serializable {
     @Email
     private String email;
 
-    private byte[] foto;
+    private String foto;
 
     @NotEmpty
     private Integer senioridadeID;

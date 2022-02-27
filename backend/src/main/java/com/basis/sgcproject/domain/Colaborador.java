@@ -35,7 +35,7 @@ public class Colaborador implements Serializable {
     private String email;
 
     @Column(name = "foto")
-    private byte[] foto;
+    private String foto;
 
     @ManyToOne
     @JoinColumn(name = "id_senioridade", referencedColumnName = "id" )
@@ -47,7 +47,7 @@ public class Colaborador implements Serializable {
     @Column(name = "data_admi", nullable = false)
     private LocalDateTime dataAdmissao;
 
-    @OneToMany(cascade =CascadeType.ALL, mappedBy = "colaborador")
+    @OneToMany(cascade =CascadeType.ALL, mappedBy = "colaborador", orphanRemoval = true)
     private List<ColaboradorCompetencia> colaboradorCompetencias;
 
 }
