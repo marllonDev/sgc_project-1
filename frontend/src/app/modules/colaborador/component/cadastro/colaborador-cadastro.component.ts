@@ -90,7 +90,6 @@ export class ColaboradorCadastroComponent implements OnInit {
             });
         }
         this.buscarCategorias();
-        //this.buscarNivel();
     }
 
 
@@ -99,7 +98,6 @@ export class ColaboradorCadastroComponent implements OnInit {
         categoriaC.competencia = this.competenciaSelecionada;
         categoriaC.competencia.categoria = this.categoriaSelecionada;
         categoriaC.nivel= this.nivelSelecionado;
-        //this.categoriaCompetencia.nive = this.nivelSelecionado
         console.log(categoriaC);
         console.log(this.categoriaCompetencia)
         this.categoriaCompetencia.push(categoriaC);
@@ -128,11 +126,6 @@ export class ColaboradorCadastroComponent implements OnInit {
             });
         })
     }
-
-    //buscarNivel() {
-      // Object.keys(Nivel);
-       //console.log(Object.keys(Nivel));
-    //}
 
 
     salvar(severity: string) {
