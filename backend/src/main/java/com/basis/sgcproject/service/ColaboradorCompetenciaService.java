@@ -1,14 +1,11 @@
 package com.basis.sgcproject.service;
 
+import com.basis.sgcproject.domain.Colaborador;
 import com.basis.sgcproject.domain.ColaboradorCompetencia;
-import com.basis.sgcproject.domain.Competencia;
 import com.basis.sgcproject.repository.ColaboradorCompetenciaRepository;
-import com.basis.sgcproject.repository.CompetenciaRepository;
 import com.basis.sgcproject.service.dto.ColaboradorCompetenciaListNivelDTO;
 import com.basis.sgcproject.service.dto.ColaboradorCompetenciaNivelDTO;
-import com.basis.sgcproject.service.dto.CompetenciaDTO;
 import com.basis.sgcproject.service.mapper.ColaboradorCompetenciaMapper;
-import com.basis.sgcproject.service.mapper.CompetenciaMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,5 +43,14 @@ public class ColaboradorCompetenciaService {
 
     public List<ColaboradorCompetenciaListNivelDTO> buscarColaboradorCompetenciaMaiorNivel(){
        return colaboradorCompetenciaMapper.toDto(colaboradorCompetenciaRepository.buscarColaboradorCompetenciaNivel());
+    }
+
+    public void salvar(Colaborador colaborador, List<ColaboradorCompetenciaListNivelDTO> competencias) {
+        List<ColaboradorCompetencia> competencias1 = colaboradorCompetenciaMapper.toEntity(competencias);
+        competencias1.forEach(colaboradorCompetencia -> {
+            colaboradorCompetencia.getId().setIdColaborador(colaborador.getId());
+            colaboradorCompetencia.setColaborador(colaborador);
+        });
+        colaboradorCompetenciaRepository.saveAll(competencias1);
     }
 }

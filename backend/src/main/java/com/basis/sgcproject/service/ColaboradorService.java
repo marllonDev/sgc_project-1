@@ -2,6 +2,7 @@ package com.basis.sgcproject.service;
 
 
 import com.basis.sgcproject.domain.Colaborador;
+import com.basis.sgcproject.domain.ColaboradorCompetencia;
 import com.basis.sgcproject.exception.RegraNegocioException;
 import com.basis.sgcproject.repository.ColaboradorCompetenciaRepository;
 import com.basis.sgcproject.repository.ColaboradorRepository;
@@ -25,6 +26,7 @@ public class ColaboradorService {
 
     private final ColaboradorCompetenciaService colaboradorCompetenciaService;
 
+    private final ColaboradorCompetenciaRepository colaboradorCompetenciaRepository;
 
 
     public List<ColaboradorSenioridadeListDTO> obterTodos() {
@@ -38,7 +40,11 @@ public class ColaboradorService {
                 throw new RegraNegocioException("Colaborador não encontrado para edição");
             }
         }
-        return colaboradorMapper.toDto(colaboradorRepository.save(colaboradorMapper.toEntity(colaboradorDTO)));
+        Colaborador colaborador = colaboradorMapper.toEntity(colaboradorDTO);
+        colaborador.setColaboradorCompetencias(null);
+        colaborador = colaboradorRepository.save(colaborador);
+        colaboradorCompetenciaService.salvar(colaborador, colaboradorDTO.getColaboradorCompetencias());
+        return colaboradorMapper.toDto(colaborador);
     }
 
     public ColaboradorDTO obterPorId(Integer id){

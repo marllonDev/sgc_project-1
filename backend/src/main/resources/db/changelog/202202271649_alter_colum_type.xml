@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+    <changeSet id="2" author="Marllon Zucolotto">
+        <modifyDataType tableName="colaborador_competencia" columnName="nivel" newDataType="varchar(30)"/>
+    </changeSet>
+
+    <changeSet id="3" author="Marllon Zucolotto">
+        <update tableName="colaborador_competencia">
+            <column name="nivel" value="CONHECE"/>
+            <where>nivel = '0'</where>
+        </update>
+        <update tableName="colaborador_competencia">
+            <column name="nivel" value="SABE_APLICAR"/>
+            <where>nivel = '1'</where>
+        </update>
+        <update tableName="colaborador_competencia">
+            <column name="nivel" value="SABE_ENSINAR"/>
+            <where>nivel = '2'</where>
+        </update>
+    </changeSet>
+
+</databaseChangeLog>

@@ -35,7 +35,7 @@ public class Colaborador implements Serializable {
     private String email;
 
     @Column(name = "foto")
-    private byte[] foto;
+    private String foto;
 
     @ManyToOne
     @JoinColumn(name = "id_senioridade", referencedColumnName = "id" )

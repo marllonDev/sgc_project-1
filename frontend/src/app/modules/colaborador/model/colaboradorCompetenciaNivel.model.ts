@@ -5,3 +5,4 @@ export class ColaboradorCompetenciaNivel{
     competencia: CompetenciaModel;
     nivel: string;
 }
+

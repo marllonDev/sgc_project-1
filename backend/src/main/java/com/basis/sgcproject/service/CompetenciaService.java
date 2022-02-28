@@ -2,13 +2,15 @@ package com.basis.sgcproject.service;
 
 import com.basis.sgcproject.domain.Competencia;
 import com.basis.sgcproject.repository.CompetenciaRepository;
-import com.basis.sgcproject.service.dto.CompetenciaDTO;
+import com.basis.sgcproject.service.dto.CategoriaDTO;
+import com.basis.sgcproject.service.dto.ListCompetenciaDTO;
+import com.basis.sgcproject.service.dto.input.PostCompetenciaDTO;
+import com.basis.sgcproject.service.mapper.CategoriaMapper;
 import com.basis.sgcproject.service.mapper.CompetenciaMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -16,35 +18,38 @@ public class CompetenciaService {
 
     private final CompetenciaRepository competenciaRepository;
     private final CompetenciaMapper competenciaMapper;
+    private final CategoriaMapper categoriaMapper;
 
-    public List<CompetenciaDTO> buscar(){
-        List<Competencia> competencia = competenciaRepository.findAll();
-        return competenciaMapper.toDto(competencia);
+    public List<ListCompetenciaDTO> buscar(){
 
-    }
+        return competenciaRepository.mostrar();
 
-    public CompetenciaDTO salvar(CompetenciaDTO dto){
-
-        Competencia competencia = competenciaMapper.toEntity((dto));
-        return competenciaMapper.toDto(competenciaRepository.save(competencia));
 
     }
 
-    public CompetenciaDTO buscarPorId(Integer id){
+    public PostCompetenciaDTO salvar(PostCompetenciaDTO dto){
+
+        Competencia competencia = competenciaMapper.competencia(dto);
+        return competenciaMapper.dto(competenciaRepository.save(competencia));
+
+    }
+
+    public PostCompetenciaDTO buscarPorId(Integer id){
 
         Competencia competencia = competenciaRepository.findById(id).orElseThrow(()->new RuntimeException("Competencia não encontrada!"));
 
-        return competenciaMapper.toDto(competencia);
+        return competenciaMapper.dto(competencia);
 
     }
 
 
     public void deletar(Integer id){
+
         competenciaRepository.deleteById(id);
 
     }
 
-    public List<CompetenciaDTO> findAllByCategoriaId(Integer categoriaId){
+    public List<ListCompetenciaDTO> findAllByCategoriaId(Integer categoriaId){
         return competenciaMapper.toDto(competenciaRepository.findAllByCategoriaId(categoriaId));
     }
 

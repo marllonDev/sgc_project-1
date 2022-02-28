@@ -1,0 +1,54 @@
+<p-card>
+    <style type="text/css">
+        button.ui-button {
+            margin-right: .5rem;
+        }
+    </style>
+
+    <div class="grid mb-3 mt-2 pl-2 pr-2 align-items-center">
+        <h2>LISTAGEM DE COMPETÊNCIAS</h2>
+        <span class="col"></span>
+        <button pButton type="button" icon="ui-icon-plus" class="ui-button-success" iconPos="left" label="Nova Turma"
+            (click)="showBasicDialog2()" ></button>
+    </div>
+    <p-table [value]="competencias" dataKey="id" paginator="true" rows="5">
+        <ng-template pTemplate="header">
+            <tr>
+
+                <th>NOME</th>
+                <th>DESCRIÇÃO</th>
+                <th>CATEGORIAS</th>
+                <th>AÇÃO</th>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-competencia>
+            <tr>
+
+                <td style="text-align:center">{{competencia.nome}}</td>
+                <td style="text-align:center">{{competencia.descricao}}</td>
+                <td style="text-align:center">{{competencia.nomeCategoria}}</td>
+
+                <td style="text-align:center">
+                    <button pButton type="button" (click)="onEdit(competencia.id)" icon="pi pi-pencil"
+                        styleClass="rounded-button ui-button-help"></button>
+                    <button pButton type="button" (click)="confirm(competencia.id)" icon="pi pi-trash"
+                        class="ui-button-danger" styleClass="rounded-button ui-button-danger"></button>
+                </td>
+
+            </tr>
+        </ng-template>
+
+    </p-table>
+</p-card>
+
+<p-dialog header="Competencia" [(visible)]="displayBasic2" styleClass="mydialog" (onHide)="escondeu()"
+    [style]="{height: '30vw', width: '40vw'}" [draggable]="false">
+
+
+    <app-competencias-form *ngIf="displayBasic2" [competencia]="currentItem" (respForm)="reciverFeedback($event)">
+    </app-competencias-form>
+
+</p-dialog>
+
+<p-confirmDialog header="Excluir Competência" icon="pi pi-exclamation-triangle"></p-confirmDialog>

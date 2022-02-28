@@ -1,8 +1,6 @@
 package com.basis.sgcproject.resource;
 
-import com.basis.sgcproject.domain.Status;
 import com.basis.sgcproject.service.StatusService;
-import com.basis.sgcproject.service.dto.CompetenciaDTO;
 import com.basis.sgcproject.service.dto.StatusDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
