@@ -6,7 +6,6 @@ import { SelectItem } from 'primeng/api';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ColaboradorService } from 'src/app/modules/colaborador/service/colaborador.service';
-import { CompetenciaModel } from 'src/app/modules/competencia/model/competencia.models';
 import { Colaborador } from '../../models/colaborador.model';
 import { CompetenciaColaboradorNivelMaximo } from '../../models/competencia-colaborador-nivel-maximo.model';
 import { CompetenciaColaborador } from '../../models/competencia-colaborador.model';
