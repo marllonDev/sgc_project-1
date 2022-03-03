@@ -31,4 +31,11 @@ public class ColaboradorCompetenciaResource {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.salvar(colaboradorCompetenciaNivelDTO));
 
     }
+
+    @DeleteMapping("/colaborador/{idColaborador}/competencia/{idCompetencia}")
+    public ResponseEntity<Void> deletaProblema(@PathVariable Integer idColaborador, @PathVariable Integer idCompetencia) {
+        service.removerCompetenciasColaborador(idColaborador, idCompetencia);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+
+    }
 }

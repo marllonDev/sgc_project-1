@@ -59,7 +59,7 @@
         </div>
     </div>
     <div class="grid">
-        <div class="col-2 mt-5" class='img-wrapper'>
+        <div class="col-2 " class='img-wrapper m-3'>
             <img [src]="imagemForm()" *ngIf="colaborador.foto || imagebase64" />
         </div>
         <div class=" col-5 mt-5">
@@ -67,26 +67,34 @@
                 (uploadHandler)="tratarFoto($event)" customUpload="true" chooseLabel="Escolher Foto">
             </p-fileUpload>
         </div>
+        <div class="col-1 col-offset-11">
+        <p-button label="Salvar" (onClick)="salvar('success')" styleClass="ui-button-success"></p-button>
+        </div>
     </div>
-    <p-button label="Salvar" (onClick)="salvar('success')" styleClass="ui-button-success"></p-button>
 
 
-    <p-card>
+    <p-card >
         <div class="grid mb-3 mt-2 pl-2 pr-2 align-items-center">
             <h2>Lista de Tecnologias</h2>
-            <span class="col"></span>
-            <p-card>
+            <p-card >
+                <div class="grid">
+                    <div class="col-6">
                 <p-dropdown [options]="categorias" (onChange)="buscarCompetencias($event)"
                     [(ngModel)]="categoriaSelecionada" name="categoria" placeholder="Selecione uma Categoria">
                 </p-dropdown>
-
+                </div>
+                <div class="col-6">
                 <p-dropdown [options]="competencias" name="competencia" [(ngModel)]="competenciaSelecionada"
                     placeholder="Selecione uma Competência"></p-dropdown>
-
+                </div>
+                <div class="col-6">
                 <p-dropdown [options]="nivel"  [(ngModel)]="nivelSelecionado"
                     placeholder="Selecione um Nível"></p-dropdown>
-
-                <button type="button" icon="ui-icon-plus" pButton (click)="adicionarCompetencia()"></button>
+                    </div>
+                    <div class="col-1 col-offset-5">
+                <button type="button" icon="ui-icon-plus" pButton (click)="adicionarCompetencia('success')"></button>
+                </div>
+            </div>
             </p-card>
         </div>
 
@@ -106,9 +114,10 @@
                     <td class="text-center">{{cc.competencia.nome}}</td>
                     <td class="text-center">{{cc.nivel}}</td>
                     <td>
-                        <p-button icon="ui-icon-trash" (onClick)="deletar(cc)"></p-button>
+                        <p-button icon="pi pi-trash" class="ui-button-danger" styleClass="rounded-button ui-button-danger" (onClick)="deletar(cc)"></p-button>
                     </td>
                 </tr>
             </ng-template>
         </p-table>
     </p-card>
+   
