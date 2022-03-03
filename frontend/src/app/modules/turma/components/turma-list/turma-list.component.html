@@ -4,7 +4,7 @@
         <span class="col"></span>
         <button pButton type="button" icon="ui-icon-plus" class="ui-button-success" iconPos="left" label="Nova Turma" [routerLink]="'criar'"></button>
     </div>
-    <p-table [value]="turmas">
+    <p-table [value]="turmas" [responsive]="true" paginator="true" rows="5">
         <ng-template pTemplate="header">
             <tr>
                 <th>Nome</th>
@@ -25,7 +25,7 @@
                 <td>
                     <button type="button" icon="ui-icon-pencil" pButton (click)="navigateTo(turma.id)"></button>
                     <span class="pr-2"></span>
-                    <button type="button" icon="ui-icon-trash" pButton (click)="excluirTurma(turma)"></button>
+                    <button type="button" icon="ui-icon-trash" pButton class="ui-button-danger" (click)="excluirTurma(turma)"></button>
                 </td>
             </tr>
 
