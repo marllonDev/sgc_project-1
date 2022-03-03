@@ -19,13 +19,13 @@
         </div>
         <div class="col-4">
             <span class="ui-float-label">
-                <input id="colaboradorEmail" name="colaboradorEmail" pInputText [(ngModel)]="colaborador.email">
+                <input type="email" id="colaboradorEmail" name="colaboradorEmail" email pInputText [(ngModel)]="colaborador.email">
                 <label for="colaboradorEmail">Email</label>
             </span>
         </div>
         <div class="col-2 mt-5">
             <span class="ui-float-label">
-                <input type="text" id="colaboradorCPF" name="colaboradorCPF" pInputText [(ngModel)]="colaborador.cpf">
+                <p-inputMask type="text" id="colaboradorCPF" name="colaboradorCPF" mask="999.999.999-99" [(ngModel)]="colaborador.cpf" unmask = "true"></p-inputMask>
                 <label for="colaboradorCPF">CPF</label>
             </span>
         </div>
@@ -73,21 +73,21 @@
     </div>
 
 
-    <p-card >
+    <p-card>
         <div class="grid mb-3 mt-2 pl-2 pr-2 align-items-center">
             <h2>Lista de Tecnologias</h2>
-            <p-card >
-                <div class="grid">
-                    <div class="col-6">
+            <p-card class="mt-10" id="cardButton">
+                <div class="grid" >
+                    <div class="col-4">
                 <p-dropdown [options]="categorias" (onChange)="buscarCompetencias($event)"
                     [(ngModel)]="categoriaSelecionada" name="categoria" placeholder="Selecione uma Categoria">
                 </p-dropdown>
                 </div>
-                <div class="col-6">
+                <div class="col-4">
                 <p-dropdown [options]="competencias" name="competencia" [(ngModel)]="competenciaSelecionada"
                     placeholder="Selecione uma Competência"></p-dropdown>
                 </div>
-                <div class="col-6">
+                <div class="col-4">
                 <p-dropdown [options]="nivel"  [(ngModel)]="nivelSelecionado"
                     placeholder="Selecione um Nível"></p-dropdown>
                     </div>
