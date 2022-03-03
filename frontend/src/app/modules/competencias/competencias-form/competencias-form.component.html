@@ -8,23 +8,23 @@
                     <label for="firstname1" >Nome</label>
                     <input id="firstname1" type="text" pInputText formControlName="nome">
                 </div>
-
+                <br><br>
                 <div class="p-col-8">
                     <label for="address">Descrição</label>
                     <textarea id="address" type="text" rows="4" pInputTextarea formControlName="descricao"></textarea>
                 </div>
-
+                <br><br>
                 <div class="p-col-8">
 
                     <div class="p-field">
 
-                        <p-dropdown [options]="categorias" [(ngModel)]="selectedCat" formControlName="idCategoria" ></p-dropdown>
+                        <p-dropdown [options]="categorias" [(ngModel)]="selectedCat" formControlName="idCategoria" placeholder="Selecione a Categoria" ></p-dropdown>
 
                     </div>
 
                 </div>
-
-            <button pButton type="submit" class="btn btn-primary" label="Salvar" ></button>
+                <br><br>
+            <button pButton type="submit" class="ui-button-success" label="Salvar" ></button>
 
             <!-- {{ formulario.value | json }} -->
         </div>

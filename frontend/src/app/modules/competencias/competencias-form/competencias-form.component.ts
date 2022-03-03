@@ -49,10 +49,10 @@ export class CompetenciasFormComponent implements OnInit {
 
   novoFormulario(){
     this.formulario = this.fb.group({
-      id: [null, Validators.required],
+      id: [null],
       nome: [null, [Validators.required,Validators.minLength(3)]],
       descricao: [null, Validators.required],
-      idCategoria: [null, Validators.required]
+      idCategoria: [null]
     });
 
   }

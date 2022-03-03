@@ -116,6 +116,7 @@ export class CompetenciasComponent implements OnInit {
        this.listarCompetencia()
       },
       error: error => {
+        this.messageService.add({severity: 'error', summary: 'Erro', detail: 'Erro ao listar competências'})
         console.error("error", error);
       }
     }
