@@ -3,6 +3,7 @@ package com.basis.sgcproject.service;
 
 import com.basis.sgcproject.domain.Colaborador;
 import com.basis.sgcproject.domain.ColaboradorCompetencia;
+import com.basis.sgcproject.domain.Nivel;
 import com.basis.sgcproject.exception.RegraNegocioException;
 import com.basis.sgcproject.repository.ColaboradorCompetenciaRepository;
 import com.basis.sgcproject.repository.ColaboradorRepository;

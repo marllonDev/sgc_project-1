@@ -1,10 +1,10 @@
 <p-card>
     <div class="grid mb-3 mt-2 pl-2 pr-2 align-items-center">
-        <h2>Listagem de Colaboradores</h2>
+        <h2>Lista de Colaboradores</h2>
         <span class="col"></span>
-        <button pButton type="button" icon="ui-icon-plus" class="ui-button-success" iconPos="left" label="Adiconar"
+        <button pButton type="button" icon="ui-icon-plus" class="ui-button-success" iconPos="left" label="Adicionar"
         (click)="adicionar()" ></button> </div>
-    <p-table [value]="colaboradores" responsiveLayout="scroll">
+    <p-table [value]="colaboradores" responsiveLayout="scroll" paginator="true" rows="8">
         <ng-template pTemplate="header">
             <tr>
                 <th>Nome</th>

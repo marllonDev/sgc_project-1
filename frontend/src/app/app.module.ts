@@ -1,3 +1,4 @@
+import { BlockUIInterceptor } from './shared/block-ui-interceptor';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
@@ -8,7 +9,7 @@ import { AppTopbarComponent } from './components/topbar/app.topbar.component';
 import { AppFooterComponent } from './components/footer/app.footer.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { environment } from '../environments/environment';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PageNotificationModule, BreadcrumbModule, MenuModule, ErrorStackModule } from '@nuvem/primeng-components';
 import { ErrorModule, SecurityModule, VersionTagModule } from '@nuvem/angular-base';
 import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
@@ -39,7 +40,8 @@ import { BlockUIModule } from 'ng-block-ui';
         MenuModule
     ],
     providers: [
-        { provide: LocationStrategy, useClass: HashLocationStrategy }
+        { provide: LocationStrategy, useClass: HashLocationStrategy},
+        { provide: HTTP_INTERCEPTORS, useClass: BlockUIInterceptor, multi:true},
     ],
     bootstrap: [AppComponent]
 })

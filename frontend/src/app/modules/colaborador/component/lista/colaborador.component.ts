@@ -39,6 +39,7 @@ export class ColaboradorComponent implements OnInit {
     ngOnInit(): void {
         this.colaboradorService.getAll().subscribe(response => {
             this.colaboradores = response;
+            this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Colaboradores Listados' }) 
         });
     }
 

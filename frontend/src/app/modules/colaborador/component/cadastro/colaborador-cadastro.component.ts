@@ -1,3 +1,5 @@
+import { AbstractControl } from '@angular/forms';
+import { ValidarCpf } from './../../model/validarCpf.model';
 import {
     ColaboradorCompetenciaNivel
 } from './../../model/colaboradorCompetenciaNivel.model';
@@ -171,6 +173,14 @@ export class ColaboradorCadastroComponent implements AfterViewInit {
 
 
     salvar(severity: string) {
+        if (!ValidarCpf.cpf(this.colaborador.cpf)) {
+            this.messageService.add({
+                severity: 'error',
+                summary: 'Erro',
+                detail: 'CPF Inválido'
+            });
+            return;
+        }
         this.colaborador.colaboradorCompetencias = this.categoriaCompetencia.map((categoriaCompetencia) => {
             let ccN = new ColaboradorCompetenciaNivel();
             ccN.competencia = categoriaCompetencia.competencia;
@@ -218,14 +228,4 @@ export class ColaboradorCadastroComponent implements AfterViewInit {
         this.categoriaCompetencia.splice(this.categoriaCompetencia.indexOf(categoriaCompetencia), 1);
         console.log(this.categoriaCompetencias);
     }
-
-    // deletar(categoriaCompetencia: CategoriaCompetenciaListModel) {
-    //   this.categoriaService.deletar(categoriaCompetencia.competencia.categoria.id).//subscribe((response) => {
-    //      this.categoriaCompetencias.splice(this.categoriaCompetencias.indexOf//(categoriaCompetencia), 1);
-    //       this.messageService.add({
-    //           severity: 'success',
-    //           summary: 'Sucesso',
-    //           detail: 'Dados Deletados'
-    //       });
-    //    });
 }
