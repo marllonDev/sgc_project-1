@@ -2,13 +2,14 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageNotificationService } from '@nuvem/primeng-components';
+import { ConfirmationService } from 'primeng/api';
 import { Turma } from '../../models/turma.model';
 import { TurmaService } from '../../service/turma.service';
 
 @Component({
-  selector: 'app-turma-list',
-  templateUrl: './turma-list.component.html',
-  styleUrls: ['./turma-list.component.css']
+    selector: 'app-turma-list',
+    templateUrl: './turma-list.component.html',
+    styleUrls: ['./turma-list.component.css']
 })
 export class TurmaListComponent implements OnInit {
 
@@ -18,7 +19,8 @@ export class TurmaListComponent implements OnInit {
         private turmaService: TurmaService,
         private messageService: PageNotificationService,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private confirmationDialog: ConfirmationService
     ) { }
 
     ngOnInit() {
@@ -32,16 +34,23 @@ export class TurmaListComponent implements OnInit {
     }
 
     excluirTurma(turma: Turma) {
-        const deveDeletar = confirm('Deseja realmente excluir este item?');
-        if (deveDeletar) {
-            this.turmaService.delete(turma.id).subscribe(() => {
-                this.turmas = this.turmas.filter(t => t.id !== turma.id);
+        this.confirmationDialog.confirm({
+            header: 'Confirmar exclusão',
+            message: "Deseja realmente excluir essa turma?",
+            acceptLabel: 'Sim',
+            rejectLabel: 'Não',
+            accept: () => {
+                this.turmaService.delete(turma.id).subscribe(() => {
+                    this.turmas = this.turmas.filter(t => t.id !== turma.id);
+                },
+                (error: HttpErrorResponse) => {
+                    this.messageService.addErrorMessage(error.error.userMessage);
+                });
             },
-            (error: HttpErrorResponse) => {
-                console.log(error)
-                this.messageService.addErrorMessage(error.error.userMessage);
-            })
-        }
+            reject: () => {
+                this.confirmationDialog.close();
+            }
+        });
     }
 
     navigateTo(id: number) {

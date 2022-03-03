@@ -6,7 +6,6 @@ import { SelectItem } from 'primeng/api';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ColaboradorService } from 'src/app/modules/colaborador/service/colaborador.service';
-import { CompetenciaModel } from 'src/app/modules/competencia/model/competencia.models';
 import { Colaborador } from '../../models/colaborador.model';
 import { CompetenciaColaboradorNivelMaximo } from '../../models/competencia-colaborador-nivel-maximo.model';
 import { CompetenciaColaborador } from '../../models/competencia-colaborador.model';
@@ -24,43 +23,12 @@ import { TurmaService } from '../../service/turma.service';
 export class TurmaFormComponent implements OnInit, OnDestroy {
 
     @ViewChild(FormGroupDirective) form: FormGroupDirective;
-    unsubscribeAll = new Subject < void > ();
-
+    unsubscribeAll = new Subject<void>();
     status: Status[];
     competenciaColaboradorNivelMax: CompetenciaColaboradorNivelMaximo[];
     root: FormGroup;
     competenciaColaboradorForm: FormGroup;
     submittingForm: boolean = false;
-
-
-    competencias: CompetenciaModel[] = [{
-            id: 1,
-            nome: 'Spring',
-            categoria: null
-        },
-        {
-            id: 2,
-            nome: 'Angular',
-            categoria: null
-        },
-        {
-            id: 3,
-            nome: 'Git',
-            categoria: null
-        },
-        {
-            id: 4,
-            nome: 'Postgres',
-            categoria: null
-        }
-    ];
-
-  //  colaboradores: ColaboradorModel[] = [
-    //      { id: 1, nome: 'Vinicius', sobrenome: 'M' },
-     //     { id: 2, nome: 'Fulano', sobrenome: 'Silva' },
-     //     { id: 3, nome: 'Ciclano', sobrenome: null }
-   //   ];
-
     colaboradores: SelectItem[] = [];
 
 
@@ -70,7 +38,7 @@ export class TurmaFormComponent implements OnInit, OnDestroy {
         private colaboradorService: ColaboradorService,
         private messageService: PageNotificationService,
         private router: Router,
-        private route: ActivatedRoute,
+        private route: ActivatedRoute
     ) { }
 
     ngOnInit() {
@@ -122,8 +90,8 @@ export class TurmaFormComponent implements OnInit, OnDestroy {
             descricao: new FormControl(null, [Validators.required, Validators.minLength(10)]),
             dataInicio: new FormControl(null, [Validators.required]),
             dataTermino: new FormControl(null, [Validators.required]),
-            status: new FormControl(null),
-            competenciasColaboradores: new FormControl(null)
+            status: new FormControl(null, [Validators.required]),
+            competenciasColaboradores: new FormControl(null, [Validators.required])
         });
     }
 

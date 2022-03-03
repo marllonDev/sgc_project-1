@@ -2,8 +2,8 @@
     <div class="grid mb-3 mt-2 pl-2 pr-2 align-items-center">
         <h2>Listagem de Colaboradores</h2>
         <span class="col"></span>
-        <p-button label="+ Adicionar" (onClick)="adicionar()"></p-button>
-    </div>
+        <button pButton type="button" icon="ui-icon-plus" class="ui-button-success" iconPos="left" label="Adiconar"
+        (click)="adicionar()" ></button> </div>
     <p-table [value]="colaboradores" responsiveLayout="scroll">
         <ng-template pTemplate="header">
             <tr>

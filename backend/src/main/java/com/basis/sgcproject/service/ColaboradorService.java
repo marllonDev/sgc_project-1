@@ -74,15 +74,15 @@ public class ColaboradorService {
     }
 
     public List<CompetenciaColaboradorNivelMaximoDto> buscarCompetenciaColaboradorNivelMaximo() {
-        List<ColaboradorCompetenciaListNivelDTO> resultQuery = colaboradorCompetenciaService.buscarColaboradorCompetenciaMaiorNivel();
+        List<ColaboradorCompetenciaNivelMaximoListDto> resultQuery = colaboradorRepository.buscarColaboradorCompetenciaNivelMaximo();
         Map<Integer, CompetenciaColaboradorNivelMaximoDto> map = new HashMap<>();
 
-        for (ColaboradorCompetenciaListNivelDTO colaboradorCompetenciaResultQuery : resultQuery) {
-            CompetenciaColaboradorNivelMaximoDto competenciaKey = map.computeIfAbsent(colaboradorCompetenciaResultQuery.getCompetencia().getId(), (k) -> {
+        for (ColaboradorCompetenciaNivelMaximoListDto colaboradorCompetenciaResultQuery : resultQuery) {
+            CompetenciaColaboradorNivelMaximoDto competenciaKey = map.computeIfAbsent(colaboradorCompetenciaResultQuery.getIdCompetencia(), (k) -> {
                 CompetenciaColaboradorNivelMaximoDto competencia = new CompetenciaColaboradorNivelMaximoDto();
                 competencia.setCompetencia(new CompetenciaResumoDto());
-                competencia.getCompetencia().setId(colaboradorCompetenciaResultQuery.getCompetencia().getId());
-                competencia.getCompetencia().setNome(colaboradorCompetenciaResultQuery.getCompetencia().getNome());
+                competencia.getCompetencia().setId(colaboradorCompetenciaResultQuery.getIdCompetencia());
+                competencia.getCompetencia().setNome(colaboradorCompetenciaResultQuery.getNomeCompetencia());
                 return competencia;
             });
             ColaboradorResumoDto colaborador = new ColaboradorResumoDto();

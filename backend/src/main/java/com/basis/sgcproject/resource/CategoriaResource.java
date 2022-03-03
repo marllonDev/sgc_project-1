@@ -2,6 +2,7 @@ package com.basis.sgcproject.resource;
 
 import com.basis.sgcproject.service.CategoriaService;
 import com.basis.sgcproject.service.dto.CategoriaDTO;
+import com.basis.sgcproject.service.dto.DropdownDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +19,9 @@ public class CategoriaResource {
     private final CategoriaService categoriaService;
 
     @GetMapping
-    public ResponseEntity<List<CategoriaDTO>> buscar(){
+    public ResponseEntity<List<DropdownDTO>> buscar(){
         return ResponseEntity.ok(categoriaService.buscar());
+
 
     }
 
@@ -32,12 +34,14 @@ public class CategoriaResource {
 
     @PostMapping
     public ResponseEntity<CategoriaDTO> salvar(@RequestBody CategoriaDTO categoriaDTO){
-         return ResponseEntity.status(HttpStatus.CREATED).body(categoriaService.salvar(categoriaDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(categoriaService.salvar(categoriaDTO));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletar(@PathVariable Integer id){
+
         categoriaService.delete(id);
+
         return ResponseEntity.noContent().build();
     }
 
