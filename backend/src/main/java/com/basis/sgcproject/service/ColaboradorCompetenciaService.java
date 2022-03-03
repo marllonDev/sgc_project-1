@@ -53,4 +53,8 @@ public class ColaboradorCompetenciaService {
         });
         colaboradorCompetenciaRepository.saveAll(competencias1);
     }
+
+    public void removerCompetenciasColaborador(Integer idColaborador, Integer idCompetencia) {
+        colaboradorCompetenciaRepository.deleteByColaboradorIdAndCompetenciaId(idColaborador, idCompetencia);
+    }
 }

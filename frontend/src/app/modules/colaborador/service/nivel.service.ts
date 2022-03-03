@@ -17,4 +17,9 @@ export class NivelService {
     getAll(): Observable<CategoriaCompetenciaListModel> {
         return this.httpClient.get<CategoriaCompetenciaListModel>(baseUrl);
     }
+
+    deletar( idColaborador: number, idCompetencia: number): Observable<void> {
+        return this.httpClient.delete<void>(`${baseUrl}/colaborador/${idColaborador}/competencia/${idCompetencia}`);
+     
+    }
 }

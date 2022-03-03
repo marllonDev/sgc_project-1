@@ -23,6 +23,7 @@ import {
     MessageService,
 } from 'primeng/api';
 import {
+    AfterViewInit,
     Component,
     OnInit
 } from '@angular/core';
@@ -53,14 +54,14 @@ const baseUrl = '/api/colaboradores';
 })
 
 
-export class ColaboradorCadastroComponent implements OnInit {
+export class ColaboradorCadastroComponent implements AfterViewInit {
 
     colaborador: ColaboradorModel = new ColaboradorModel;
     imagebase64: string = null;
     idColaborador: any;
     imagem: File;
-    categorias: SelectModel[] = [];
-    competencias: SelectModel[] = [];
+    categorias: SelectItem[] = [];
+    competencias: SelectItem[] = [];
     categoriaSelecionada: CategoriaModel;
     competenciaSelecionada: CompetenciaModel;
     nivelSelecionado: string;
@@ -79,7 +80,7 @@ export class ColaboradorCadastroComponent implements OnInit {
     constructor(private colaboradorService: ColaboradorService,
         private messageService: MessageService, private route: ActivatedRoute, private categoriaService: CategoriaService, private competenciaService: CompetenciaService, private nivelService: NivelService, private domSanitizer: DomSanitizer) {}
 
-    ngOnInit() {
+        ngAfterViewInit() {
         this.idColaborador = this.route.snapshot.paramMap.get('id');
         if (this.idColaborador) {
             this.colaboradorService.findById(this.idColaborador).subscribe((response) => {
@@ -98,26 +99,20 @@ export class ColaboradorCadastroComponent implements OnInit {
         categoriaC.competencia = this.competenciaSelecionada;
         categoriaC.competencia.categoria = this.categoriaSelecionada;
         categoriaC.nivel= this.nivelSelecionado;
-        console.log(categoriaC);
-        console.log(this.categoriaCompetencia)
+        this.nivelSelecionado = null;
+        console.log(this.categoriaSelecionada);
         this.categoriaCompetencia.push(categoriaC);
     }
 
 
     buscarCategorias() {
-        this.categoriaService.getAll().subscribe((response) => {
-            response.map((categoria) => {
-                let select = new SelectModel();
-                select.label = categoria.nome;
-                select.value = categoria;
-                this.categorias.push(select);
-            });
-        })
+        this.categoriaService.getAllSelectItem().subscribe((response) => {
+            this.categorias = response})
     }
 
     buscarCompetencias(event) {
         this.competencias = [];
-        this.competenciaService.getAllCompetenciasByCategoriaId(event.value.id).subscribe((response) => {
+        this.competenciaService.getAllCompetenciasByCategoriaId(event.value).subscribe((response) => {
             response.map((competencia) => {
                 let select = new SelectModel();
                 select.label = competencia.nome;
@@ -132,7 +127,7 @@ export class ColaboradorCadastroComponent implements OnInit {
         this.colaborador.colaboradorCompetencias = this.categoriaCompetencia.map((categoriaCompetencia) => {
             let ccN = new ColaboradorCompetenciaNivel();
             ccN.competencia = categoriaCompetencia.competencia;
-            ccN.nivel = this.nivelSelecionado;
+            ccN.nivel = categoriaCompetencia.nivel;
             return ccN;
         });
         this.colaborador.foto = this.imagebase64;
@@ -172,6 +167,7 @@ export class ColaboradorCadastroComponent implements OnInit {
 
 
     deletar(categoriaCompetencia: CategoriaCompetenciaListModel) {
+        this.nivelService.deletar(this.idColaborador, categoriaCompetencia.competencia.id).subscribe();
         this.categoriaCompetencia.splice(this.categoriaCompetencia.indexOf(categoriaCompetencia), 1);
         console.log(this.categoriaCompetencias);
     }

@@ -15,4 +15,5 @@
     <include file="db/changelog/202202081627_criar_tabela_colaborador_competencia.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/202202091430_inserts_categoria.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/202202271649_alter_colum_type.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/20220226183700_alter_foto_colaborador.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

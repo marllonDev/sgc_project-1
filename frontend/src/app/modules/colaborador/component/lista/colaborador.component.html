@@ -19,9 +19,9 @@
                 <td class="text-center">{{colaborador.email}}</td>
                 <td class="text-center">{{colaborador.senioridadeNome}}</td>
                 <td>
-                    <p-button icon="ui-icon-pencil" (onClick)="editar(colaborador.id)"></p-button>
+                    <p-button icon="pi pi-pencil" styleClass="rounded-button ui-button-help" (onClick)="editar(colaborador.id)"></p-button>
                     <span class="pr-2"></span>
-                    <p-button icon="ui-icon-trash" (onClick)="deletar(colaborador)"></p-button>
+                    <p-button icon="pi pi-trash" class="ui-button-danger" styleClass="rounded-button ui-button-danger" (onClick)="deletar(colaborador)"></p-button>
                 </td>
             </tr>
         </ng-template>
