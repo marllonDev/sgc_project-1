@@ -6,9 +6,9 @@
     </style>
 
     <div class="grid mb-3 mt-2 pl-2 pr-2 align-items-center">
-        <h2>LISTAGEM DE COMPETÊNCIAS</h2>
+        <h2>LISTA DE COMPENTẼNCIA</h2>
         <span class="col"></span>
-        <button pButton type="button" icon="ui-icon-plus" class="ui-button-success" iconPos="left" label="Nova Turma"
+        <button pButton type="button" icon="ui-icon-plus" class="ui-button-success" iconPos="left" label="Nova Competencia"
             (click)="showBasicDialog2()" ></button>
     </div>
     <p-table [value]="competencias" dataKey="id" paginator="true" rows="5">
@@ -17,8 +17,8 @@
 
                 <th>NOME</th>
                 <th>DESCRIÇÃO</th>
-                <th>CATEGORIAS</th>
-                <th>AÇÃO</th>
+                <th>CATEGORIA</th>
+                <th [ngStyle]="{'width': '120px'}">AÇÃO</th>
 
             </tr>
         </ng-template>
@@ -43,7 +43,7 @@
 </p-card>
 
 <p-dialog header="Competencia" [(visible)]="displayBasic2" styleClass="mydialog" (onHide)="escondeu()"
-    [style]="{height: '30vw', width: '40vw'}" [draggable]="false">
+    [style]="{height: '30vw', width: '30vw'}" [draggable]="false">
 
 
     <app-competencias-form *ngIf="displayBasic2" [competencia]="currentItem" (respForm)="reciverFeedback($event)">

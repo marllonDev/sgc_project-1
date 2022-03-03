@@ -1,6 +1,11 @@
 <p-card>
+    <style type="text/css">
+        button.ui-button {
+            margin-right: .5rem;
+        }
+    </style>
     <div class="grid mb-3 mt-2 pl-2 pr-2 align-items-center">
-        <h2>Listagem de Turma Formação</h2>
+        <h2>Lista de Turma Formação</h2>
         <span class="col"></span>
         <button pButton type="button" icon="ui-icon-plus" class="ui-button-success" iconPos="left" label="Nova Turma" [routerLink]="'criar'"></button>
     </div>
@@ -12,7 +17,7 @@
                 <th>Data Inicio</th>
                 <th>Data Termino</th>
                 <th>Status</th>
-                <th [ngStyle]="{'width': '110px'}">Ações</th>
+                <th [ngStyle]="{'width': '120px'}">Ações</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-turma>
@@ -22,10 +27,11 @@
                 <td class="text-center">{{turma.dataInicio | date: 'dd/MM/yyyy'}}</td>
                 <td class="text-center">{{turma.dataTermino | date: 'dd/MM/yyyy'}}</td>
                 <td class="text-center">{{turma.status.descricao}}</td>
-                <td>
-                    <button type="button" icon="ui-icon-pencil" pButton (click)="navigateTo(turma.id)"></button>
-                    <span class="pr-2"></span>
-                    <button type="button" icon="ui-icon-trash" pButton class="ui-button-danger" (click)="excluirTurma(turma)"></button>
+                <td style="text-align:center">
+                    <button pButton type="button" (click)="navigateTo(turma.id)" icon="pi pi-pencil"
+                        styleClass="rounded-button ui-button-help"></button>
+                    <button pButton type="button" (click)="excluirTurma(turma)" icon="pi pi-trash"
+                        class="ui-button-danger" styleClass="rounded-button ui-button-danger"></button>
                 </td>
             </tr>
 
