@@ -1,3 +1,4 @@
+import { SelectItem } from 'primeng/api';
 import { CategoriaCompetenciaListModel } from './../../colaborador/model/categoriaCompetenciaList.model';
 import {
     Observable
@@ -35,4 +36,9 @@ export class CategoriaService {
     deletar(id: any): Observable<CategoriaCompetenciaListModel> {
         return this.httpClient.delete<CategoriaCompetenciaListModel>(`${baseUrl}/${id}`);
     }
+
+    
+    getAllSelectItem(): Observable < SelectItem[] > {
+        return this.httpClient.get < SelectItem[]>(baseUrl);
+     }
 }
