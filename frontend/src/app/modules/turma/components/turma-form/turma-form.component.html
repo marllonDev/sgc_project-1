@@ -10,7 +10,7 @@
         </div>
 
         <div class="grid">
-            <div class="col-2">
+            <div class="col-12 sm:col-2 md:col-2">
                 <span class="ui-float-label">
                     <input id="float-input" type="text" pInputText autocomplete="off" formControlName="nome">
                     <label for="float-input">Nome da turma</label>
@@ -19,7 +19,7 @@
                     style="color: red;">{{mensagemDeValidacao(root.get('nome'))}}</small>
             </div>
 
-            <div class="col-10">
+            <div class="col-12 sm:col-10 md:col-10">
                 <span class="ui-float-label">
                     <input id="float-input" type="text" pInputText autocomplete="off" formControlName="descricao">
                     <label for="float-input">Descrição</label>
@@ -28,7 +28,7 @@
                     style="color: red;">{{mensagemDeValidacao(root.get('descricao'))}}</small>
             </div>
 
-            <div class="col-2 mt-5">
+            <div class="col-12 sm:col-2 md:col-2 mt-5">
                 <span class="ui-float-label">
                     <p-calendar dateFormat="dd/mm/yy" formControlName="dataInicio"></p-calendar>
                     <label for="float-input">Data Inicio</label>
@@ -37,7 +37,7 @@
                     style="color: red;">{{mensagemDeValidacao(root.get('dataInicio'))}}</small>
             </div>
 
-            <div class="col-2 mt-5">
+            <div class="col-12 sm:col-2 md:col-2 mt-5">
                 <span class="ui-float-label">
                     <p-calendar dateFormat="dd/mm/yy" [minDate]="root.get('dataInicio').value" [defaultDate]="root.get('dataInicio').value" formControlName="dataTermino"></p-calendar>
                     <label for="float-input">Data Termino</label>
@@ -46,7 +46,7 @@
                     style="color: red;">{{mensagemDeValidacao(root.get('dataTermino'))}}</small>
             </div>
 
-            <div class="col-2 mt-5">
+            <div class="col-12 sm:col-2 md:col-2 mt-5">
                 <span class="ui-float-label">
                     <p-dropdown [options]="status" placeholder="." optionLabel="descricao" [showClear]="true"
                         formControlName="status">
@@ -71,7 +71,7 @@
                 <h2>Adicionar Competencias e Colaboradores</h2>
             </div>
             <div class="grid mb-6 pl-2 pr-2 align-items-center">
-                <div class="col-2 mt-3">
+                <div class="col-12 sm:col-2 md:col-2 mt-3">
                     <span class="ui-float-label">
                         <p-dropdown [options]="competenciaColaboradorNivelMax" placeholder="." optionLabel="competencia.nome" [showClear]="true"
                             formControlName="competencia">
@@ -80,7 +80,7 @@
                     </span>
                 </div>
                 <span class="pr-3"></span>
-                <div class="col-2 mt-3">
+                <div class="col-12 sm:col-2 md:col-2 mt-3">
                     <span class="ui-float-label">
                         <p-dropdown [options]="colaboradores" placeholder="." [showClear]="true"
                             formControlName="colaborador">
@@ -89,12 +89,12 @@
                     </span>
                 </div>
                 <span class="pr-3"></span>
-                <div class="col-2 mt-5">
+                <div class="col-12 sm:col-2 md:col-2 mt-5">
                     <button type="button" icon="ui-icon-plus" pButton
                         (click)="adicionarCompetenciaColaborador()"></button>
                 </div>
 
-                <p-table [value]="root.get('competenciasColaboradores').value" class="mt-5">
+                <p-table [value]="root.get('competenciasColaboradores').value" [responsive]="true" class="mt-5">
                     <ng-template pTemplate="header">
                         <tr>
                             <th>Competencia</th>
@@ -107,7 +107,7 @@
                             <td class="text-center">{{cc.competencia.nome}}</td>
                             <td class="text-center">{{cc.colaborador.nome}} {{cc.colaborador.sobrenome}}</td>
                             <td class="text-center">
-                                <button type="button" icon="ui-icon-trash" pButton
+                                <button type="button" icon="ui-icon-trash" pButton class="ui-button-danger"
                                     (click)="excluirItem(rowIndex)"></button>
                             </td>
                         </tr>
