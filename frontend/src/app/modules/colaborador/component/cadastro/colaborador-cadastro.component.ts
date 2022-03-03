@@ -40,8 +40,13 @@ import {
 import {
     NivelService
 } from '../../service/nivel.service';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { SelectItem } from 'primeng/api';
+import {
+    DomSanitizer,
+    SafeResourceUrl
+} from '@angular/platform-browser';
+import {
+    SelectItem
+} from 'primeng/api';
 
 
 
@@ -62,17 +67,25 @@ export class ColaboradorCadastroComponent implements AfterViewInit {
     imagem: File;
     categorias: SelectItem[] = [];
     competencias: SelectItem[] = [];
-    categoriaSelecionada: CategoriaModel;
+    categoriaSelecionada: number;
     competenciaSelecionada: CompetenciaModel;
     nivelSelecionado: string;
-    nivel: SelectItem[] = [
-        {label: 'Conhece', value: 'CONHECE'},
-        {label: 'Sabe Aplicar', value: 'SABE_APLICAR'},
-        {label: 'Sabe Ensinar', value: 'SABE_ENSINAR'}
+    nivel: SelectItem[] = [{
+            label: 'Conhece',
+            value: 'CONHECE'
+        },
+        {
+            label: 'Sabe Aplicar',
+            value: 'SABE_APLICAR'
+        },
+        {
+            label: 'Sabe Ensinar',
+            value: 'SABE_ENSINAR'
+        }
     ]
     categoriaCompetencia: CategoriaCompetenciaListModel[] = [];
     categoriaCompetencias: CategoriaCompetenciaListModel[] = [];
-    
+
 
     formato: string = '';
     base64image: string = 'data:*;base64,'
@@ -80,7 +93,7 @@ export class ColaboradorCadastroComponent implements AfterViewInit {
     constructor(private colaboradorService: ColaboradorService,
         private messageService: MessageService, private route: ActivatedRoute, private categoriaService: CategoriaService, private competenciaService: CompetenciaService, private nivelService: NivelService, private domSanitizer: DomSanitizer) {}
 
-        ngAfterViewInit() {
+    ngAfterViewInit() {
         this.idColaborador = this.route.snapshot.paramMap.get('id');
         if (this.idColaborador) {
             this.colaboradorService.findById(this.idColaborador).subscribe((response) => {
@@ -94,20 +107,54 @@ export class ColaboradorCadastroComponent implements AfterViewInit {
     }
 
 
-    adicionarCompetencia() {
-        let categoriaC = new CategoriaCompetenciaListModel();
-        categoriaC.competencia = this.competenciaSelecionada;
-        categoriaC.competencia.categoria = this.categoriaSelecionada;
-        categoriaC.nivel= this.nivelSelecionado;
+    adicionarCompetencia(severity: string) {
+        let categoria = this.categorias.find((cat) => {
+            return cat.value == this.categoriaSelecionada;
+        });
+
+        if (categoria == null) {
+            this.messageService.add({
+                severity: 'error',
+                summary: 'Erro',
+                detail: 'Informe a Categoria'
+            });
+            return;
+        }
+
+        if (this.competenciaSelecionada == null) {
+            this.messageService.add({
+                severity:  'error',
+                summary: 'Erro',
+                detail: 'Informe a Competencia'
+            });
+            return;
+        }
+
+        if (this.nivelSelecionado == null) {
+            this.messageService.add({
+                severity:  'error',
+                summary: 'Erro',
+                detail: 'Informe o Nível'
+            });
+            return;
+        }
+
+        let categoriaCompetenciaList = new CategoriaCompetenciaListModel();
+        categoriaCompetenciaList.competencia = this.competenciaSelecionada;
+        categoriaCompetenciaList.competencia.categoria = new CategoriaModel();
+        categoriaCompetenciaList.competencia.categoria.id = categoria.value;
+        categoriaCompetenciaList.competencia.categoria.nome = categoria.label;
+        categoriaCompetenciaList.nivel = this.nivelSelecionado;
         this.nivelSelecionado = null;
-        console.log(this.categoriaSelecionada);
-        this.categoriaCompetencia.push(categoriaC);
+        this.categoriaCompetencia.push(categoriaCompetenciaList);
     }
 
 
     buscarCategorias() {
         this.categoriaService.getAllSelectItem().subscribe((response) => {
-            this.categorias = response})
+            this.categorias = response;
+
+        });
     }
 
     buscarCompetencias(event) {
@@ -153,7 +200,7 @@ export class ColaboradorCadastroComponent implements AfterViewInit {
     }
 
 
-    converterParaBase64(bytes: string){
+    converterParaBase64(bytes: string) {
         this.imagebase64 = this.base64image.replace("*", this.formato) + btoa(bytes);
     }
 
@@ -161,7 +208,7 @@ export class ColaboradorCadastroComponent implements AfterViewInit {
         return this.domSanitizer.bypassSecurityTrustResourceUrl(imageEmBase64);
     }
 
-    imagemForm(){
+    imagemForm() {
         return this.tratarUrlImagem(this.imagebase64 ? this.imagebase64 : this.colaborador.foto);
     }
 
